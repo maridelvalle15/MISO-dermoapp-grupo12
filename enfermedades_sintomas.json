@@ -1,20 +1,20 @@
 {
-	"Macula": {
-		"Anillo": {
-			"Solitaria": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"10": "Melanoma",
-						"25": "Vitiligo",
-						"65": "Alergia"
-					}
+	"macula": {
+		"anillo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+						"Melanoma",
+						"Vitiligo",
+						"Alergia"
+                    ]
 				},
 				"Confluente": {
-					"Enfermedades": {
-						"5": "Carcinoma",
-						"45": "Psoriasis",
-						"50": "Eccema"
-					}
+					"Enfermedades": [
+						["5","Carcinoma"],
+						["45","Psoriasis"],
+						["50","Eccema"]
+                    ]
 				}
 			},
 			"Multiple": {
