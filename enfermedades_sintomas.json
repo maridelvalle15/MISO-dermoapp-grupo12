@@ -4,131 +4,93 @@
 			"solitaria": {
 				"asimetrica": {
 					"enfermedades": [
-						"Melanoma",
-						"Vitiligo",
-						"Alergia"
+						"Eritema anular",
+						"Traumatismo por mordida"
                     ]
 				},
-				"Confluente": {
-					"Enfermedades": [
-						["5","Carcinoma"],
-						["45","Psoriasis"],
-						["50","Eccema"]
+				"confluente": {
+					"enfermedades": [
+						"Eritema multiforme"
                     ]
 				}
 			},
-			"Multiple": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"10": "Eccema",
-						"15": "Sarpullido",
-						"65": "Impétigo"
-					}
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Infección micótica",
+						"Infección bacteriana",
+						"Infección viral",
+                        "Infección medicamentosa",
+                        "Neurofibromatosis"
+                ]
 				},
-				"Confluente": {
-					"Enfermedades": {
-						"3": "Eccema",
-						"17": "Melanoma",
-						"80": "Vitiligo"
-					}
+				"confluente": {
+					"enfermedades": [
+						"Pitiriasis"
+                    ]
 				}
 			}
 		},
-		"Domo": {
-			"Solitaria": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"20": "Psoriasis",
-						"25": "Alergia",
-						"65": "Impétigo"
-					}
+		"domo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+						"Eritema multiforme",
+						"Neurofibroma",
+						"Hemangioma cavernoso"
+                    ]
 				},
-				"Confluente": {
-					"Enfermedades": {
-						"5": "Sarpullido",
-						"45": "Vitiligo",
-						"50": "Eccema"
-					}
+				"confluente": {
+					"enfermedades": [
+						"Hemangioma cavernoso",
+						"Vitiligo",
+						"Eccema"
+                    ]
 				}
 			},
-			"Multiple": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"10": "Melanoma",
-						"15": "Carcinoma",
-						"65": "Alergia"
-					}
-				},
-				"Confluente": {
-					"Enfermedades": {
-						"30": "Eccema",
-						"30": "Psoriasis",
-						"40": "Sarpullido"
-					}
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Neurofibroma",
+						"Eritema multiforme",
+						"Hematoma"
+                    ]
 				}
 			}
 		}
 	},
-	"Papula": {
-		"Anillo": {
-			"Solitaria": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"1": "Melanoma",
-						"99": "Vitiligo"
-					}
-				},
-				"Confluente": {
-					"Enfermedades": {
-						"40": "Carcinoma",
-						"60": "Psoriasis"
-					}
-				}
-			},
-			"Multiple": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"20": "Eccema",
-						"30": "Sarpullido",
-						"50": "Impétigo"
-					}
-				},
-				"Confluente": {
-					"Enfermedades": {
-						"10": "Eccema",
-						"15": "Melanoma",
-						"75": "Vitiligo"
-					}
+	"papula": {
+		"anillo": {
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Granuloma Papular Anular"
+                    ]
 				}
 			}
 		},
-		"Domo": {
-			"Solitaria": {
-				"Asimetrica": {
-					"Enfermedades": {
-						"100": "Psoriasis"
-					}
+		"domo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+					"Alergia",
+                    "Picadura de insecto",
+                    "Verruga"
+                    ]
 				},
-				"Confluente": {
-					"Enfermedades": {
-						"40": "Sarpullido",
-						"60": "Vitiligo"
-					}
+				"confluente": {
+					"enfermedades": [
+						"Herpes",
+						"Acne nodular"
+                    ]
 				},
-				"Multiple": {
-					"Asimetrica": {
-						"Enfermedades": {
-							"15": "Sarpullido",
-							"30": "Eccema",
-							"55": "Alergia"
-						}
-					},
-					"Confluente": {
-						"Enfermedades": {
-							"3": "Melanoma",
-							"17": "Psoriasis",
-							"80": "Vitiligo"
-						}
+				"multiple": {
+					"asimetrica": {
+						"enfermedades": [
+							"Alergia",
+							"Sarna",
+							"Verrugas"
+                        ]
 					}
 				}
 			}
