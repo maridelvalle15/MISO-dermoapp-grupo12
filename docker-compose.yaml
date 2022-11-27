@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    build: .
+    command: bash -c "gunicorn -w 1 --bind 0.0.0.0:8000 receptor.app:app"
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      - redis
+
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+
+  celery_worker_principal:
+    container_name: celery_worker
+    build: .
+    command: celery -A dx.tareas worker -l info -Q dx
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - app
+      - redis
