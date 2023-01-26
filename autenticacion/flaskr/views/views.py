@@ -1,4 +1,4 @@
-from ..models import UsuarioSchema, db, UsuarioMedico, Usuario, Ubicacion, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, Especialidad
+from ..models import UsuarioSchema, db, UsuarioMedico, Usuario, Ubicacion, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, Especialidad, Rol
 from flask_restful import Resource
 from flask import request
 
@@ -24,11 +24,18 @@ class RegistroView(Resource):
             direccion = request.json["direccion"]
             ubicacion = Ubicacion.query.filter(
                 Ubicacion.pais == request.json["pais"],Ubicacion.ciudad == request.json["ciudad"]
-            ).first().id
+            ).first()
+            if ubicacion is not None:
+                ubicacion = ubicacion.id
+
             licencia = request.json["licencia"]
-            especialidad = Especialidad.query.filter(Especialidad.nombre==request.json["especialidad"]).first().id
+            especialidad = Especialidad.query.filter(Especialidad.nombre==request.json["especialidad"]).first()
+            if especialidad is not None:
+                especialidad = especialidad.id
+
             nuevo_usuario = UsuarioMedico(
                 password=password,email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,licencia=licencia,especialidad_id=especialidad)
+            nuevo_usuario.roles.append(Rol(nombre='Medico'))
         db.session.add(nuevo_usuario)
         db.session.commit()
 
