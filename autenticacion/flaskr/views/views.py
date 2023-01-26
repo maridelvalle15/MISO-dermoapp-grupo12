@@ -8,6 +8,8 @@ usuario_medico_schema = UsuarioMedicoSchema()
 especialidad_schema = EspecialidadSchema()
 
 class RegistroView(Resource):
+    def __init__(self, **kwargs):
+       self.user_manager= kwargs['user_manager']
 
     def post(self):
         if request.json["password1"] != request.json["password2"] :
@@ -34,8 +36,9 @@ class RegistroView(Resource):
                 especialidad = especialidad.id
 
             nuevo_usuario = UsuarioMedico(
-                password=password,email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,licencia=licencia,especialidad_id=especialidad)
-            nuevo_usuario.roles.append(Rol(nombre='Medico'))
+                password=self.user_manager.hash_password(password),email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,licencia=licencia,especialidad_id=especialidad)
+            medico = Rol.query.filter(Rol.nombre=='Medico').first()
+            nuevo_usuario.roles.append(medico)
         db.session.add(nuevo_usuario)
         db.session.commit()
 

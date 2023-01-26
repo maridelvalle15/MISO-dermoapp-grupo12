@@ -25,7 +25,7 @@ class UsuarioRol(db.Model):
 class Usuario(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(50))
+    password = db.Column(db.String(250))
     nombre = db.Column(db.String(100), unique=False)
     direccion = db.Column(db.String(200), unique=False)
     ubicacion_id = db.Column(db.Integer, db.ForeignKey('ubicacion.id'), primary_key=False)
