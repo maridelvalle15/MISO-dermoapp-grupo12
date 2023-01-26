@@ -9,11 +9,22 @@ class Usuario(db.Model):
     password = db.Column(db.String(50))
     nombre = db.Column(db.String(100), unique=False)
     direccion = db.Column(db.String(200), unique=False)
+    ubicacion = db.Column(db.Integer, db.ForeignKey('ubicacion.id'), primary_key=True)
     
 class UsuarioMedico(Usuario):
     __mapper_args__ = {'polymorphic_identity': 'usuario_medico'}
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     licencia = db.Column(db.String(50))
+    especialidad = db.Column(db.Integer, db.ForeignKey('especialidad.id'), primary_key=True)
+
+class Ubicacion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pais = db.Column(db.String(50))
+    ciudad = db.Column(db.String(50))
+
+class Especialidad(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100))
     
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:
