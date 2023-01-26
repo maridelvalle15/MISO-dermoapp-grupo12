@@ -3,6 +3,15 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 db = SQLAlchemy()
 
+class Ubicacion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pais = db.Column(db.String(50))
+    ciudad = db.Column(db.String(50))
+
+class Especialidad(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100))
+
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True)
@@ -16,15 +25,6 @@ class UsuarioMedico(Usuario):
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     licencia = db.Column(db.String(50))
     especialidad = db.Column(db.Integer, db.ForeignKey('especialidad.id'), primary_key=True)
-
-class Ubicacion(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    pais = db.Column(db.String(50))
-    ciudad = db.Column(db.String(50))
-
-class Especialidad(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100))
     
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -33,6 +33,18 @@ class UsuarioSchema(SQLAlchemyAutoSchema):
          load_instance = True
 
 class UsuarioMedicoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = UsuarioMedico
+         include_relationships = True
+         load_instance = True
+
+class UbicacionSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = UsuarioMedico
+         include_relationships = True
+         load_instance = True
+
+class EspecialidadSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = UsuarioMedico
          include_relationships = True
