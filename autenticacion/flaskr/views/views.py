@@ -1,4 +1,5 @@
 from ..models import UsuarioSchema, db, UsuarioMedico, Usuario, Ubicacion, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, Especialidad, Rol
+from ..models.logica import Logica
 from flask_restful import Resource
 from flask import request
 
@@ -24,22 +25,19 @@ class RegistroView(Resource):
             email = request.json["email"]
             nombre = request.json["nombre"]
             direccion = request.json["direccion"]
-            ubicacion = Ubicacion.query.filter(
-                Ubicacion.pais == request.json["pais"],Ubicacion.ciudad == request.json["ciudad"]
-            ).first()
-            if ubicacion is not None:
-                ubicacion = ubicacion.id
+
+            logica = Logica()
+            ubicacion = logica.ubicacion_valida(request.json["pais"],request.json["ciudad"])
+            if ubicacion is None:
+                return {"message":"ubicacion no valida"}, 400
+
+            especialidad = logica.especialidad_valida(request.json["especialidad"])
+            if especialidad is None:
+                return {"message":"especialidad no valida"}, 400
 
             licencia = request.json["licencia"]
-            especialidad = Especialidad.query.filter(Especialidad.nombre==request.json["especialidad"]).first()
-            if especialidad is not None:
-                especialidad = especialidad.id
-
-            nuevo_usuario = UsuarioMedico(
-                password=self.user_manager.hash_password(password),email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,licencia=licencia,especialidad_id=especialidad)
             medico = Rol.query.filter(Rol.nombre=='Medico').first()
-            nuevo_usuario.roles.append(medico)
-        db.session.add(nuevo_usuario)
-        db.session.commit()
+            
+            logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,licencia,especialidad.id,medico)
 
         return {"message":"usuario creado exitosamente"}, 200
