@@ -3,6 +3,7 @@ from flask_restful import Api
 from .models import db, Usuario
 from .views import RegistroView
 from flask_user import UserManager
+import pytest
 
 app = create_app('default')
 app_context = app.app_context()

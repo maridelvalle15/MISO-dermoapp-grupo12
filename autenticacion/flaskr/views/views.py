@@ -41,3 +41,6 @@ class RegistroView(Resource):
             logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,licencia,especialidad.id,medico)
 
         return {"message":"usuario creado exitosamente"}, 200
+
+    def get(self):
+        return {"message":"hola"}, 200
