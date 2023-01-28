@@ -26,4 +26,4 @@ jobs:
         run: |
           cd autenticacion
           export DB_URI="sqlite:////tmp/test.db" 
-          pytest
+          pytest --cov-report term --cov=flaskr tests/
