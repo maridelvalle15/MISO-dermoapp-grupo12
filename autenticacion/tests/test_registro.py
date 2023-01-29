@@ -7,7 +7,9 @@ class TestRegistro:
         usuario = crear_usuario_medico
 
         data = {
-            'email': usuario.email
+            'email': usuario.email,
+            'nombre': 'nombre prueba',
+            'direccion': 'direccion prueba',
         }
 
         response = client.post('/api/registro', data=json.dumps(data), headers=headers)

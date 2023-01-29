@@ -15,31 +15,49 @@ class RegistroView(Resource):
        self.logica = Logica()
 
     def post(self):
-        usuario = self.logica.usuario_valido(email=request.json["email"])
+        email = request.json["email"]
+        nombre = request.json["nombre"]
+        direccion = request.json["direccion"]
+        usuario = self.logica.usuario_valido(email=email)
+
         if usuario is not None:
             return {"message":"El usuario ya existe"}, 400
 
+        ubicacion = self.logica.ubicacion_valida(request.json["pais"],request.json["ciudad"])
+        if ubicacion is None:
+            return {"message":"ubicacion no valida"}, 400
+
+        longitud_password = 13
+        password = secrets.token_urlsafe(longitud_password)
+
         if request.json["tipo_usuario"] == "MEDICO":
-            email = request.json["email"]
-            nombre = request.json["nombre"]
-            direccion = request.json["direccion"]
-
-            
-            ubicacion = self.logica.ubicacion_valida(request.json["pais"],request.json["ciudad"])
-            if ubicacion is None:
-                return {"message":"ubicacion no valida"}, 400
-
             especialidad = self.logica.especialidad_valida(request.json["especialidad"])
             if especialidad is None:
                 return {"message":"especialidad no valida"}, 400
 
             licencia = request.json["licencia"]
-            medico = Rol.query.filter(Rol.nombre=='Medico').first()
-            
-            longitud_password = 13
-            password = secrets.token_urlsafe(longitud_password)
+            medico = Rol.query.filter(Rol.nombre=='Medico').first()    
 
-            self.logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,licencia,especialidad.id,medico)
+            self.logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,
+                licencia,especialidad.id,
+                '','','','',
+                medico)
+
+        elif request.json["tipo_usuario"] == "PACIENTE":
+            edad = request.json["edad"]
+            cedula = request.json["cedula"]
+            tipo_piel = request.json["tipo_piel"]
+            imagen_piel = request.json["imagen_piel"]
+
+            paciente = Rol.query.filter(Rol.nombre=='Paciente').first()
+
+            self.logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,
+                '','',
+                edad,cedula,tipo_piel,imagen_piel,
+                paciente)
+
+        else:
+            return {"message":"tipo de usuario no valido"}, 400
 
         return {"message":"usuario creado exitosamente", "password": password}, 200
 

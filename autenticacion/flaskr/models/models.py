@@ -40,9 +40,11 @@ class UsuarioMedico(Usuario):
 class UsuarioPaciente(Usuario):
     __mapper_args__ = {'polymorphic_identity': 'usuario_paciente'}
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
-    fecha_nacimiento = db.Column(db.Date, unique=False)
+    edad = db.Column(db.Integer)
     cedula = db.Column(db.String(50), unique=True)
-    
+    tipo_piel = db.Column(db.String(100), unique=False)
+    imagen_piel = db.Column(db.String(250), unique=False)
+
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = Usuario
@@ -52,6 +54,12 @@ class UsuarioSchema(SQLAlchemyAutoSchema):
 class UsuarioMedicoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = UsuarioMedico
+         include_relationships = True
+         load_instance = True
+
+class UsuarioPacienteSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = UsuarioPaciente
          include_relationships = True
          load_instance = True
 
