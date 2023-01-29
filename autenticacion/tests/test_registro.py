@@ -1,9 +1,17 @@
+import json
+
 class TestRegistro:
-    def test_contrasena_erronea(self,client):
-        #topdir = os.path.join(os.path.dirname(__file__), "autenticacion/flaskr")
-        #sys.path.append(topdir)
+    def test_crear_usuario_existente(self,client,headers,crear_usuario_medico):
 
-        #app = create_app('test')
-        response = client.get('/api/registro')
+        usuario = crear_usuario_medico
 
-        assert response.status_code==200
+        data = {
+            'password1': 'password1',
+            'password2': 'password1',
+            'email': usuario.email
+        }
+
+        response = client.post('/api/registro', data=json.dumps(data), headers=headers)
+
+        assert response.status_code==400
+        assert response.json['message'] == 'El usuario ya existe'
