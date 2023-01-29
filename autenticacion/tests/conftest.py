@@ -2,10 +2,15 @@ from flaskr import app
 import pytest
 from flaskr.models.logica import Logica
 from flaskr.models import db,Ubicacion,Especialidad,Rol,UsuarioMedico
-
+from flaskr.utils.seeds import Seeds
 
 @pytest.fixture
 def client():
+
+    seeds = Seeds()
+    seeds.poblar_ubicacion('Colombia', 'Bogota')
+    seeds.poblar_rol('Medico')
+    seeds.poblar_especialidad('Lunares')
         
     with app.app.test_client() as client:
         yield client
@@ -42,4 +47,3 @@ def crear_usuario_medico():
         db.session.commit()
 
     return usuario
-    

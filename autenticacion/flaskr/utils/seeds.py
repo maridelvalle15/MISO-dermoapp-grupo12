@@ -28,11 +28,11 @@ class Seeds():
 
         return especialidad
 
-    def poblar_rol(self, rol):
-        rol = self.logica.rol_valido(rol)
+    def poblar_rol(self, nombre_rol):
+        rol = self.logica.rol_valido(nombre_rol)
         if rol is None:
             rol = Rol(
-                nombre=rol
+                nombre=nombre_rol
             )
             db.session.add(rol)
             db.session.commit()
