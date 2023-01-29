@@ -4,7 +4,7 @@ import os
 def create_app(config_name):
 
     app = Flask(__name__)
-    print(os.environ.get("DB_URI"))
+    
     if (os.environ.get("DB_URI")) is not None :
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
     else : 

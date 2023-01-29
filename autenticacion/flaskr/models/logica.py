@@ -1,4 +1,4 @@
-from ..models import UsuarioMedico, db, Ubicacion, Especialidad
+from ..models import UsuarioMedico, db, Ubicacion, Especialidad, Rol, Usuario
 class Logica():
     @staticmethod
     def crear_usuario(user_manager=None,password='',email='',nombre='',direccion='',ubicacion='',licencia='',especialidad='',rol='Medico'):
@@ -7,6 +7,8 @@ class Logica():
         nuevo_usuario.roles.append(rol)
         db.session.add(nuevo_usuario)
         db.session.commit()
+
+        return nuevo_usuario
 
     @staticmethod
     def ubicacion_valida(pais='',ciudad=''):
@@ -21,3 +23,15 @@ class Logica():
         especialidad = Especialidad.query.filter(Especialidad.nombre==especialidad).first()
     
         return especialidad
+
+    @staticmethod
+    def rol_valido(rol=''):
+        rol = Rol.query.filter(Rol.nombre==rol).first()
+    
+        return rol
+
+    @staticmethod
+    def usuario_valido(email=''):
+        usuario = Usuario.query.filter(Usuario.email==email).first()
+    
+        return usuario
