@@ -36,6 +36,12 @@ class UsuarioMedico(Usuario):
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     licencia = db.Column(db.String(50))
     especialidad_id = db.Column(db.Integer, db.ForeignKey('especialidad.id'), primary_key=True)
+
+class UsuarioPaciente(Usuario):
+    __mapper_args__ = {'polymorphic_identity': 'usuario_paciente'}
+    id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
+    fecha_nacimiento = db.Column(db.Date, unique=False)
+    cedula = db.Column(db.String(50), unique=True)
     
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:
