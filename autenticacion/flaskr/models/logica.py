@@ -5,7 +5,7 @@ class Logica():
                     licencia='',especialidad='',
                     edad='',cedula='',tipo_piel='',imagen_piel='',
                     rol='Medico'):
-        if rol == 'Medico':
+        if rol.nombre == 'Medico':
             nuevo_usuario = UsuarioMedico(
                     password=user_manager.hash_password(password),email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
                     licencia=licencia,especialidad_id=especialidad)    

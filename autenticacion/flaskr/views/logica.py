@@ -1,6 +1,8 @@
 from ..utils.helpers import upload_file_to_s3, allowed_file
 
 def procesar_imagen(imagen):
+    print("DEPURANDO")
+    print("IMAGEN")
     # check whether a file is selected
     if imagen.filename == '':
         print('No selected file')

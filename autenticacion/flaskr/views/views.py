@@ -49,11 +49,14 @@ class RegistroView(Resource):
             cedula = request.form.get("cedula")
             tipo_piel = request.form.get("tipopiel")
             imagen_piel = request.files.get("image", "")
+            
+            if imagen_piel != "":
+                imagen_procesada = procesar_imagen(imagen_piel)
 
-            imagen_procesada = procesar_imagen(imagen_piel)
-
-            if imagen_procesada is False:
-                return {"message":"error al procesar la imagen"}, 400
+                if imagen_procesada is False:
+                    return {"message":"error al procesar la imagen"}, 400
+            else:
+                imagen_procesada = imagen_piel
 
             paciente = Rol.query.filter(Rol.nombre=='Paciente').first()
 
