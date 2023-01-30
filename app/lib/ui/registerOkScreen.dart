@@ -49,30 +49,30 @@ class RegisterOkScreen extends StatelessWidget {
               Container(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
+                    padding: const EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
                     child: Text(
                         AppLocalizations.of(context).signupSuccessfulText,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 26.0, color: Color(0xFFDFDFDF))),
                   )),
               Container(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
+                    padding: const EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
                     child: Text(AppLocalizations.of(context).loginDataText,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20.0, color: Color(0xFFDFDFDF))),
                   )),
               Container(
                 child: Text(
-                  AppLocalizations.of(context).email + ": " + email,
+                  "${AppLocalizations.of(context).email}: $email",
                   style:
                       const TextStyle(fontSize: 18.0, color: Color(0xFFDFDFDF)),
                 ),
               ),
               Container(
                 child: Text(
-                  AppLocalizations.of(context).password + ": " + password,
+                  "${AppLocalizations.of(context).password}: $password",
                   style:
                       const TextStyle(fontSize: 18.0, color: Color(0xFFDFDFDF)),
                 ),
