@@ -18,8 +18,8 @@ def client():
 @pytest.fixture
 def headers():
     headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'multipart/form-data'
     }
 
     return headers

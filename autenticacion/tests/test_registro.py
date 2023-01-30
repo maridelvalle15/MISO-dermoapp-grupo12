@@ -2,17 +2,17 @@ import json
 from flaskr.models import Ubicacion, Especialidad
 
 class TestRegistro:
-    def test_crear_usuario_existente(self,client,headers,crear_usuario_medico):
+    def test_crear_usuario_existente(self,client,crear_usuario_medico):
 
         usuario = crear_usuario_medico
 
         data = {
-            'email': usuario.email,
+            'correo': usuario.email,
             'nombre': 'nombre prueba',
             'direccion': 'direccion prueba',
         }
 
-        response = client.post('/api/registro', data=json.dumps(data), headers=headers)
+        response = client.post('/api/registro', data=data)
 
         assert response.status_code==400
         assert response.json['message'] == 'El usuario ya existe'
@@ -22,15 +22,15 @@ class TestRegistro:
         usuario = crear_usuario_medico
 
         data = {
-            'tipo_usuario': 'MEDICO',
-            'email': usuario.email + 'nuevoEmail',
+            'tipousuario': 'MEDICO',
+            'correo': usuario.email + 'nuevoEmail',
             'nombre': 'nombre prueba',
             'direccion': 'direccion prueba',
             'pais': 'pais no valido',
             'ciudad': 'ciudad no valida',
         }
 
-        response = client.post('/api/registro', data=json.dumps(data), headers=headers)
+        response = client.post('/api/registro', data=data)
 
         assert response.status_code==400
         assert response.json['message'] == 'ubicacion no valida'
@@ -42,8 +42,8 @@ class TestRegistro:
         ubicacion = Ubicacion.query.first()
 
         data = {
-            'tipo_usuario': 'MEDICO',
-            'email': usuario.email + 'nuevoEmail',
+            'tipousuario': 'MEDICO',
+            'correo': usuario.email + 'nuevoEmail',
             'nombre': 'nombre prueba',
             'direccion': 'direccion prueba',
             'pais': ubicacion.pais,
@@ -51,7 +51,7 @@ class TestRegistro:
             'especialidad': 'especialidad no valida'
         }
 
-        response = client.post('/api/registro', data=json.dumps(data), headers=headers)
+        response = client.post('/api/registro', data=data)
 
         assert response.status_code==400
         assert response.json['message'] == 'especialidad no valida'
@@ -63,8 +63,8 @@ class TestRegistro:
         especialidad = Especialidad.query.first()
 
         data = {
-            'tipo_usuario': 'MEDICO',
-            'email': usuario.email + 'nuevoEmail',
+            'tipousuario': 'MEDICO',
+            'correo': usuario.email + 'nuevoEmail',
             'nombre': 'nombre prueba',
             'direccion': 'direccion prueba',
             'pais': ubicacion.pais,
@@ -73,7 +73,7 @@ class TestRegistro:
             'licencia': 'XX12900s'
         }
 
-        response = client.post('/api/registro', data=json.dumps(data), headers=headers)
+        response = client.post('/api/registro', data=data)
 
         assert response.status_code==200
         assert response.json['message'] == 'usuario creado exitosamente'
