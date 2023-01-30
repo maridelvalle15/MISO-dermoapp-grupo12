@@ -1,0 +1,30 @@
+html {
+  background-color:#1e3f52 ;
+}
+
+
+
+div {
+  background-color: white;
+  margin: auto;
+  width: 30%;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+button{
+  border-radius: 20px;
+  padding: 0.7em;
+  margin: 0;
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+input{
+  border-radius: 20px;
+  width: 70%;
+}
+
+
