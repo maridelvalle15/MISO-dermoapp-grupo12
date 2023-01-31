@@ -29,7 +29,7 @@ class RegistroView(Resource):
         if ubicacion is None:
             return {"message":"ubicacion no valida"}, 400
 
-        longitud_password = 13
+        longitud_password = 6
         password = secrets.token_urlsafe(longitud_password)
 
         if request.form.get("tipousuario") == "MEDICO":
@@ -40,7 +40,7 @@ class RegistroView(Resource):
             licencia = request.form.get("licencia")
             medico = Rol.query.filter(Rol.nombre=='Medico').first()    
 
-            self.logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,
+            self.logica.crear_usuario(password,email,nombre,direccion,ubicacion.id,
                 licencia,especialidad.id,
                 '','','','',
                 medico)
@@ -61,7 +61,7 @@ class RegistroView(Resource):
 
             paciente = Rol.query.filter(Rol.nombre=='Paciente').first()
 
-            self.logica.crear_usuario(self.user_manager,password,email,nombre,direccion,ubicacion.id,
+            self.logica.crear_usuario(password,email,nombre,direccion,ubicacion.id,
                 '','',
                 edad,cedula,tipo_piel,imagen_procesada,
                 paciente)
@@ -78,11 +78,12 @@ class LogInView(Resource):
 
     def post(self):
         
-        usuario = Usuario.query.filter(Usuario.email == request.form.get("correo"), Usuario.password == request.form.get("password")).first()
-        db.session.commit()
-        if usuario is None:
-            return {"message":"El usuario no existe"}, 404
-        else:
+        usuario = Usuario.query.filter(Usuario.email == request.form.get("correo")).first()
+        #db.session.commit()
+        if usuario and usuario.verificar_password(request.form.get("password")):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
             return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id}, 200
+            
+        else:
+            return {"message":"El usuario no existe"}, 404

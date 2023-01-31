@@ -5,6 +5,7 @@ from .views import RegistroView, LogInView
 from flask_user import UserManager
 import pytest
 from .utils.seeds import Seeds
+from flask_jwt_extended import JWTManager
 
 app = create_app('default')
 app_context = app.app_context()
@@ -24,6 +25,8 @@ user_manager = UserManager(app, db, Usuario)
 
 api.add_resource(RegistroView, '/api/registro', resource_class_kwargs={'user_manager': user_manager})
 api.add_resource(LogInView, '/api/login')
+
+jwt = JWTManager(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
