@@ -41,6 +41,15 @@ class UsuarioMedico(Usuario):
     licencia = db.Column(db.String(50))
     especialidad_id = db.Column(db.Integer, db.ForeignKey('especialidad.id'), primary_key=True)
 
+    def __init__(self, email, password, nombre, direccion, ubicacion_id, licencia, especialidad_id):
+        self.email = email
+        self.password = generate_password_hash(password)
+        self.nombre = nombre
+        self.direccion = direccion
+        self.ubicacion_id = ubicacion_id
+        self.licencia = licencia
+        self.especialidad_id = especialidad_id
+
 class UsuarioPaciente(Usuario):
     __mapper_args__ = {'polymorphic_identity': 'usuario_paciente'}
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
