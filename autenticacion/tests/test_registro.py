@@ -1,4 +1,5 @@
 from flaskr.models import Ubicacion, Especialidad
+import pytest
 
 class TestRegistro:
     def test_crear_usuario_existente(self,client,crear_usuario_medico):
@@ -79,6 +80,7 @@ class TestRegistro:
         assert response.json['password'] != ''
         assert response.json['password'] is not None
 
+    @pytest.mark.parametrize('crear_usuario_paciente', [['paciente', 'cedulapaciente']], indirect=True)
     def test_crear_usuario_paciente_exitosamente(self,client,crear_usuario_paciente):
         usuario = crear_usuario_paciente
 
@@ -92,7 +94,8 @@ class TestRegistro:
             'ciudad': ubicacion.ciudad,
             'edad': 30,
             'cedula': '1121',
-            'tipopiel': 'grasa'
+            'tipopiel': 'grasa',
+            'imagen_piel': ''
         }
 
         response = client.post('/api/registro', data=data)

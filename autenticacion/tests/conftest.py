@@ -40,16 +40,16 @@ def crear_usuario_medico():
     return usuario
 
 @pytest.fixture
-def crear_usuario_paciente():
+def crear_usuario_paciente(request):
     logica = Logica()
 
     password='password'
-    email='emailPaciente'
+    email=request.param[0]
     nombre='nombre'
     direccion='direccion'
     ubicacion=Ubicacion.query.first().id
     edad=30
-    cedula='121'
+    cedula=request.param[1]
     tipopiel="seca"
     rol=Rol.query.filter(Rol.nombre=='Paciente').first()
 
@@ -58,7 +58,7 @@ def crear_usuario_paciente():
     if usuario is None:
         usuario = UsuarioPaciente(
                     password=password,email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
-                    edad=edad,cedula=cedula,tipo_piel=tipopiel)    
+                    edad=edad,cedula=cedula,tipo_piel=tipopiel,imagen_piel='')    
         usuario.roles.append(rol)
         db.session.add(usuario)
         db.session.commit()
