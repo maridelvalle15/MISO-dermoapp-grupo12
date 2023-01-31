@@ -1,3 +1,4 @@
+import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,21 +13,21 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    var drawer = const Drawer();
-
     return Scaffold(
-        drawer: drawer,
+        drawer: const MainDrawer(currentSelected: 1),
         appBar: AppBar(
             title: Text(AppLocalizations.of(context).homeTitle,
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
-              TextButton(
-                child: const Text("ES", style: TextStyle(color: Colors.black)),
+              IconButton(
+                icon: Image.asset('icons/flags/png/es.png',
+                    package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'es')),
               ),
-              TextButton(
-                child: const Text("EN", style: TextStyle(color: Colors.black)),
+              IconButton(
+                icon: Image.asset('icons/flags/png/us.png',
+                    package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'en')),
               ),
