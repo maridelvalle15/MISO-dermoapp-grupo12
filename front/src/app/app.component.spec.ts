@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { RegistroComponent } from './registro/registro.component';
+import { RegistroModule } from './registro/registro.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,27 +12,35 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        HomeComponent,
+        RegistroComponent
       ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
 
-  it(`should have as title 'front'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('front');
-  });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('Validar  título', () => {
+    const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('front app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain('DermoApp');
   });
+
+
+  it('Validar  texto', () => {
+    const fixture = TestBed.createComponent(RegistroComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h4')?.textContent).toContain('Formulario de registro para médicos dermatólogos');
+  });
+
+  it('Valdiar texto Botón', () => {
+    const fixture = TestBed.createComponent(RegistroComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('button')?.textContent).toContain('Registrarse');
+  });
+
 });

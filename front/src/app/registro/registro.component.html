@@ -13,35 +13,35 @@
   <div>
     <h1 style="text-align: center;">DermoApp</h1>
     <h4 style="text-align: center;">Formulario de registro para médicos dermatólogos</h4>
-    <form>
+    <form action="" method="post" id="form">
 
       <label for="nombre">Nombre completo *</label> <br>
-      <input type="text" id="nombre" name="nombre"><br>
+      <input type="text" id="nombre" name="nombre" required><br>
 
 
       <label for="pais">Pais *</label><br>
-      <input type="text" id="pais" name="pais"><br>
+      <input type="text" id="pais" name="pais" required><br>
 
 
       <label for="ciudad">Ciudad *</label><br>
-      <input type="text" id="ciudad" name="ciudad"><br>
+      <input type="text" id="ciudad" name="ciudad" required><br>
 
       <label for="direccion">Dirección *</label><br>
-      <input type="text" id="direccion" name="direccion"><br>
+      <input type="text" id="direccion" name="direccion" required><br>
 
       <label for="licencia">Número de licencia *</label><br>
-      <input type="number" id="licencia" name="licencia"><br>
+      <input type="number" id="licencia" name="licencia" required><br>
 
       <label for="especialidad">Especialidad *</label><br>
-      <input type="text" id="especialidad" name="especialidad"><br>
+      <input type="text" id="especialidad" name="especialidad" required><br>
 
       <label for="correo">Correo electrónico *</label><br>
-      <input type="email" id="mail" name="correo"><br>
+      <input type="email" id="mail" name="correo" required><br>
 
       <label for="tipousuario">Tipo de usuario* </label><br>
-      <input type="text" id="tipousuario" name="tipousuario"><br><br>
+      <input type="text" id="tipousuario" name="tipousuario" required><br><br>
 
-      <button><a href="/registro/registro-exitoso">Registrarse </a></button>
+      <button type="submit"><a href="/registro/registro-exitoso"></a>Registrarse </button>
       <button><a href="/">Regresar </a></button>
 
     </form>
