@@ -14,8 +14,9 @@ db.init_app(app)
 db.create_all()
 
 seeds = Seeds()
-seeds.poblar_ubicacion('Colombia', 'Bogota')
+seeds.poblar_ubicacion('co', 'bog')
 seeds.poblar_rol('Medico')
+seeds.poblar_rol('Paciente')
 seeds.poblar_especialidad('Lunares')
 
 api = Api(app)
