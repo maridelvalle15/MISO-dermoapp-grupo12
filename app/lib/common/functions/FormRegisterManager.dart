@@ -1,5 +1,6 @@
 import 'package:dermoapp/common/uifunctions/showSingleDialogButton.dart';
 import 'package:dermoapp/ui/registerOkScreen.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -18,7 +19,7 @@ Future<bool> submit(
     String tipopiel,
     File? image) async {
   final request = http.MultipartRequest(
-      'POST', Uri.parse('https://ff4c-186-80-52-161.ngrok.io/signup'));
+      'POST', Uri.parse('https://ae44-186-80-52-161.ngrok.io/api/registro'));
   //request.headers.addAll(<String,String>){'Authorization': 'Bearer $token'});
   request.fields['nombre'] = nombre;
   request.fields['edad'] = edad;
@@ -30,16 +31,17 @@ Future<bool> submit(
   request.fields['tipousuario'] = 'PACIENTE';
 
   File file = File(image!.path);
-  request.files.add(http.MultipartFile(
-      'image', file.readAsBytes().asStream(), file.lengthSync(),
-      filename: file.path.split('/').last));
+  var multiPartFile = await http.MultipartFile.fromPath('image', file.path,
+      filename: file.path.split('/').last,
+      contentType: MediaType('image', 'jpg'));
+  request.files.add(multiPartFile);
 
   http.StreamedResponse response = await client.send(request);
+  var received = await http.Response.fromStream(response);
+  final responseJson = json.decode(received.body);
 
   if (response.statusCode == 200) {
-    var received = await http.Response.fromStream(response);
-    final responseJson = json.decode(received.body);
-    var password = json.decode(responseJson)["password"];
+    var password = responseJson["password"];
 
     if (!Platform.environment.containsKey('FLUTTER_TEST')) {
       // ignore: use_build_context_synchronously
@@ -55,7 +57,7 @@ Future<bool> submit(
     if (!Platform.environment.containsKey('FLUTTER_TEST')) {
       // ignore: use_build_context_synchronously
       showDialogSingleButton(
-          context, "Hubo un error", "Por favor inténtelo de nuevo.", "OK");
+          context, "Hubo un error", responseJson["message"], "OK");
     }
     return false;
   }
