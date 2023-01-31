@@ -3,7 +3,8 @@ from ..models.logica import Logica
 from .logica import procesar_imagen
 from flask_restful import Resource
 from flask import request
-import secrets
+import secrets, datetime
+from flask_jwt_extended import create_access_token
 
 usuario_schema = UsuarioSchema()
 ubicacion_schema = UbicacionSchema()
@@ -72,3 +73,16 @@ class RegistroView(Resource):
 
     def get(self):
         return {"message":"hola"}, 200
+
+class LogInView(Resource):
+
+    def post(self):
+        
+        usuario = Usuario.query.filter(Usuario.email == request.form.get("correo"), Usuario.password == request.form.get("password")).first()
+        db.session.commit()
+        if usuario is None:
+            return {"message":"El usuario no existe"}, 404
+        else:
+            expire_date =  datetime.timedelta(days=1)
+            token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
+            return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id}, 200
