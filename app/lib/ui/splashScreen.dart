@@ -22,7 +22,7 @@ class SplashScreenState extends State<SplashScreen> {
       SystemChannels.textInput.invokeMethod('TextInput.hide');
       // verify if it's already logged in, then redirect to home or terms/login
       if (userId != 0) {
-        Navigator.of(context).pushReplacementNamed('/HomeScreen');
+        Navigator.of(context).pushReplacementNamed('/home');
       } else {
         Navigator.of(context).pushReplacementNamed('/terms');
       }

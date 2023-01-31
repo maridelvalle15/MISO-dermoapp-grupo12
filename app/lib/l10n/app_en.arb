@@ -42,5 +42,8 @@
   "signupSuccesfulTitle" : "Ready to log in!",
   "signupSuccessfulText" : "You just signed up!",
   "loginDataText" : "This is you login information:",
-  "password"  : "Password"
+  "password"  : "Password",
+  "internetNeededToLogin" : "This device must be online in order to log in",
+  "version"   : "Version",
+  "submittedData" : "Processing your data..."
 }

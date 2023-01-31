@@ -11,6 +11,7 @@ void showDialogSingleButton(
         content: Text(message),
         actions: <Widget>[
           ElevatedButton(
+            key: const Key('btnDialog'),
             child: Text(buttonLabel),
             onPressed: () {
               Navigator.of(context).pop();

@@ -52,6 +52,10 @@ class RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
+    var snackBar = SnackBar(
+      content: Text(AppLocalizations.of(context).submittedData),
+      duration: const Duration(seconds: 2),
+    );
     return Scaffold(
       appBar: AppBar(
           title: Text(AppLocalizations.of(context).signup,
@@ -97,6 +101,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                   child: TextFormField(
+                    key: const Key('txtName'),
                     controller: _nameController,
                     textCapitalization: TextCapitalization.none,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -130,6 +135,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                   child: TextFormField(
+                    key: const Key('txtAge'),
                     controller: _ageController,
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -159,6 +165,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                   child: TextFormField(
+                    key: const Key('txtId'),
                     controller: _personIdController,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
@@ -187,6 +194,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                   child: TextFormField(
+                    key: const Key('txtEmail'),
                     controller: _emailController,
                     style: const TextStyle(
                         fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -219,6 +227,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             color: Color(0xFFDFDFDF),
                             borderRadius: BorderRadius.circular(6.0)),
                         child: DropdownButton(
+                          key: const Key('ddCountry'),
                           value: countryValue,
                           icon: const Icon(Icons.arrow_downward),
                           elevation: 16,
@@ -286,6 +295,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                   child: TextFormField(
+                    key: const Key('txtCity'),
                     controller: _cityController,
                     style: const TextStyle(
                         fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -318,6 +328,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             color: Color(0xFFDFDFDF),
                             borderRadius: BorderRadius.circular(6.0)),
                         child: DropdownButton(
+                          key: const Key('ddSkin'),
                           value: skinValue,
                           icon: const Icon(Icons.arrow_downward),
                           elevation: 16,
@@ -371,6 +382,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   return Column(
                     children: [
                       GestureDetector(
+                        key: const Key('btnImage'),
                         onTap: () async {
                           FilePickerResult? file = await FilePicker.platform
                               .pickFiles(
@@ -380,7 +392,6 @@ class RegisterScreenState extends State<RegisterScreen> {
                               _pickedFile = File(file.files.first.path!);
                             });
                             hasImage = true;
-                            //onChanged.call(_pickedFile!);
                           }
                         },
                         child: Container(
@@ -437,11 +448,17 @@ class RegisterScreenState extends State<RegisterScreen> {
                   child: Container(
                     height: 55.0,
                     child: ElevatedButton(
+                      key: const Key('btnSubmit'),
+                      style: ElevatedButton.styleFrom(
+                          disabledBackgroundColor: Colors.grey),
                       onPressed: isDisabled
                           ? null
-                          : () {
+                          : () async {
                               if (_formKey.currentState!.validate()) {
-                                submit(
+                                setState(() => isDisabled = true);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                bool result = await submit(
                                     context,
                                     _nameController.text,
                                     _ageController.text,
@@ -451,7 +468,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                                     countryValue,
                                     skinValue,
                                     _pickedFile);
-                                setState(() => isDisabled = true);
+
+                                if (result == false) {
+                                  setState(() => isDisabled = false);
+                                }
                               }
                             },
                       child: Text(AppLocalizations.of(context).signup,

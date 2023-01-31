@@ -42,5 +42,8 @@
   "signupSuccesfulTitle" : "Registro exitoso",
   "signupSuccessfulText" : "Gracias por registrarse",
   "loginDataText" : "Estos son sus datos para ingresar:",
-  "password"  : "Clave"
+  "password"  : "Clave",
+  "internetNeededToLogin" : "Se necesita una conexión a internet para poder ingresar",
+  "version"   : "Versión",
+  "submittedData" : "Procesando la información..."
 }

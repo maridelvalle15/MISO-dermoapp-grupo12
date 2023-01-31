@@ -53,6 +53,7 @@ class TermsScreenState extends State<TermsScreen> {
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
+                  key: const Key('btnAccept'),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -70,6 +71,7 @@ class TermsScreenState extends State<TermsScreen> {
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
+                  key: const Key('btnReject'),
                   onPressed: () {
                     if (exitCount == 0) {
                       showDialogSingleButton(
