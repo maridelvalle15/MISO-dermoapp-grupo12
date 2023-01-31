@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeModule } from './home/home.module';
+import { UsuarioIngresoModule } from './usuario/usuario-ingreso/usuario-ingreso.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { HomeModule } from './home/home.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HomeModule
+    UsuarioIngresoModule
 
   ],
   providers: [],

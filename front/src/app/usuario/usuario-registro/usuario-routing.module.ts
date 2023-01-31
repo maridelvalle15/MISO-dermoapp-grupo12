@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegistroComponent } from './registro.component';
-import { RegistroExitosoComponent } from './registro-exitoso/registro-exitoso.component';
+import { UsuarioRegistroComponent } from './usuario-registro.component';
+import { UsuarioIngresoComponent } from '../usuario-ingreso/usuario-ingreso.component';
 
 const routes: Routes = [
   {
     path:'registro',
-    component: RegistroComponent,
+    component: UsuarioRegistroComponent,
     children:[
       {
         path: 'registro-exitoso',
-        component: RegistroExitosoComponent
+        component: UsuarioIngresoComponent
       }
     ]
    },

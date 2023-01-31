@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { RegistroComponent } from './registro/registro.component';
-import { RegistroExitosoComponent } from './registro/registro-exitoso/registro-exitoso.component';
+
+import { UsuarioIngresoComponent } from './usuario/usuario-ingreso/usuario-ingreso.component';
+import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
+
 
 const routes: Routes = [
-  {path:'',component: HomeComponent},
-  {path:'registro',component: RegistroComponent},
-  {path:'registro/registro-exitoso', component:RegistroExitosoComponent}
+  {path:'',component: UsuarioIngresoComponent},
+  {path:'usuario-registro',component: UsuarioRegistroComponent},
+
 ];
 
 @NgModule({
