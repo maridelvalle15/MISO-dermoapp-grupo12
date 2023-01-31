@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_user import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -30,12 +31,24 @@ class Usuario(db.Model, UserMixin):
     direccion = db.Column(db.String(200), unique=False)
     ubicacion_id = db.Column(db.Integer, db.ForeignKey('ubicacion.id'), primary_key=False)
     roles = db.relationship('Rol', secondary='usuario_rol')
+
+    def verificar_password(self, pwd):
+        return check_password_hash(self.password, pwd)
     
 class UsuarioMedico(Usuario):
     __mapper_args__ = {'polymorphic_identity': 'usuario_medico'}
     id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     licencia = db.Column(db.String(50))
     especialidad_id = db.Column(db.Integer, db.ForeignKey('especialidad.id'), primary_key=True)
+
+    def __init__(self, email, password, nombre, direccion, ubicacion_id, licencia, especialidad_id):
+        self.email = email
+        self.password = generate_password_hash(password)
+        self.nombre = nombre
+        self.direccion = direccion
+        self.ubicacion_id = ubicacion_id
+        self.licencia = licencia
+        self.especialidad_id = especialidad_id
 
 class UsuarioPaciente(Usuario):
     __mapper_args__ = {'polymorphic_identity': 'usuario_paciente'}
@@ -44,6 +57,17 @@ class UsuarioPaciente(Usuario):
     cedula = db.Column(db.String(50), unique=True)
     tipo_piel = db.Column(db.String(100), unique=False)
     imagen_piel = db.Column(db.String(250), unique=False)
+
+    def __init__(self, email, password, nombre, direccion, ubicacion_id, edad, cedula, tipo_piel, imagen_piel):
+        self.email = email
+        self.password = generate_password_hash(password)
+        self.nombre = nombre
+        self.direccion = direccion
+        self.ubicacion_id = ubicacion_id
+        self.edad = edad
+        self.cedula = cedula
+        self.tipo_piel = tipo_piel
+        self.imagen_piel = imagen_piel
 
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:

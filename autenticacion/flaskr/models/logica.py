@@ -1,18 +1,18 @@
 from ..models import UsuarioMedico, UsuarioPaciente, db, Ubicacion, Especialidad, Rol, Usuario
 class Logica():
     @staticmethod
-    def crear_usuario(user_manager=None,password='',email='',nombre='',direccion='',ubicacion='',
+    def crear_usuario(password='',email='',nombre='',direccion='',ubicacion='',
                     licencia='',especialidad='',
                     edad='',cedula='',tipo_piel='',imagen_piel='',
                     rol='Medico'):
         if rol.nombre == 'Medico':
             nuevo_usuario = UsuarioMedico(
-                    password=user_manager.hash_password(password),email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
+                    password=password,email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
                     licencia=licencia,especialidad_id=especialidad)    
         
         else:
             nuevo_usuario = UsuarioPaciente(
-                password=user_manager.hash_password(password),email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
+                password=password,email=email,nombre=nombre,direccion=direccion,ubicacion_id=ubicacion,
                 edad=edad,cedula=cedula,tipo_piel=tipo_piel,imagen_piel=imagen_piel)    
 
         nuevo_usuario.roles.append(rol)
