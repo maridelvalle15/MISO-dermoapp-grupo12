@@ -5,25 +5,29 @@ import 'package:dermoapp/model/json/userModel.dart';
 import 'package:dermoapp/ui/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../uifunctions/showSingleDialogButton.dart';
+
+final http.Client client = http.Client();
 
 Future<UserModel?> submitLogin(
     BuildContext context, String correo, String clave) async {
   Map<String, String> body = {
-    'email': correo,
+    'correo': correo,
     'password': clave,
   };
-  final response = await http
-      .post(Uri.parse('https://ff4c-186-80-52-161.ngrok.io/login'), body: body);
+  final response = await client.post(
+      Uri.parse('https://ae44-186-80-52-161.ngrok.io/api/login'),
+      body: body);
+
+  final loginResponseJson = json.decode(response.body);
 
   if (response.statusCode == 200) {
-    final loginResponseJson = json.decode(response.body);
-    final processedResponse = json.decode(loginResponseJson);
+    //final processedResponse = json.decode(loginResponseJson);
 
     Map<String, dynamic> responseJson = {"email": correo};
-    responseJson["token"] = processedResponse["token"];
-    responseJson["id"] = processedResponse["id"];
+    responseJson["token"] = loginResponseJson["token"];
+    responseJson["id"] = loginResponseJson["user_id"];
 
     saveLoginInfo(responseJson);
     // ignore: use_build_context_synchronously
@@ -34,8 +38,8 @@ Future<UserModel?> submitLogin(
     return UserModel.fromJson(responseJson);
   } else {
     // ignore: use_build_context_synchronously
-    showDialogSingleButton(
-        context, "No se puede ingresar", "Usuario y/o clave incorrecta.", "OK");
+    showDialogSingleButton(context, AppLocalizations.of(context).thereIsAnError,
+        loginResponseJson["message"], "OK");
     return null;
   }
 }

@@ -133,56 +133,58 @@ class LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child: Container(
-                      height: 55.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            //SystemChannels.textInput.invokeMethod('TextInput.hide');
-                            submitLogin(context, _userNameController.text,
-                                _passwordController.text);
-                          }
-                        },
-                        child: Text(AppLocalizations.of(context).loginText,
-                            style: const TextStyle(fontSize: 22.0)),
+                  Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                      child: Container(
+                        height: 55.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              //SystemChannels.textInput.invokeMethod('TextInput.hide');
+                              submitLogin(context, _userNameController.text,
+                                  _passwordController.text);
+                            }
+                          },
+                          child: Text(AppLocalizations.of(context).loginText,
+                              style: const TextStyle(fontSize: 22.0)),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child: SizedBox(
-                      height: 55.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const RegisterScreen()),
-                          );
-                        },
-                        child: Text(AppLocalizations.of(context).signup,
-                            style: const TextStyle(fontSize: 22.0)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                      child: SizedBox(
+                        height: 55.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen()),
+                            );
+                          },
+                          child: Text(AppLocalizations.of(context).signup,
+                              style: const TextStyle(fontSize: 22.0)),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child: Text(
-                        AppLocalizations.of(context).internetNeededToLogin,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 18.0, color: Color(0xFFDFDFDF))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child: Text(
-                        "${AppLocalizations.of(context).version}: $packageVersion",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 18.0, color: Color(0xFFDFDFDF))),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                      child: Text(
+                          AppLocalizations.of(context).internetNeededToLogin,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                      child: Text(
+                          "${AppLocalizations.of(context).version}: $packageVersion",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                    ),
+                  ]),
                 ],
               ),
             ),

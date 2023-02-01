@@ -45,5 +45,6 @@
   "password"  : "Password",
   "internetNeededToLogin" : "This device must be online in order to log in",
   "version"   : "Version",
-  "submittedData" : "Processing your data..."
+  "submittedData" : "Processing your data...",
+  "thereIsAnError" : "Something's wrong"
 }

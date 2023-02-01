@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final http.Client client = http.Client();
 
@@ -57,7 +58,10 @@ Future<bool> submit(
     if (!Platform.environment.containsKey('FLUTTER_TEST')) {
       // ignore: use_build_context_synchronously
       showDialogSingleButton(
-          context, "Hubo un error", responseJson["message"], "OK");
+          context,
+          AppLocalizations.of(context).thereIsAnError,
+          responseJson["message"],
+          "OK");
     }
     return false;
   }
