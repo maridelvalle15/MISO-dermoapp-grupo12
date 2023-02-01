@@ -46,5 +46,8 @@
   "internetNeededToLogin" : "This device must be online in order to log in",
   "version"   : "Version",
   "submittedData" : "Processing your data...",
-  "thereIsAnError" : "Something's wrong"
+  "thereIsAnError" : "Something's wrong",
+  "home"      : "Home",
+  "logout"    : "Logout",
+  "welcome"   : "Welcome"
 }

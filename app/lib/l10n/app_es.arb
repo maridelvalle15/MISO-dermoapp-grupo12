@@ -46,5 +46,8 @@
   "internetNeededToLogin" : "Se necesita una conexión a internet para poder ingresar",
   "version"   : "Versión",
   "submittedData" : "Procesando la información...",
-  "thereIsAnError" : "Algo no está bien..."
+  "thereIsAnError" : "Algo no está bien...",
+  "home"      : "Inicio",
+  "logout"    : "Salir",
+  "welcome"   : "Bienvenid@"
 }

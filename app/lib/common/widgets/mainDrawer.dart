@@ -1,6 +1,7 @@
 import 'package:dermoapp/common/auth/doLogout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainDrawer extends StatefulWidget {
   final int currentSelected;
@@ -18,14 +19,14 @@ class _MainDrawerState extends State<MainDrawer> {
       child: Container(
         padding: const EdgeInsets.all(15.0),
         child: ListTileTheme(
-          selectedColor: Colors.green,
+          selectedColor: const Color(0xFF1E3F52),
           child: ListView(
             children: <Widget>[
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.home),
-                title: const Text(
-                  "Inicio",
+                title: Text(
+                  AppLocalizations.of(context).home,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
@@ -55,8 +56,8 @@ class _MainDrawerState extends State<MainDrawer> {
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.directions_run),
-                title: const Text(
-                  "Salir",
+                title: Text(
+                  AppLocalizations.of(context).logout,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dermoapp/common/auth/saveLoginInfo.dart';
 import 'package:dermoapp/model/json/userModel.dart';
@@ -29,17 +30,24 @@ Future<UserModel?> submitLogin(
     responseJson["token"] = loginResponseJson["token"];
     responseJson["id"] = loginResponseJson["user_id"];
 
-    saveLoginInfo(responseJson);
-    // ignore: use_build_context_synchronously
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-    );
+    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+      saveLoginInfo(responseJson);
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    }
     return UserModel.fromJson(responseJson);
   } else {
-    // ignore: use_build_context_synchronously
-    showDialogSingleButton(context, AppLocalizations.of(context).thereIsAnError,
-        loginResponseJson["message"], "OK");
+    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+      // ignore: use_build_context_synchronously
+      showDialogSingleButton(
+          context,
+          AppLocalizations.of(context).thereIsAnError,
+          loginResponseJson["message"],
+          "OK");
+    }
     return null;
   }
 }

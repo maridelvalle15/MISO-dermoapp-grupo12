@@ -35,8 +35,12 @@ class HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: <Widget>[
             Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Text("esta es tu casita"),
+              margin: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 30.0),
+              child: Text(
+                AppLocalizations.of(context).welcome,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16.0, color: Colors.white),
+              ),
             ),
           ],
         ));

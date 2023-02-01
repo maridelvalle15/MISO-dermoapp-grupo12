@@ -81,6 +81,7 @@ class LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                     child: TextFormField(
+                      key: const Key('txtEmail'),
                       controller: _userNameController,
                       textCapitalization: TextCapitalization.none,
                       style: const TextStyle(
@@ -112,6 +113,7 @@ class LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                     child: TextFormField(
+                      key: const Key('txtPassword'),
                       controller: _passwordController,
                       obscureText: true,
                       style: const TextStyle(
@@ -139,6 +141,7 @@ class LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         height: 55.0,
                         child: ElevatedButton(
+                          key: const Key('btnSubmit'),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               //SystemChannels.textInput.invokeMethod('TextInput.hide');
