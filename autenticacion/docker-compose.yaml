@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  pyapp:
+    env_file: variables.env
+    container_name: pyapp
+    build: .
+    command: bash -c "gunicorn -w 1 --bind 0.0.0.0:8000 flaskr.app:app"
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    restart: always
