@@ -35,13 +35,13 @@
         Nombre requirido
       </div>
 
-      <label for="pais">Pais *</label> <br>
+      <label for="pais">País *</label> <br>
       <input type="text" formControlName="pais" required><br>
       <div class="alert alert-danger alert-dismissible fade show" *ngIf="
       usuarioForm.get('pais')!.hasError('required') &&
       usuarioForm.get('pais')!.touched
       ">
-        Pais requirido
+      País requirido
       </div>
 
       <label for="ciudad">Ciudad *</label> <br>
@@ -54,7 +54,7 @@
       </div>
 
 
-      <label for="direccion">Direccion *</label> <br>
+      <label for="direccion">Dirección *</label> <br>
       <input type="text" formControlName="direccion" required><br>
       <div class="alert alert-danger alert-dismissible fade show" *ngIf="
       usuarioForm.get('direccion')!.hasError('required') &&
@@ -99,6 +99,7 @@
 
 
     </form>
+    {{ usuarioForm.value.email | json }}
   </div>
   <footer>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
