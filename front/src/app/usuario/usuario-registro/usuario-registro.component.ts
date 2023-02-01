@@ -41,7 +41,7 @@ export class UsuarioRegistroComponent implements OnInit {
     this.usuarioService.userSignUp(this.usuarioForm.get('tipo_usuario')?.value, this.usuarioForm.get('email')?.value, this.usuarioForm.get('nombre')?.value, this.usuarioForm.get('direccion')?.value, this.usuarioForm.get('pais')?.value, this.usuarioForm.get('ciudad')?.value,this.usuarioForm.get('especialidad')?.value,this.usuarioForm.get('licencia')?.value)
     .subscribe(res => {
 
-
+      this.router.navigate([`/usuario-registro/registro-exitoso`])
       this.showSuccess()
     },
     error => {

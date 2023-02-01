@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ToastrModule } from 'ngx-toastr';
-UsuarioModule
+
 
 @NgModule({
   declarations: [

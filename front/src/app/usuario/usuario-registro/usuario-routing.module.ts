@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UsuarioRegistroComponent } from './usuario-registro.component';
+import { RegistroExitosoComponent } from './registro-exitoso/registro-exitoso.component';
 import { UsuarioIngresoComponent } from '../usuario-ingreso/usuario-ingreso.component';
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
     children:[
       {
         path: 'registro-exitoso',
-        component: UsuarioRegistroComponent
+        component: RegistroExitosoComponent
       }
     ]
    },

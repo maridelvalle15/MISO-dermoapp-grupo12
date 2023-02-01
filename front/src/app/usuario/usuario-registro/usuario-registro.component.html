@@ -10,38 +10,93 @@
 
 <body>
   <br><br><br><br>
-  <div>
+  <div class="form-group mx-sm-3 mb-2">
     <h1 style="text-align: center;">DermoApp</h1>
     <h4 style="text-align: center;">Formulario de registro para médicos dermatólogos</h4>
     <form [formGroup]="usuarioForm" (ngSubmit)="registrarUsuario()">
 
-      <label for="tipo_usuario">tipo_usuario *</label> <br>
+
+      <label for="tipo_usuario">Tipo de usuario *</label> <br>
       <input type="text" formControlName="tipo_usuario" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('tipo_usuario')!.hasError('required') &&
+      usuarioForm.get('tipo_usuario')!.touched
+      ">
+        Tipo de usuario requerido
+      </div>
+
 
       <label for="nombre">Nombre Completo *</label> <br>
-      <input type="text" formControlName="nombre" required><br>
+      <input type="text" formControlName="nombre" novalidate><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('nombre')!.hasError('required') &&
+      usuarioForm.get('nombre')!.touched
+      ">
+        Nombre requirido
+      </div>
 
       <label for="pais">Pais *</label> <br>
       <input type="text" formControlName="pais" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('pais')!.hasError('required') &&
+      usuarioForm.get('pais')!.touched
+      ">
+        Pais requirido
+      </div>
 
       <label for="ciudad">Ciudad *</label> <br>
       <input type="text" formControlName="ciudad" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('nombre')!.hasError('required') &&
+      usuarioForm.get('nombre')!.touched
+      ">
+        Ciudad requirida
+      </div>
 
 
       <label for="direccion">Direccion *</label> <br>
       <input type="text" formControlName="direccion" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('direccion')!.hasError('required') &&
+      usuarioForm.get('direccion')!.touched
+      ">
+        Dirección requirida
+      </div>
 
       <label for="licencia">Número de licencia *</label> <br>
       <input type="text" formControlName="licencia" required><br>
 
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('licencia')!.hasError('required') &&
+      usuarioForm.get('licencia')!.touched
+      ">
+        Licencia requirida
+      </div>
+
       <label for="especialidad">Especialidad *</label> <br>
       <input type="text" formControlName="especialidad" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('especialidad')!.hasError('required') &&
+      usuarioForm.get('especialidad')!.touched
+      ">
+        Especialidad requirida
+      </div>
 
       <label for="email">Correo *</label> <br>
-      <input type="text" formControlName="email" required><br>
+      <input type="email" formControlName="email" required><br>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      usuarioForm.get('email')!.hasError('required') &&
+      usuarioForm.get('email')!.touched
+      ">
+        Correo requirido
+      </div>
 
-      <button type="submit">Registrarse </button>
+      <br><br>
+
+      <button type="submit" [disabled]="!usuarioForm.valid" >Registrarse </button>
       <button><a href="/">Regresar </a></button>
+
+
 
     </form>
   </div>
