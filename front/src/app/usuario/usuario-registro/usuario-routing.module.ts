@@ -5,12 +5,12 @@ import { UsuarioIngresoComponent } from '../usuario-ingreso/usuario-ingreso.comp
 
 const routes: Routes = [
   {
-    path:'registro',
+    path:'usuario-registro',
     component: UsuarioRegistroComponent,
     children:[
       {
         path: 'registro-exitoso',
-        component: UsuarioIngresoComponent
+        component: UsuarioRegistroComponent
       }
     ]
    },

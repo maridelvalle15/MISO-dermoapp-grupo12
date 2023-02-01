@@ -4,7 +4,7 @@ import { UsuarioIngresoComponent } from './usuario-ingreso.component';
 
 const routes: Routes = [
   {
-    path:'ingreso',
+    path:'',
     component: UsuarioIngresoComponent
    },
 ];

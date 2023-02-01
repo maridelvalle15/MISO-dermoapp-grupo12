@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsuarioIngresoModule } from './usuario/usuario-ingreso/usuario-ingreso.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { ToastrModule } from 'ngx-toastr';
+UsuarioModule
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { UsuarioIngresoModule } from './usuario/usuario-ingreso/usuario-ingreso.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UsuarioIngresoModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    UsuarioModule
 
   ],
   providers: [],
