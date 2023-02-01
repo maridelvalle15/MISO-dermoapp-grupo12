@@ -1,3 +1,5 @@
 *.DS_Store
 *.coverage
 .env
+variables.env
+*__pycache__
