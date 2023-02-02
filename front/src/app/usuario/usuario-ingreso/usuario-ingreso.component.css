@@ -1,0 +1,18 @@
+header{
+  background-color: #1e3f52;
+  color: white;
+  padding: 1em;
+  }
+
+  .header-input{
+    position: absolute;
+    top: 50px;
+    right: 150px;
+
+  }
+
+  .header-input button{
+    border-radius: 20px;
+    padding: 0.5em;
+  }
+
