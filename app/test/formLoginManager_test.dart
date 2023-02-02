@@ -17,7 +17,7 @@ import 'formRegisterManager_test.mocks.dart';
 void main() {
   MockBuildContext mockContext;
 
-  group('registerManager', () {
+  group('loginManager', () {
     test('returns true if request is ok', () async {
       final client = MockClient();
       mockContext = MockBuildContext();

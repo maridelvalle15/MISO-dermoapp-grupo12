@@ -12,7 +12,7 @@ Future<List> getMyCases() async {
   final response = await client.get(
     Uri.parse('https://c6f0-186-80-52-161.ngrok.io/api/caso'),
     headers: {
-      HttpHeaders.authorizationHeader: 'Basic $token',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
     },
   );
 

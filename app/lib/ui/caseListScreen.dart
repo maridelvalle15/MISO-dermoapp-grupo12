@@ -16,12 +16,6 @@ class CaseListScreen extends StatefulWidget {
 
 class CaseListScreenState extends State<CaseListScreen> {
   List results = [];
-  /*@override
-  void initState() {
-    super.initState();
-    casesList = getMyCases();
-    print(casesList);
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +61,7 @@ class CaseListScreenState extends State<CaseListScreen> {
                 )),
             SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: FutureBuilder(
                     future: getMyCases(),
                     builder: (context, snapshot) {
@@ -125,6 +119,7 @@ class CaseListScreenState extends State<CaseListScreen> {
         ),
         DataCell(
           ElevatedButton(
+            key: const Key('btnCaseDetails'),
             onPressed: () {},
             child: Text(AppLocalizations.of(context).caseDetails,
                 style: const TextStyle(
