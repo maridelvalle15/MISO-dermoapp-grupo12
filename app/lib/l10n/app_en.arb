@@ -87,5 +87,12 @@
   "caseCreated" : "Your case was created!",
   "caseId"    : "Case ID",
   "casePhoto" : "Injury Photo",
-  "noAdditionalInfo": "No additional info"
+  "noAdditionalInfo": "No additional info",
+  "myCases"   : "My cases",
+  "id"        : "ID",
+  "caseDate"  : "Date",
+  "diagnosticType" : "Diagnostic",
+  "caseDetails" : "Details",
+  "automatic" : "Automatic",
+  "manual"    : "Manual"
 }

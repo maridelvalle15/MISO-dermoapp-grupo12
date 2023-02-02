@@ -87,5 +87,12 @@
   "caseCreated" : "¡Su consulta fue creada!",
   "caseId"    : "ID del caso",
   "casePhoto" : "Foto de la lesión",
-  "noAdditionalInfo" : "Sin otros detalles."
+  "noAdditionalInfo" : "Sin otros detalles.",
+  "myCases"   : "Mis casos",
+  "id"        : "ID",
+  "caseDate"  : "Fecha",
+  "diagnosticType" : "Diagnóstico",
+  "caseDetails" : "Detalles",
+  "automatic" : "Automático",
+  "manual"    : "Manual"
 }
