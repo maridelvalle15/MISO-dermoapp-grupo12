@@ -11,9 +11,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  getUsuarioRegistrado(): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(`/api/registro`)
-  }
+
+
+  userLogIn(email: string, password: string):Observable<any>{
+    return this.http.post<any>('/api/login', {"correo": email, "password": password });
+}
 
   userSignUp(
     tipo_usuario:string,
