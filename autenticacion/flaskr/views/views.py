@@ -86,9 +86,9 @@ class LogInView(Resource):
 
     def post(self):
         
-        usuario = Usuario.query.filter(Usuario.email == request.form.get("correo")).first()
+        usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
         #db.session.commit()
-        if usuario and usuario.verificar_password(request.form.get("password")):
+        if usuario and usuario.verificar_password(request.json["password"]):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
             return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id}, 200
