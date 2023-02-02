@@ -7,7 +7,7 @@ import pytest
 from .utils.seeds import Seeds
 from flask_jwt_extended import JWTManager
 
-app = create_app('default')
+app = create_app('autenticacion')
 app_context = app.app_context()
 app_context.push()
 
