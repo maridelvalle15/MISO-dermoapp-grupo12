@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 db = SQLAlchemy()
 
@@ -32,3 +33,27 @@ class Caso(db.Model):
     imagen_caso = db.Column(db.String(250), unique=False)
     tipo_solucion = db.Column(db.String(20), unique=False)
     paciente_id = db.Column(db.Integer, unique=True)
+
+class LesionTipoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = LesionTipo
+         include_relationships = True
+         load_instance = True
+
+class LesionFormaSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = LesionForma
+         include_relationships = True
+         load_instance = True
+
+class LesionNumeroSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = LesionNumero
+         include_relationships = True
+         load_instance = True
+
+class LesionDistribucionSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = LesionDistribucion
+         include_relationships = True
+         load_instance = True
