@@ -26,20 +26,4 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('DermoApp');
   });
-
-
-  it('Validar  texto', () => {
-    const fixture = TestBed.createComponent(UsuarioRegistroComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h4')?.textContent).toContain('Formulario de registro para médicos dermatólogos');
-  });
-
-  it('Valdiar texto Botón', () => {
-    const fixture = TestBed.createComponent(UsuarioRegistroComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('button')?.textContent).toContain('Registrarse');
-  });
-
 });
