@@ -52,6 +52,20 @@ class _MainDrawerState extends State<MainDrawer> {
               ),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                leading: const Icon(Icons.enhanced_encryption),
+                title: Text(
+                  AppLocalizations.of(context).myCases,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  SystemChannels.textInput.invokeMethod('TextInput.hide');
+                  Navigator.of(context).pushReplacementNamed('/case/list');
+                },
+                selected: widget.currentSelected == 3,
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.directions_run),
                 title: Text(
                   AppLocalizations.of(context).logout,
