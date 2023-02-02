@@ -2,7 +2,7 @@ from ..models import UsuarioSchema, db, UsuarioRol, Usuario, Ubicacion, Ubicacio
 from ..models.logica import Logica
 from .logica import procesar_imagen
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
 import secrets, datetime
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
@@ -96,6 +96,5 @@ class ValidacionUsuarioView(Resource):
         id_usuario = get_jwt_identity()
         rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
         rol = Rol.query.filter(Rol.id==rol_id).first().nombre
-        print(rol)
 
-        return {"id_usuario":id_usuario, "rol":rol}, 200
+        return {"id_usuario":id_usuario, "rol":rol}, 200,{'Content-Type': 'application/json'}
