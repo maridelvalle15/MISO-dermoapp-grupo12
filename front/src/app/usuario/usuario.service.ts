@@ -23,7 +23,8 @@ export class UsuarioService {
     pais:string,
     ciudad:string,
     especialidad:string,
-    licencia:string
+    licencia:string,
+
   ): Observable<any> {
     return this.http.post<any>('/api/registro', {
       "tipo_usuario": tipo_usuario,
