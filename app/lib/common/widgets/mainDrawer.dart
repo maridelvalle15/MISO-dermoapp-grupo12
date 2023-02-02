@@ -27,7 +27,8 @@ class _MainDrawerState extends State<MainDrawer> {
                 leading: const Icon(Icons.home),
                 title: Text(
                   AppLocalizations.of(context).home,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
                   SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -35,24 +36,20 @@ class _MainDrawerState extends State<MainDrawer> {
                 },
                 selected: widget.currentSelected == 1,
               ),
-              /*ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
-              leading: Icon(Icons.create),
-              title: Text("Avances actividades", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/ActivityProgressScreen');
-              },
-              selected: widget.currentSelected == 2,
-            ),
-            ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
-              leading: Icon(Icons.sync),
-              title: Text("Sincronizar", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/SyncScreen');
-              },
-              selected: widget.currentSelected == 3,
-            ),*/
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                leading: const Icon(Icons.enhanced_encryption),
+                title: Text(
+                  AppLocalizations.of(context).newCase,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  SystemChannels.textInput.invokeMethod('TextInput.hide');
+                  Navigator.of(context).pushReplacementNamed('/case/new');
+                },
+                selected: widget.currentSelected == 2,
+              ),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.directions_run),
