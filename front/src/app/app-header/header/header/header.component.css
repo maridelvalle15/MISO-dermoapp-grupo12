@@ -1,0 +1,30 @@
+div{
+  background-color:#1e3f52 ;
+
+}
+
+div .navbar-brand{
+  color: white;
+}
+
+
+div .nav-link {
+  color: white;
+
+}
+div .subs {
+  position: absolute;
+  right: 500px;
+  width: 300px;
+
+
+}
+
+img{
+  position: absolute;
+  top: 50px;
+  right: 150px;
+}
+h4{
+  color: white;
+}

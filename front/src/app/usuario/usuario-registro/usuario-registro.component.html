@@ -10,7 +10,8 @@
 
 <body>
   <br><br><br><br>
-  <div class="form-group mx-sm-3 mb-2">
+  <div>
+  <div id="form">
     <h1 style="text-align: center;">DermoApp</h1>
     <h4 style="text-align: center;">Formulario de registro para médicos dermatólogos</h4>
     <form [formGroup]="usuarioForm" (ngSubmit)="registrarUsuario()">
@@ -18,7 +19,7 @@
 
       <label for="tipousuario">Tipo de usuario *</label> <br>
       <input type="text" formControlName="tipousuario" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div *ngIf="
       usuarioForm.get('tipousuario')!.hasError('required') &&
       usuarioForm.get('tipousuario')!.touched
       ">
@@ -28,7 +29,7 @@
 
       <label for="nombre">Nombre Completo *</label> <br>
       <input type="text" formControlName="nombre" novalidate><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div  *ngIf="
       usuarioForm.get('nombre')!.hasError('required') &&
       usuarioForm.get('nombre')!.touched
       ">
@@ -37,7 +38,7 @@
 
       <label for="pais">País *</label> <br>
       <input type="text" formControlName="pais" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div  *ngIf="
       usuarioForm.get('pais')!.hasError('required') &&
       usuarioForm.get('pais')!.touched
       ">
@@ -46,7 +47,7 @@
 
       <label for="ciudad">Ciudad *</label> <br>
       <input type="text" formControlName="ciudad" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div *ngIf="
       usuarioForm.get('nombre')!.hasError('required') &&
       usuarioForm.get('nombre')!.touched
       ">
@@ -56,7 +57,7 @@
 
       <label for="direccion">Dirección *</label> <br>
       <input type="text" formControlName="direccion" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div  *ngIf="
       usuarioForm.get('direccion')!.hasError('required') &&
       usuarioForm.get('direccion')!.touched
       ">
@@ -66,7 +67,7 @@
       <label for="licencia">Número de licencia *</label> <br>
       <input type="text" formControlName="licencia" required><br>
 
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div  *ngIf="
       usuarioForm.get('licencia')!.hasError('required') &&
       usuarioForm.get('licencia')!.touched
       ">
@@ -75,7 +76,7 @@
 
       <label for="especialidad">Especialidad *</label> <br>
       <input type="text" formControlName="especialidad" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div *ngIf="
       usuarioForm.get('especialidad')!.hasError('required') &&
       usuarioForm.get('especialidad')!.touched
       ">
@@ -84,7 +85,7 @@
 
       <label for="correo">Correo *</label> <br>
       <input type="correo" formControlName="correo" required><br>
-      <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      <div *ngIf="
       usuarioForm.get('correo')!.hasError('required') &&
       usuarioForm.get('correo')!.touched
       ">
@@ -100,6 +101,7 @@
 
     </form>
   </div>
+</div>
   <footer>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <p>By team</p>
