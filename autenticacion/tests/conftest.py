@@ -16,6 +16,15 @@ def client():
         yield client
 
 @pytest.fixture
+def headers():
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+
+    return headers
+
+@pytest.fixture
 def crear_usuario_medico():
     logica = Logica()
 

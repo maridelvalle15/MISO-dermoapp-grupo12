@@ -17,27 +17,35 @@ class RegistroView(Resource):
        self.logica = Logica()
 
     def post(self):
-        email = request.form.get("correo")
-        nombre = request.form.get("nombre")
-        direccion = request.form.get("direccion")
-        usuario = self.logica.usuario_valido(email=email)
+        
+        if request.form.to_dict() != {}:
+            request_data = request.form.to_dict()
+        else:
+            request_data = request.json
 
+        email = request_data["correo"]
+        nombre = request_data["nombre"]
+        direccion = request_data["direccion"]
+
+        usuario = self.logica.usuario_valido(email=email)
+        
         if usuario is not None:
             return {"message":"El usuario ya existe"}, 400
 
-        ubicacion = self.logica.ubicacion_valida(request.form.get("pais"),request.form.get("ciudad"))
+        ubicacion = self.logica.ubicacion_valida(request_data["pais"],request_data["ciudad"])
+
         if ubicacion is None:
             return {"message":"ubicacion no valida"}, 400
 
         longitud_password = 6
         password = secrets.token_urlsafe(longitud_password)
 
-        if request.form.get("tipousuario") == "MEDICO":
-            especialidad = self.logica.especialidad_valida(request.form.get("especialidad"))
+        if request_data["tipousuario"] == "MEDICO":
+            especialidad = self.logica.especialidad_valida(request_data["especialidad"])
             if especialidad is None:
                 return {"message":"especialidad no valida"}, 400
 
-            licencia = request.form.get("licencia")
+            licencia = request_data["licencia"]
             medico = Rol.query.filter(Rol.nombre=='Medico').first()    
 
             self.logica.crear_usuario(password,email,nombre,direccion,ubicacion.id,
@@ -45,10 +53,10 @@ class RegistroView(Resource):
                 '','','','',
                 medico)
 
-        elif request.form.get("tipousuario") == "PACIENTE":
-            edad = request.form.get("edad")
-            cedula = request.form.get("cedula")
-            tipo_piel = request.form.get("tipopiel")
+        elif request_data["tipousuario"] == "PACIENTE":
+            edad = request_data["edad"]
+            cedula = request_data["cedula"]
+            tipo_piel = request_data["tipopiel"]
             imagen_piel = request.files.get("image", "")
             
             if imagen_piel != "":
@@ -79,9 +87,9 @@ class LogInView(Resource):
 
     def post(self):
         
-        usuario = Usuario.query.filter(Usuario.email == request.form.get("correo")).first()
+        usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
         #db.session.commit()
-        if usuario and usuario.verificar_password(request.form.get("password")):
+        if usuario and usuario.verificar_password(request.json["password"]):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
             return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id}, 200

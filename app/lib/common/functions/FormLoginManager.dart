@@ -13,13 +13,17 @@ final http.Client client = http.Client();
 
 Future<UserModel?> submitLogin(
     BuildContext context, String correo, String clave) async {
-  Map<String, String> body = {
+  Map<String, String> data = {
     'correo': correo,
     'password': clave,
   };
+
+  var body = json.encode(data);
+
   final response = await client.post(
-      Uri.parse('https://ae44-186-80-52-161.ngrok.io/api/login'),
-      body: body);
+      Uri.parse('https://c6f0-186-80-52-161.ngrok.io/api/login'),
+      body: body,
+      headers: {"Content-Type": "application/json"});
 
   final loginResponseJson = json.decode(response.body);
 

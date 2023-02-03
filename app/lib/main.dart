@@ -1,3 +1,5 @@
+import 'package:dermoapp/ui/caseListScreen.dart';
+import 'package:dermoapp/ui/caseNewScreen.dart';
 import 'package:dermoapp/ui/homeScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:dermoapp/ui/registerScreen.dart';
@@ -39,6 +41,8 @@ class _DermoAppState extends State<DermoApp> {
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
           '/home': (context) => const HomeScreen(),
+          '/case/new': (context) => const CaseNewScreen(),
+          '/case/list': (context) => const CaseListScreen()
         },
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
