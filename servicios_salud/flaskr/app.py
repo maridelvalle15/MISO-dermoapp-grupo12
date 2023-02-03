@@ -39,6 +39,37 @@ seeds.poblar_lesion_distribucion('con', 'confluente')
 seeds.poblar_lesion_distribucion('esp', 'esparcida')
 seeds.poblar_lesion_distribucion('sim', 'simetrica')
 
+seeds.poblar_match_especialidades('General','ampolla','normal')
+seeds.poblar_match_especialidades('General','ampolla','mixta')
+seeds.poblar_match_especialidades('General','ulcera','normal')
+seeds.poblar_match_especialidades('General','ulcera','mixta')
+seeds.poblar_match_especialidades('General','vesicula','normal')
+seeds.poblar_match_especialidades('General','vesicula','mixta')
+
+seeds.poblar_match_especialidades('Clinica','macula','normal')
+seeds.poblar_match_especialidades('Clinica','macula','seca')
+seeds.poblar_match_especialidades('Clinica','macula','grasa')
+seeds.poblar_match_especialidades('Clinica','macula','mixta')
+seeds.poblar_match_especialidades('Clinica','macula','sensible')
+seeds.poblar_match_especialidades('Clinica','parche','normal')
+seeds.poblar_match_especialidades('Clinica','parche','seca')
+seeds.poblar_match_especialidades('Clinica','parche','grasa')
+seeds.poblar_match_especialidades('Clinica','parche','mixta')
+seeds.poblar_match_especialidades('Clinica','parche','sensible')
+
+seeds.poblar_match_especialidades('Cosmetica','placa','seca')
+seeds.poblar_match_especialidades('Cosmetica','placa','grasa')
+seeds.poblar_match_especialidades('Cosmetica','placa','sensible')
+
+seeds.poblar_match_especialidades('Laser','papula','normal')
+seeds.poblar_match_especialidades('Laser','papula','mixta')
+
+seeds.poblar_match_especialidades('Quirurgica','nodulo','normal')
+seeds.poblar_match_especialidades('Quirurgica','nodulo','seca')
+seeds.poblar_match_especialidades('Quirurgica','nodulo','grasa')
+seeds.poblar_match_especialidades('Quirurgica','nodulo','mixta')
+seeds.poblar_match_especialidades('Quirurgica','nodulo','sensible')
+
 api = Api(app)
 
 api.add_resource(SuministroLesionView, '/api/suministro-lesion')
