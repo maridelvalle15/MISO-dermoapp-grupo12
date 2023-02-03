@@ -3,6 +3,7 @@ from flask_restful import Api
 from .models import db
 from .views import SuministroLesionView
 import logging
+from .utils.seeds import Seeds
 
 
 app = create_app('gestion_dermatologia')
@@ -13,6 +14,30 @@ logging.basicConfig(level=logging.DEBUG)
 
 db.init_app(app)
 db.create_all()
+
+seeds = Seeds()
+seeds.poblar_lesion_tipo('mac', 'macula')
+seeds.poblar_lesion_tipo('pap', 'papula')
+seeds.poblar_lesion_tipo('par', 'parche')
+seeds.poblar_lesion_tipo('pla', 'placa')
+seeds.poblar_lesion_tipo('nod', 'nodulo')
+seeds.poblar_lesion_tipo('amp', 'ampolla')
+seeds.poblar_lesion_tipo('ulc', 'ulcera')
+seeds.poblar_lesion_tipo('ves', 'vesicula')
+seeds.poblar_lesion_forma('ani', 'anillo')
+seeds.poblar_lesion_forma('dom', 'domo')
+seeds.poblar_lesion_forma('enr', 'enrollada')
+seeds.poblar_lesion_forma('ind', 'indefinida')
+seeds.poblar_lesion_forma('ova', 'ovalada')
+seeds.poblar_lesion_forma('red', 'redonda')
+seeds.poblar_lesion_numero('dis', 'diseminada')
+seeds.poblar_lesion_numero('mul', 'multiple')
+seeds.poblar_lesion_numero('rec', 'recurrente')
+seeds.poblar_lesion_numero('sol', 'solitaria')
+seeds.poblar_lesion_distribucion('asi', 'asimetrica')
+seeds.poblar_lesion_distribucion('con', 'confluente')
+seeds.poblar_lesion_distribucion('esp', 'esparcida')
+seeds.poblar_lesion_distribucion('sim', 'simetrica')
 
 api = Api(app)
 

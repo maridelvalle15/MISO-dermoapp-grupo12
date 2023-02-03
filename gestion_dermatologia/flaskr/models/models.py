@@ -26,10 +26,10 @@ class LesionDistribucion(db.Model):
 class Caso(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descripcion = db.Column(db.Text)
-    tipo_lesion = db.Column(db.Integer, db.ForeignKey('lesion_tipo.id'), primary_key=True)
-    forma = db.Column(db.Integer, db.ForeignKey('lesion_forma.id'), primary_key=True)
-    numero_lesiones = db.Column(db.Integer, db.ForeignKey('lesion_numero.id'), primary_key=True)
-    distribucion = db.Column(db.Integer, db.ForeignKey('lesion_distribucion.id'), primary_key=True)
+    tipo_lesion = db.Column(db.Integer, db.ForeignKey('lesion_tipo.id'))
+    forma = db.Column(db.Integer, db.ForeignKey('lesion_forma.id'))
+    numero_lesiones = db.Column(db.Integer, db.ForeignKey('lesion_numero.id'))
+    distribucion = db.Column(db.Integer, db.ForeignKey('lesion_distribucion.id'))
     imagen_caso = db.Column(db.String(250), unique=False)
     tipo_solucion = db.Column(db.String(20), unique=False)
     paciente_id = db.Column(db.Integer, unique=True)
@@ -55,5 +55,11 @@ class LesionNumeroSchema(SQLAlchemyAutoSchema):
 class LesionDistribucionSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = LesionDistribucion
+         include_relationships = True
+         load_instance = True
+
+class CasoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = Caso
          include_relationships = True
          load_instance = True
