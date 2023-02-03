@@ -34,6 +34,12 @@ class Caso(db.Model):
     tipo_solucion = db.Column(db.String(20), unique=False)
     paciente_id = db.Column(db.Integer, unique=False)
 
+class MatchEspecialidades():
+    id = db.Column(db.Integer, primary_key=True)
+    especialidad = db.Column(db.Integer, unique=False)
+    tipo_lesion = db.Column(db.String(50), unique=False)
+    tipo_piel = db.Column(db.String(100), unique=False)
+
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = LesionTipo
@@ -61,5 +67,11 @@ class LesionDistribucionSchema(SQLAlchemyAutoSchema):
 class CasoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = Caso
+         include_relationships = True
+         load_instance = True
+
+class MatchEspecialidadesSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = MatchEspecialidades
          include_relationships = True
          load_instance = True

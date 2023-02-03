@@ -50,11 +50,12 @@ class CasosPacientesView(Resource):
 
         json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
         rol = json_response['rol']
+        especialidad = json_response['especialidad']
 
         if (rol == 'Medico') or (response.status_code == 200):
 
             logica = Logica()
-            logica.obtener_casos_disponibles()
+            logica.obtener_casos_disponibles(especialidad)
             return {"message":"hola"}, 200
         else:
             return {"message":"Unauthorized"}, 401

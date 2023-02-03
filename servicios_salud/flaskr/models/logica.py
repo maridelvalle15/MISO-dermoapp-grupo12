@@ -1,4 +1,4 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..utils.helpers import construir_descripcion_caso
 
 class Logica():
@@ -65,7 +65,18 @@ class Logica():
         return lesion_distribucion
 
     @staticmethod
-    def obtener_casos():
+    def obtener_casos_disponibles(especialidad):
+        casos = Caso.query.all()
         return True
+
+    @staticmethod
+    def match_especialidad_valida(especialidad, lesion, piel):
+        match_especialidad = MatchEspecialidades.query.filter(
+            MatchEspecialidades.especialidad == especialidad,
+            MatchEspecialidades.tipo_lesion == lesion,
+            MatchEspecialidades.tipo_piel == piel
+        ).first()
+
+        return match_especialidad
 
         
