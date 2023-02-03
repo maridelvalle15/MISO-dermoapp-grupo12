@@ -1,7 +1,7 @@
 from flaskr import create_app
 from flask_restful import Api
 from .models import db
-from .views import SuministroLesionView
+from .views import SuministroLesionView, CasosPacientesView
 import logging
 from .utils.seeds import Seeds
 
@@ -42,6 +42,7 @@ seeds.poblar_lesion_distribucion('sim', 'simetrica')
 api = Api(app)
 
 api.add_resource(SuministroLesionView, '/api/suministro-lesion')
+api.add_resource(CasosPacientesView, '/api/suministro-lesion')
 
 if __name__ == "__main__":
     app.run(debug=True)

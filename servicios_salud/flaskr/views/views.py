@@ -40,3 +40,21 @@ class SuministroLesionView(Resource):
             return {"message":"Caso creado exitosamente", "id_caso": nuevo_caso.id}, 200
         else:
             return {"message":"Unauthorized"}, 401
+
+class CasosPacientesView(Resource):
+    def get(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+
+        if (rol == 'Medico') or (response.status_code == 200):
+
+            logica = Logica()
+            logica.obtener_casos_disponibles()
+            return {"message":"hola"}, 200
+        else:
+            return {"message":"Unauthorized"}, 401

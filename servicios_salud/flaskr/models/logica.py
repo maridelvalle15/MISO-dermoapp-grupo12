@@ -64,4 +64,8 @@ class Logica():
 
         return lesion_distribucion
 
+    @staticmethod
+    def obtener_casos():
+        return True
+
         
