@@ -18,12 +18,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          cd autenticacion
+          cd gestion_dermatologia
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
           cd autenticacion
-          export DB_URI="sqlite:////tmp/test_autenticacion.db" 
+          export DB_URI="sqlite:////tmp/test_salud.db" 
+          export AUTH_BASE_URI=http://0.0.0.0
           pytest --cov-report term --cov=flaskr tests/
