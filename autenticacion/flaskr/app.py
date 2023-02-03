@@ -1,13 +1,13 @@
 from flaskr import create_app
 from flask_restful import Api
 from .models import db, Usuario
-from .views import RegistroView, LogInView
+from .views import RegistroView, LogInView, ValidacionUsuarioView
 from flask_user import UserManager
 import pytest
 from .utils.seeds import Seeds
 from flask_jwt_extended import JWTManager
 
-app = create_app('default')
+app = create_app('autenticacion')
 app_context = app.app_context()
 app_context.push()
 
@@ -25,6 +25,7 @@ user_manager = UserManager(app, db, Usuario)
 
 api.add_resource(RegistroView, '/api/registro', resource_class_kwargs={'user_manager': user_manager})
 api.add_resource(LogInView, '/api/login')
+api.add_resource(ValidacionUsuarioView, '/api/validacion-usuario')
 
 jwt = JWTManager(app)
 
