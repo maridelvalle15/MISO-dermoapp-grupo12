@@ -1,4 +1,4 @@
-name: ci-autenticacion
+name: ci-gestiondermatologia
 
 on: [pull_request]
 
@@ -24,7 +24,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
-          cd autenticacion
+          cd gestion_dermatologia
           export DB_URI="sqlite:////tmp/test_salud.db" 
           export AUTH_BASE_URI=http://0.0.0.0
           pytest --cov-report term --cov=flaskr tests/
