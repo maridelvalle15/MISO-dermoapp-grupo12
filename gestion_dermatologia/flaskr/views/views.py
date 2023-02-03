@@ -16,14 +16,14 @@ class SuministroLesionView(Resource):
         rol = json_response['rol']
         id_usuario = json_response['id_usuario']
 
-        if (rol == 'PACIENTE') or (response.status_code == 200):
+        if (rol == 'Paciente') or (response.status_code == 200):
             tipo_lesion = request.form.get('tipo')
             forma = request.form.get('forma')
             numero = request.form.get('cantidad')
             distribucion = request.form.get('distribucion')
             adicional = request.form.get('adicional')
             imagen_lesion = request.files.get('image')
-            
+
             if (imagen_lesion != "") and (imagen_lesion is not None):
                 imagen_procesada = procesar_imagen(imagen_lesion)
 
