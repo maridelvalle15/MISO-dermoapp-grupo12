@@ -5,13 +5,14 @@ import { UsuarioIngresoComponent } from './usuario/usuario-ingreso/usuario-ingre
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
 import { RegistroExitosoComponent } from './usuario/usuario-registro/registro-exitoso/registro-exitoso.component';
 import { HeaderComponent } from './app-header/header/header/header.component';
+import { PermisoGuard } from './permiso.guard';
 
 
 const routes: Routes = [
   {path:'',component: UsuarioIngresoComponent},
   {path:'usuario-registro',component: UsuarioRegistroComponent},
-  {path:'usuario-registro/registro-exitoso',component: RegistroExitosoComponent},
-  {path:'header',component: HeaderComponent}
+  {path:'usuario-registro/registro-exitoso',component: RegistroExitosoComponent,canActivate: [PermisoGuard]},
+  {path:'header',component: HeaderComponent,canActivate: [PermisoGuard]}
 ];
 
 @NgModule({
