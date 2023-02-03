@@ -1,10 +1,10 @@
-from ..models import UsuarioSchema, db, UsuarioMedico, Usuario, Ubicacion, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, Especialidad, Rol
+from ..models import UsuarioSchema, db, UsuarioRol, Usuario, Ubicacion, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, Especialidad, Rol
 from ..models.logica import Logica
 from .logica import procesar_imagen
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
 import secrets, datetime
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 usuario_schema = UsuarioSchema()
 ubicacion_schema = UbicacionSchema()
@@ -79,6 +79,7 @@ class RegistroView(Resource):
 
         return {"message":"usuario creado exitosamente", "password": password}, 200
 
+    @jwt_required()
     def get(self):
         return {"message":"hola"}, 200
 
@@ -95,3 +96,13 @@ class LogInView(Resource):
             
         else:
             return {"message":"El usuario no existe"}, 404
+
+class ValidacionUsuarioView(Resource):
+
+    @jwt_required()
+    def get(self):
+        id_usuario = get_jwt_identity()
+        rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
+        rol = Rol.query.filter(Rol.id==rol_id).first().nombre
+
+        return {"id_usuario":id_usuario, "rol":rol}, 200,{'Content-Type': 'application/json'}
