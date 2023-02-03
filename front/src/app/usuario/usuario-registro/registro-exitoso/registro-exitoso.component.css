@@ -1,7 +1,7 @@
-html {
-  background-color:#1e3f52 ;
-}
 
+body {
+  background-color:#1e3f52;
+}
 
 
 div {
@@ -17,7 +17,7 @@ button{
   padding: 0.7em;
   margin: 0;
   position: absolute;
-  top: 75%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
