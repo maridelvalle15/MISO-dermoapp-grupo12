@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 import requests, os, json
 from ..models.logica import Logica
+from .logica import procesar_imagen
 
 class SuministroLesionView(Resource):
 
@@ -21,12 +22,20 @@ class SuministroLesionView(Resource):
             numero = request.form.get('cantidad')
             distribucion = request.form.get('distribucion')
             adicional = request.form.get('adicional')
-            imagen_lesion = request.form.get('image')
+            imagen_lesion = request.files.get('image')
+            
+            if (imagen_lesion != "") and (imagen_lesion is not None):
+                imagen_procesada = procesar_imagen(imagen_lesion)
+
+                if imagen_procesada is False:
+                    return {"message":"error al procesar la imagen"}, 400
+            else:
+                imagen_procesada = imagen_lesion
 
             logica = Logica()
 
             objetos_lesion = logica.obtener_objetos_lesion(tipo_lesion,forma,numero,distribucion)
-            nuevo_caso = logica.crear_caso(objetos_lesion,adicional,imagen_lesion,id_usuario)
+            nuevo_caso = logica.crear_caso(objetos_lesion,adicional,imagen_procesada,id_usuario)
             
             return {"message":"Caso creado exitosamente", "id_caso": nuevo_caso.id}, 200
         else:

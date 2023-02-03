@@ -32,7 +32,7 @@ class Caso(db.Model):
     distribucion = db.Column(db.Integer, db.ForeignKey('lesion_distribucion.id'))
     imagen_caso = db.Column(db.String(250), unique=False)
     tipo_solucion = db.Column(db.String(20), unique=False)
-    paciente_id = db.Column(db.Integer, unique=True)
+    paciente_id = db.Column(db.Integer)
 
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:
