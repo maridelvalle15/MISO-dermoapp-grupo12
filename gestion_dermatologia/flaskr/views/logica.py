@@ -20,11 +20,7 @@ class Logica():
 
         return objetos
 
-    @staticmethod
-    def construir_descripcion_caso(self,tipo='',forma='',numero='',distribucion='',adicional=''):
-       
-        objetos_lesion = self.obtener_objetos_lesion(tipo,forma,numero,distribucion)
-
+    def construir_descripcion_caso(self,objetos_lesion,adicional):
         descripcion = 'Tipo de lesion: ' + objetos_lesion['tipo_lesion'].nombre + '\n' + \
             'Forma de la lesion: ' + objetos_lesion['forma_lesion'].nombre + '\n' + \
             'Numero de lesiones: ' + objetos_lesion['numero_lesion'].nombre + '\n' + \
