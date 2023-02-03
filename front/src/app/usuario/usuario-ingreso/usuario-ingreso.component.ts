@@ -29,7 +29,7 @@ export class UsuarioIngresoComponent implements OnInit {
     this.usuarioService.userLogIn(correo, password)
     .subscribe(res => {
       const decodedToken = this.helper.decodeToken(res.token);
-      this.router.navigate([`../usuario-registro/${decodedToken.sub}/${res.token}`])
+      this.router.navigate([`../usuario-registro/`])
     },
     error => {
       this.error=true
