@@ -54,12 +54,13 @@ class Seeds():
         return lesion_distribucion
 
     def poblar_match_especialidades(self, especialidad, lesion, piel):
+        lesion_id = LesionTipo.query.filter(LesionTipo.nombre == lesion).first().id
         match_especialidad = self.logica.match_especialidad_valida(especialidad, lesion, piel)
         if  match_especialidad is None:
             match_especialidad = MatchEspecialidades(
                 especialidad=especialidad,
-                lesion=lesion,
-                piel=piel
+                tipo_lesion=lesion_id,
+                tipo_piel=piel
             )
             db.session.add(match_especialidad)
             db.session.commit()

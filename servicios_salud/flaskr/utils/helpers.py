@@ -1,6 +1,7 @@
 import os
-import boto3, botocore
+import boto3
 from werkzeug.utils import secure_filename
+from flask import jsonify
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -44,3 +45,18 @@ def upload_file_to_s3(file):
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def construir_casos_mostrar(casos):
+    lista_casos = []
+    for caso in casos:
+        json_caso = {
+            'id': caso.id,
+            'fecha': str(caso.fecha_creacion),
+            'tipopiel': caso.tipo_piel,
+            'informacion': caso.descripcion,
+            'nombrepaciente': caso.nombre_paciente
+
+        }
+        lista_casos.append(json_caso)
+
+    return lista_casos

@@ -1,4 +1,4 @@
-from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol
+from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol, Especialidad, UsuarioPaciente
 from ..models.logica import Logica
 from .logica import procesar_imagen
 from flask_restful import Resource
@@ -104,10 +104,14 @@ class ValidacionUsuarioView(Resource):
         id_usuario = get_jwt_identity()
         rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
         rol = Rol.query.filter(Rol.id==rol_id).first().nombre
+        nombre = Usuario.query.filter(Usuario.usuario_id == id_usuario).first().nombre
 
         if rol == 'Medico':
-            especialidad = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).especialidad
+            especialidad_id = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).first().especialidad_id
+            especialidad = Especialidad.query.filter(Especialidad.id == especialidad_id).first().nombre
+            tipo_piel = ''
         else:
             especialidad = ''
+            tipo_piel = UsuarioPaciente.query.filter(UsuarioPaciente.id==id_usuario).first().tipo_piel
 
-        return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad}, 200,{'Content-Type': 'application/json'}
+        return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre}, 200,{'Content-Type': 'application/json'}

@@ -73,7 +73,7 @@ seeds.poblar_match_especialidades('Quirurgica','nodulo','sensible')
 api = Api(app)
 
 api.add_resource(SuministroLesionView, '/api/suministro-lesion')
-api.add_resource(CasosPacientesView, '/api/suministro-lesion')
+api.add_resource(CasosPacientesView, '/api/casos-pacientes')
 
 if __name__ == "__main__":
     app.run(debug=True)
