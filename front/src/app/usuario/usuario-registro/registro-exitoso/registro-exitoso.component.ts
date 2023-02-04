@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from 'app/usuario/usuario.service';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { ActivatedRoute,Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 
@@ -14,11 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistroExitosoComponent implements OnInit {
   usuarioForm !: FormGroup;
   constructor(
-    private usuarioService: UsuarioService,
     private router: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-
   ) { }
   email :any;
   password: any;
@@ -26,12 +21,7 @@ export class RegistroExitosoComponent implements OnInit {
     this.router.queryParams.subscribe((params:any)=>{
       this.email = params.data
       this.password = params.passwordUsuario
-
-
     })
-
-
-
   }
 
 }

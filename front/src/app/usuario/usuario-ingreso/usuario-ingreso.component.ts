@@ -3,6 +3,11 @@ import { UsuarioService } from '../usuario.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import {  FormGroup } from '@angular/forms';
+import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-usuario-ingreso',
@@ -12,17 +17,24 @@ import { CookieService } from 'ngx-cookie-service';
 export class UsuarioIngresoComponent implements OnInit {
 
   helper = new JwtHelperService();
+  usuarioForm !: FormGroup;
 
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private formBuilder: FormBuilder,
 
   ) { }
 
   error: boolean = false
 
   ngOnInit() {
+    this.usuarioForm = this.formBuilder.group({
+
+      correo: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
+
+    })
   }
 
   onLogInUsuario(correo: string, password: string){
@@ -31,7 +43,7 @@ export class UsuarioIngresoComponent implements OnInit {
     this.usuarioService.userLogIn(correo, password)
     .subscribe((res: any) => {
       const decodedToken = this.helper.decodeToken(res.token);
-      this.router.navigate([`../header/`])
+      this.router.navigate([`../caso/`],{queryParams:{data:this.usuarioForm.get('correo')?.value,}})
       this.cookieService.set('token_access',res.token,1,'/')
     },
     error => {
