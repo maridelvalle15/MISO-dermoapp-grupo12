@@ -104,7 +104,7 @@ class ValidacionUsuarioView(Resource):
         id_usuario = get_jwt_identity()
         rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
         rol = Rol.query.filter(Rol.id==rol_id).first().nombre
-        nombre = Usuario.query.filter(Usuario.usuario_id == id_usuario).first().nombre
+        nombre = Usuario.query.filter(Usuario.id == id_usuario).first().nombre
 
         if rol == 'Medico':
             especialidad_id = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).first().especialidad_id
