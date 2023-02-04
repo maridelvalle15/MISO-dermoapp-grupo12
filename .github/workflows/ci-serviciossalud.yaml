@@ -1,4 +1,4 @@
-name: ci-gestiondermatologia
+name: ci-serviciossalud
 
 on: [pull_request]
 
@@ -18,13 +18,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          cd gestion_dermatologia
+          cd servicios_salud
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
-          cd gestion_dermatologia
+          cd servicios_salud
           export DB_URI="sqlite:////tmp/test_salud.db" 
           export AUTH_BASE_URI=http://0.0.0.0
           pytest --cov-report term --cov=flaskr tests/

@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -33,6 +34,20 @@ class Caso(db.Model):
     imagen_caso = db.Column(db.String(250), unique=False)
     tipo_solucion = db.Column(db.String(20), unique=False)
     paciente_id = db.Column(db.Integer, unique=False)
+    nombre_paciente = db.Column(db.String(100), unique=False)
+    medico_asignado = db.Column(db.Integer, unique=False)
+    tipo_piel = db.Column(db.String(100), unique=False)
+    especialidad_asociada = db.Column(db.String(50), unique=False)
+    fecha_creacion = db.Column(db.DateTime(timezone=True), server_default=func.now())
+
+    def nombre_lesion(self):
+        return LesionTipo.query.filter(LesionTipo.id == self.tipo_lesion).first().nombre
+
+class MatchEspecialidades(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    especialidad = db.Column(db.String(50), unique=False)
+    tipo_lesion = db.Column(db.Integer, db.ForeignKey('lesion_tipo.id'))
+    tipo_piel = db.Column(db.String(100), unique=False)
 
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -61,5 +76,11 @@ class LesionDistribucionSchema(SQLAlchemyAutoSchema):
 class CasoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = Caso
+         include_relationships = True
+         load_instance = True
+
+class MatchEspecialidadesSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = MatchEspecialidades
          include_relationships = True
          load_instance = True

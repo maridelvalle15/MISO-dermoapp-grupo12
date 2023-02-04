@@ -1,4 +1,4 @@
-from ..models import db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion
+from ..models import db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..models.logica import Logica
 
 class Seeds():
@@ -52,3 +52,17 @@ class Seeds():
             db.session.commit()
 
         return lesion_distribucion
+
+    def poblar_match_especialidades(self, especialidad, lesion, piel):
+        lesion_id = LesionTipo.query.filter(LesionTipo.nombre == lesion).first().id
+        match_especialidad = self.logica.match_especialidad_valida(especialidad, lesion, piel)
+        if  match_especialidad is None:
+            match_especialidad = MatchEspecialidades(
+                especialidad=especialidad,
+                tipo_lesion=lesion_id,
+                tipo_piel=piel
+            )
+            db.session.add(match_especialidad)
+            db.session.commit()
+
+        return match_especialidad
