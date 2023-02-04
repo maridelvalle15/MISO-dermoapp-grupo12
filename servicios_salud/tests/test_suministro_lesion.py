@@ -15,7 +15,8 @@ class TestRegistro:
     def test_paciente_crea_caso(self,client,mocker):
         
         request_mock = mocker.patch("requests.get")
-        request_mock.return_value.content = b'{"id_usuario": 3, "rol": "Paciente"}\n'
+        request_mock.return_value.content = b'{"id_usuario": 3, "rol": "Paciente", "tipo_piel": "normal"}\n'
+        request_mock.return_value.status_code = 200
 
         data = {
             'tipo': 'mac',
