@@ -33,3 +33,33 @@
 
  * Información de lesión permitida: el backend recibe los códigos que corresponden a cada uno de los ítems que conforman la información de la lesión. A continuación la información permitida incluyendo los códigos correspondientes:
    - Tipo de lesión: mac - macula ; pap - papula ; par - parche ; pla - placa ; nod - nodulo ; amp - ampolla ; ulc - ulcera ; ves - vesicula
+   - Forma de lesión: ani - anillo ; dom - domo ; enr - enrollada ; ind - indefinida ; ova - ovalada ; red - redonda
+   - Número de lesiones: dis - diseminada ; mul - multiple ; rec - recurrente ; sol - solitaria
+   - Distribución de lesión: asi - asimetrica ; con - confluente ; esp - esparcida ; sim - simetrica
+* Match de especialidad del médico con lesiones del paciente y tipo de piel: se implementa una tabla match_especialidades que contiene una 3-tupla en la que se encuentra qué tipos de lesion y piel corresponden a las distintas especialidades que maneja la aplicación. Se describen a continuación:
+   - General - ampolla - normal
+   - General - ampolla - mixta
+   - General - ulcera - normal
+   - General - ulcera - mixta
+   - General - vesicula - normal
+   - General - vesicula - mixta
+   - Clinica - macula - normal
+   - Clinica - macula - seca
+   - Clinica - macula - grasa
+   - Clinica - macula - mixta
+   - Clinica - macula - sensible
+   - Clinica - parche - normal
+   - Clinica - parche - seca
+   - Clinica - parche - grasa
+   - Clinica - parche - mixta
+   - Clinica - parche - sensible
+   - Cosmetica - placa - seca
+   - Cosmetica - placa - grasa
+   - Cosmetica - placa - sensible
+   - Laser - papula - normal
+   - Laser - papula - mixta
+   - Quirurgica - nodulo - normal
+   - Quirurgica - nodulo - seca
+   - Quirurgica - nodulo - grasa
+   - Quirurgica - nodulo - mixta
+   - Quirurgica - nodulo - sensible
