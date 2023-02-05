@@ -23,6 +23,8 @@ jobs:
         # No ejecutar si se obtuvo node_modules de cache
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: |
+          npm install -g @angular/cli
           cd front
           npm install
+          npm install tslib --save-dev
           npm run test
