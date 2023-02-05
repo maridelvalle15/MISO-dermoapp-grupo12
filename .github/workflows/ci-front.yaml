@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         # No ejecutar si se obtuvo node_modules de cache
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run:
-        cd front
-        npm install
-        npm run test
+        run: |
+          cd front
+          npm install
+          npm run test
