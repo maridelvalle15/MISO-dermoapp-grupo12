@@ -4,7 +4,7 @@
 
 ## Configuración aplicación backend: autenticacion
 
- * Base de datos: se puede configurar una base de datos SQLite o Postgres, a través de la variable de ambiente DB_URI (como se puede ver en el archivo .env.example). Para funcionamiento local, se puede colocar en el archivo .env o setearlo a través de la ejecución de EXPORT en consola. Para configurarlo en el contenedor de docker, debe colocarse en el archivo variables.env
+ * Base de datos: se puede configurar una base de datos SQLite o Postgres, a través de la variable de ambiente DB_URI (como se puede ver en el archivo .env.example). Para funcionamiento local, se puede colocar en el archivo .env o setearlo a través de la ejecución de EXPORT en consola. Para configurarlo en el contenedor de docker, debe colocarse en el archivo variables-prod-autenticacion.env
  * Configuración bucket S3: igual que el punto anterior, para local y el contenedor de docker, pero en las variables de ambiente: AWS_BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY y AWS_DOMAIN
 
 ## Ejecución aplicación backend: autenticacion
@@ -20,7 +20,7 @@
 
 ## Configuración aplicación backend: servicios_salud
 
- * Base de datos: misma configuración que la aplicación backend autenticación
+ * Base de datos: misma configuración que la aplicación backend autenticación, pero para la configuracion del contenedor de docker, el archivo de variables de ambiente debe llamarse variables-prod-salud
  * Configuración bucket S3: misma configuración que la aplicación backend autenticación
  * Url de acceso a la aplicación backend autenticación: así como en la configuración de base de datos y bucket S3, para local y el contenedor de docker, pero en la variable de ambiente AUTH_BASE_URI
 
@@ -28,6 +28,10 @@
 
  * Local: en la carpeta flask ejecutar flask run
  * Contenedor de docker: en la carpeta autenticacion, ejecutar docker compose build y luego docker compose up
+ * El servicio de autenticación debe estar ejecutándose para el correcto funcionamiento del servicio servicios_salud
+
+## Consideraciones aplicación backend: autenticacion
+* Para los servicios de registro y suministro de información de la lesión, se requiere cargar imágenes por parte del usuario. Para que funcione correctamente se deben configurar las variables de ambiente indicadas en el archivo .env.example con las credenciales programáticas de AWS para su correcto funcionamiento
 
 ## Consideraciones aplicación backend: servicios_salud
 
@@ -63,3 +67,7 @@
    - Quirurgica - nodulo - grasa
    - Quirurgica - nodulo - mixta
    - Quirurgica - nodulo - sensible
+
+   ## Consideraciones productivas
+   * Los archivos variables-prod-autenticacion.env y variables-prod-salud.env deben existir en el bucket de s3 dermoapp-config. Esto para que al momento del despliegue se puedan tomar las variables con valores de credenciales productivas y que no deben ser expuestas en el repositorio publico
+   * Actualmente no hay despliegue continuo implementado, sino que a través de un script de arranque que no se encuentra en el repositorio publico (ya que contiene credenciales de aws) se espera poder realizar el despliegue en instancias ec2
