@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:dermoapp/common/uifunctions/showSingleDialogButton.dart';
 import 'package:dermoapp/ui/caseDetailScreen.dart';
-import 'package:dermoapp/ui/registerOkScreen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +17,7 @@ Future<bool> submitCase(BuildContext context, String tipolesion,
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? token = preferences.getString("token");
   final request = http.MultipartRequest(
-      'POST', Uri.parse('https://c6f0-186-80-52-161.ngrok.io/api/caso'));
+      'POST', Uri.parse('http://.../api/suministro-lesion'));
   request.headers.addAll({'Authorization': 'Bearer $token'});
   request.fields['tipo'] = tipolesion;
   request.fields['forma'] = formalesion;
@@ -37,7 +36,7 @@ Future<bool> submitCase(BuildContext context, String tipolesion,
   final responseJson = json.decode(received.body);
 
   if (response.statusCode == 200) {
-    var caseId = responseJson["id"];
+    var caseId = responseJson["id_caso"];
 
     if (!Platform.environment.containsKey('FLUTTER_TEST')) {
       // ignore: use_build_context_synchronously

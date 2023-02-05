@@ -19,9 +19,9 @@ Future<bool> submit(
     String pais,
     String tipopiel,
     File? image) async {
-  final request = http.MultipartRequest(
-      'POST', Uri.parse('https://ae44-186-80-52-161.ngrok.io/api/registro'));
-  //request.headers.addAll(<String,String>){'Authorization': 'Bearer $token'});
+  final request =
+      http.MultipartRequest('POST', Uri.parse('http://.../api/registro'));
+
   request.fields['nombre'] = nombre;
   request.fields['edad'] = edad;
   request.fields['ciudad'] = ciudad;
