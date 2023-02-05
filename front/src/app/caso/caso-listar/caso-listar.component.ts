@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Caso } from '../caso';
 import { CasoService } from '../caso.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+;
+
+interface Student{
+  id: number;
+  informacion:string;
+}
 
 @Component({
   selector: 'app-caso-listar',
@@ -10,15 +14,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./caso-listar.component.css']
 })
 export class CasoListarComponent implements OnInit {
-  token: any;
 
-  constructor(
-    private casoService: CasoService,
-    private routerPath: Router,
-    private router: ActivatedRoute,
-    private toastr: ToastrService
-  ) { }
-
+  casos: Caso[] =[];
+  constructor(private casoService: CasoService,) {}
 
 
   ngOnInit() {
@@ -26,10 +24,19 @@ export class CasoListarComponent implements OnInit {
 
   }
 
-  getCasos():void{
-    this.casoService.getCasos().subscribe(res => {
-      console.log(res)
+  getCasos(){
+    this.casoService.getCasos().subscribe(casos => {
+      this.casos = casos;
+      console.log(casos)
+      this.casos = Object.values(this.casos)
     })
+
   }
+
+
+
+
+
+
 
 }
