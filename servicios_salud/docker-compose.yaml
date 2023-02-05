@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  pyapp:
-    env_file: variables.env
-    container_name: pyapp-servicios_salud
+  pyapp-salud:
+    env_file: variables-prod-salud.env
+    container_name: pyapp-salud
     build: .
     command: bash -c "gunicorn -w 1 --bind 0.0.0.0:8001 flaskr.app:app"
     volumes:
