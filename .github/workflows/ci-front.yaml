@@ -1,4 +1,3 @@
-
 name: ci-front
 on: [push]
 
