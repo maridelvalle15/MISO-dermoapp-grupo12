@@ -4,7 +4,7 @@
 
 ## Configuración aplicación backend: autenticacion
 
- * Base de datos: se puede configurar una base de datos SQLite o Postgres, a través de la variable de ambiente DB_URI (como se puede ver en el archivo .env.example). Para funcionamiento local, se puede colocar en el archivo .env o setearlo a través de la ejecución de EXPORT en consola. Para configurarlo en el contenedor de docker, debe colocarse en el archivo variables-prod-autenticacion.env
+ * Base de datos: se puede configurar una base de datos SQLite o Postgres, a través de la variable de ambiente DB_URI (como se puede ver en el archivo .env.example). Para funcionamiento local, se puede colocar en el archivo .env o setearlo a través de la ejecución de EXPORT en consola. Para configurarlo en el contenedor de docker, debe colocarse en el archivo variables-prod-autenticacion.env. El archivo de variables de ambiente debe estar en la carpeta autenticacion
  * Configuración bucket S3: igual que el punto anterior, para local y el contenedor de docker, pero en las variables de ambiente: AWS_BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY y AWS_DOMAIN
 
 ## Ejecución aplicación backend: autenticacion
@@ -20,7 +20,7 @@
 
 ## Configuración aplicación backend: servicios_salud
 
- * Base de datos: misma configuración que la aplicación backend autenticación, pero para la configuracion del contenedor de docker, el archivo de variables de ambiente debe llamarse variables-prod-salud
+ * Base de datos: misma configuración que la aplicación backend autenticación, pero para la configuracion del contenedor de docker, el archivo de variables de ambiente debe llamarse variables-prod-salud. El archivo de variables de ambiente debe estar en la carpeta servicios_salud
  * Configuración bucket S3: misma configuración que la aplicación backend autenticación
  * Url de acceso a la aplicación backend autenticación: así como en la configuración de base de datos y bucket S3, para local y el contenedor de docker, pero en la variable de ambiente AUTH_BASE_URI
 
