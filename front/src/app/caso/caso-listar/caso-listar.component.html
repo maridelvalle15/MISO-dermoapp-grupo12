@@ -11,12 +11,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of casos">
-      <th scope="row"></th>
-      <td>{{casos | json}}</td>
-      <td>{{casos}}</td>
-      <td>@mdo</td>
+    <tr *ngFor="let caso of casos">
+      <td>{{caso.fecha}}</td>
+      <td>{{caso.id}}</td>
+      <td>{{caso.informacion}}</td>
+      <td>{{caso.nombrepaciente}}</td>
       <td><button>Ver detalle</button></td>
+
     </tr>
 
   </tbody>

@@ -1,10 +1,9 @@
 
-FROM node:12 as node
+FROM node:latest as node
 WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build --prod
-EXPOSE 4200
 
 
 FROM nginx:1.17.1-alpine
