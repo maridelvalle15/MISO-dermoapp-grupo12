@@ -1,4 +1,8 @@
-jobs: ci-front
+
+name: ci-front
+on: [push]
+
+jobs:
   install:
     name: Installation # Nombre del Job
     runs-on: ubuntu-latest # Ejecutar en Ubuntu
