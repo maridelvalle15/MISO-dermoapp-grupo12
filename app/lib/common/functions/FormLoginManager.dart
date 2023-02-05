@@ -20,10 +20,8 @@ Future<UserModel?> submitLogin(
 
   var body = json.encode(data);
 
-  final response = await client.post(
-      Uri.parse('https://c6f0-186-80-52-161.ngrok.io/api/login'),
-      body: body,
-      headers: {"Content-Type": "application/json"});
+  final response = await client.post(Uri.parse('http://.../api/login'),
+      body: body, headers: {"Content-Type": "application/json"});
 
   final loginResponseJson = json.decode(response.body);
 

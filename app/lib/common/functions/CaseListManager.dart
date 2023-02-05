@@ -10,7 +10,7 @@ final http.Client client = http.Client();
 Future<List> getMyCases() async {
   String token = await getToken() as String;
   final response = await client.get(
-    Uri.parse('https://c6f0-186-80-52-161.ngrok.io/api/caso'),
+    Uri.parse('http://.../api/suministro-lesion'),
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer $token',
     },
@@ -20,14 +20,9 @@ Future<List> getMyCases() async {
     var responseJson = json.decode(response.body);
 
     List<dynamic> cases = [];
-    for (final caseResponseTag in responseJson) {
-      if (caseResponseTag["cases"] != null) {
-        cases = caseResponseTag["cases"]
-            .map<CaseModel>((json) => CaseModel.fromJson(json))
-            .toList();
-        break;
-      }
-    }
+    cases = responseJson["casos"]
+        .map<CaseModel>((json) => CaseModel.fromJson(json))
+        .toList();
 
     return cases;
   } else {
