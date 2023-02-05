@@ -43,8 +43,9 @@ export class UsuarioIngresoComponent implements OnInit {
     this.usuarioService.userLogIn(correo, password)
     .subscribe((res: any) => {
       const decodedToken = this.helper.decodeToken(res.token);
-      this.router.navigate([`../caso/`],{queryParams:{data:this.usuarioForm.get('correo')?.value,}})
+      this.router.navigate([`../caso-listar`],{queryParams:{data:this.usuarioForm.get('correo')?.value,}})
       this.cookieService.set('token_access',res.token,1,'/')
+      console.log(res.token)
     },
     error => {
       this.error=true

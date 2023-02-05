@@ -5,14 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ToastrModule } from 'ngx-toastr';
-import { CasoComponent } from './caso/caso.component';
 import { AppHeaderModule } from './app-header/app-header.module';
-
+import { CasoModule } from './caso/caso.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-      CasoComponent
    ],
   imports: [
     BrowserModule,
@@ -21,6 +19,7 @@ import { AppHeaderModule } from './app-header/app-header.module';
     ToastrModule.forRoot(),
     UsuarioModule,
     AppHeaderModule,
+    CasoModule,
 
   ],
   providers: [],

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from './usuario';
+import { environment } from 'environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private backUrl: string = 'http://localhost:5000/';
+  backUrl = environment.servidor;
 
 
   constructor(private http: HttpClient) {}
@@ -14,7 +16,7 @@ export class UsuarioService {
 
 
   userLogIn(email: string, password: string):Observable<any>{
-    return this.http.post<any>('/api/login', {"correo": email, "password": password });
+    return this.http.post<any>(`api/login`, {"correo": email, "password": password });
 }
 
   userSignUp(
