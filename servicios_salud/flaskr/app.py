@@ -4,7 +4,7 @@ from .models import db
 from .views import SuministroLesionView, CasosPacientesView
 import logging
 from .utils.seeds import Seeds
-
+from flask_cors import CORS, cross_origin
 
 app = create_app('gestion_dermatologia')
 app_context = app.app_context()
@@ -69,6 +69,8 @@ seeds.poblar_match_especialidades('Quirurgica','nodulo','seca')
 seeds.poblar_match_especialidades('Quirurgica','nodulo','grasa')
 seeds.poblar_match_especialidades('Quirurgica','nodulo','mixta')
 seeds.poblar_match_especialidades('Quirurgica','nodulo','sensible')
+
+cors = CORS(app)
 
 api = Api(app)
 
