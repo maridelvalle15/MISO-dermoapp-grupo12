@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2 # Clonar repositorio actual
       - uses: actions/setup-node@v1 # Usar Node
         with:
-          node-version: 12 # Versión de Node
+          node-version: 19.6.0 # Versión de Node
       # Cargar cache de node_modules, para reducir tiempo de instalación en próximas ejecuciones
       - name: Cache node modules
         id: node-cache # Id del cache
