@@ -87,4 +87,9 @@ class Logica():
 
         return match_especialidad
 
+    def obtener_casos_paciente(self,id_paciente):
+        casos = Caso.query.filter(Caso.paciente_id==id_paciente)\
+            .filter(Caso.medico_asignado == None).all()
+        
+        return casos
         
