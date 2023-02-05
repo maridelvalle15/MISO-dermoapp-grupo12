@@ -1,7 +1,7 @@
 *.DS_Store
 *.coverage
 .env
-variables.env
 *__pycache__
 */variables-prod-salud.env
 */variables-prod-autenticacion.env
+variables*.env
