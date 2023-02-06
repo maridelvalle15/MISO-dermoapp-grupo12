@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
@@ -43,3 +44,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+=======
+*.DS_Store
+*.coverage
+.env
+variables.env
+*__pycache__
+>>>>>>> d03410e134654d97d31f39ed914da7a33d556c95
