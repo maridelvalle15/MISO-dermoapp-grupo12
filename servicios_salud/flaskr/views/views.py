@@ -3,9 +3,31 @@ from flask import request
 import requests, os, json
 from ..models.logica import Logica
 from .logica import procesar_imagen
-from ..utils.helpers import construir_casos_mostrar
+from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente
 
 class SuministroLesionView(Resource):
+
+    def get(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        id_usuario = json_response['id_usuario']
+
+        if (rol == 'Paciente') and (response.status_code == 200):
+
+            logica = Logica()
+
+            casos_paciente = logica.obtener_casos_paciente(id_usuario)
+            casos = construir_casos_mostrar_paciente(casos_paciente)
+            
+            return {"casos": casos }, 200
+        else:
+            return {"message":"Unauthorized"}, 401
+
 
     def post(self):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
