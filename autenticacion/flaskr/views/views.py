@@ -25,7 +25,6 @@ class RegistroView(Resource):
 
         email = request_data["correo"]
         nombre = request_data["nombre"]
-        direccion = request_data["direccion"]
 
         usuario = self.logica.usuario_valido(email=email)
         
@@ -41,6 +40,7 @@ class RegistroView(Resource):
         password = secrets.token_urlsafe(longitud_password)
 
         if request_data["tipousuario"] == "MEDICO":
+            direccion = request_data["direccion"]
             especialidad = self.logica.especialidad_valida(request_data["especialidad"])
             if especialidad is None:
                 return {"message":"especialidad no valida"}, 400
@@ -54,6 +54,7 @@ class RegistroView(Resource):
                 medico)
 
         elif request_data["tipousuario"] == "PACIENTE":
+            direccion = '' # TO-DO: solucionar luego
             edad = request_data["edad"]
             cedula = request_data["cedula"]
             tipo_piel = request_data["tipopiel"]

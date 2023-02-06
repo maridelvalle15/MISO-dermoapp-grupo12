@@ -103,7 +103,7 @@ class CaseListScreenState extends State<CaseListScreen> {
 
   DataRow getDataRow(index, data) {
     int caseId = data.id;
-    String diagnosticType = data.diagnosticType == 'auto'
+    String diagnosticType = data.tipodiagnostico == 'auto'
         ? AppLocalizations.of(context).automatic
         : AppLocalizations.of(context).manual;
     return DataRow(
@@ -112,7 +112,7 @@ class CaseListScreenState extends State<CaseListScreen> {
           Text('$caseId'),
         ),
         DataCell(
-          Text(data.date),
+          Text(data.fecha),
         ),
         DataCell(
           Text(diagnosticType),

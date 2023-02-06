@@ -6,6 +6,7 @@ from flask_user import UserManager
 import pytest
 from .utils.seeds import Seeds
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS, cross_origin
 
 app = create_app('autenticacion')
 app_context = app.app_context()
@@ -23,6 +24,8 @@ seeds.poblar_especialidad('Clinica')
 seeds.poblar_especialidad('Cosmetica')
 seeds.poblar_especialidad('Laser')
 seeds.poblar_especialidad('Quirurgica')
+
+cors = CORS(app)
 
 api = Api(app)
 user_manager = UserManager(app, db, Usuario)

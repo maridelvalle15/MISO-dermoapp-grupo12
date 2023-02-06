@@ -60,3 +60,16 @@ def construir_casos_mostrar(casos):
         lista_casos.append(json_caso)
 
     return lista_casos
+
+def construir_casos_mostrar_paciente(casos):
+    lista_casos = []
+    for caso in casos:
+        json_caso = {
+            'id': caso.id,
+            'fecha': str(caso.fecha_creacion),
+            'tipodiagnostico': caso.tipo_solucion
+
+        }
+        lista_casos.append(json_caso)
+
+    return lista_casos
