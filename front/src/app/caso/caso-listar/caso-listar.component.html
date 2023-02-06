@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Fecha</th>
+      <th scope="col">Caso ID</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Paciente</th>
+      <th scope="col">Detalle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let caso of casos">
+      <td>{{caso.fecha}}</td>
+      <td>{{caso.id}}</td>
+      <td>{{caso.informacion}}</td>
+      <td>{{caso.nombrepaciente}}</td>
+      <td><button>Ver detalle</button></td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+</div>

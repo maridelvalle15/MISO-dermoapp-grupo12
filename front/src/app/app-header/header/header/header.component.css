@@ -1,0 +1,25 @@
+nav {
+  background-color:#1e3f52 ;
+  color: white;
+}
+
+a .navbar-brand{
+  color: white;
+}
+
+
+div .nav-link {
+  color: white;
+
+}
+div .navbar-nav {
+  padding-top: 1%;
+  position: absolute;
+  right: 300px;
+}
+
+link{
+  position: absolute;
+  top: 50px;
+  right: 150px;
+}
