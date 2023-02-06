@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  pyapp-autenticacion:
+    env_file: variables-prod-autenticacion.env
+    container_name: pyapp-autenticacion
+    build: .
+    command: bash -c "gunicorn -w 1 --bind 0.0.0.0:8000 flaskr.app:app"
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    restart: always
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - pyapp-autenticacion
