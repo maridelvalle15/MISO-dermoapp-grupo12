@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioRegistroComponent } from './usuario-registro.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
@@ -11,7 +12,8 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
       imports: [
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         UsuarioRegistroComponent

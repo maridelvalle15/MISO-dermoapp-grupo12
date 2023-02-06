@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test-coverage":"ng test --code-coverage",
+    "test-coverage": "ng test --code-coverage",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless --reporters=junit --code-coverage"
   },
   "private": true,
@@ -20,8 +20,10 @@
     "@angular/platform-browser": "^15.1.0",
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/router": "^15.1.0",
+    "@auth0/angular-jwt": "^5.1.2",
     "bootstrap": "^4.4.1",
     "ngx-cookie-service": "^15.0.0",
+    "ngx-toastr": "^16.0.2",
     "rxjs": "~7.8.0",
     "zone.js": "~0.12.0"
   },

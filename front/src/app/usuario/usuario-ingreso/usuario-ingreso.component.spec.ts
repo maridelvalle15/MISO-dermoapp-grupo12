@@ -5,16 +5,19 @@ import { UsuarioIngresoComponent } from './usuario-ingreso.component';
 import { By } from '@angular/platform-browser';
 import { AppComponent } from 'app/app.component';
 import { finalize } from 'rxjs';
+import { ToastrModule } from 'ngx-toastr';
 
 
-describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
+describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+
       ],
       declarations: [
         UsuarioIngresoComponent
