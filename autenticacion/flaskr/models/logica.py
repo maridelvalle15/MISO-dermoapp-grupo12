@@ -1,4 +1,6 @@
 from ..models import UsuarioMedico, UsuarioPaciente, db, Ubicacion, Especialidad, Rol, Usuario
+from sqlalchemy import exc
+
 class Logica():
     @staticmethod
     def crear_usuario(password='',email='',nombre='',direccion='',ubicacion='',
@@ -16,8 +18,12 @@ class Logica():
                 edad=edad,cedula=cedula,tipo_piel=tipo_piel,imagen_piel=imagen_piel)    
 
         nuevo_usuario.roles.append(rol)
-        db.session.add(nuevo_usuario)
-        db.session.commit()
+        try:
+            db.session.add(nuevo_usuario)
+            db.session.commit()
+        except exc.SQLAlchemyError:
+            db.session.rollback()
+            return {"message":"Error al crear usuario"}, 500
 
         return nuevo_usuario
 
