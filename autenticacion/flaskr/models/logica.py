@@ -21,7 +21,8 @@ class Logica():
         try:
             db.session.add(nuevo_usuario)
             db.session.commit()
-        except exc.SQLAlchemyError:
+        except exc.SQLAlchemyError as e:
+            flaskr.logger.error(e)
             db.session.rollback()
             return {"message":"Error al crear usuario"}, 500
 

@@ -1,4 +1,5 @@
 from ..models import db, Ubicacion, Especialidad, Rol, logica
+from sqlalchemy import exc
 
 class Seeds():
     def __init__(self):
@@ -11,8 +12,12 @@ class Seeds():
                 pais=pais,
                 ciudad=ciudad
             )
-            db.session.add(ubicacion)
-            db.session.commit()
+            try:
+                db.session.add(ubicacion)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return ubicacion
 
@@ -23,8 +28,12 @@ class Seeds():
             especialidad = Especialidad(
                 nombre=nombre_especialidad
             )
-            db.session.add(especialidad)
-            db.session.commit()
+            try:
+                db.session.add(especialidad)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return especialidad
 
@@ -34,7 +43,11 @@ class Seeds():
             rol = Rol(
                 nombre=nombre_rol
             )
-            db.session.add(rol)
-            db.session.commit()
+            try:
+                db.session.add(rol)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return rol
