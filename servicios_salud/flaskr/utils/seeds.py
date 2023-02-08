@@ -1,5 +1,6 @@
 from ..models import db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..models.logica import Logica
+from sqlalchemy import exc
 
 class Seeds():
     def __init__(self):
@@ -12,8 +13,12 @@ class Seeds():
                 codigo=codigo,
                 nombre=nombre
             )
-            db.session.add(lesion_tipo)
-            db.session.commit()
+            try:
+                db.session.add(lesion_tipo)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return lesion_tipo
 
@@ -24,8 +29,12 @@ class Seeds():
                 codigo=codigo,
                 nombre=nombre
             )
-            db.session.add(lesion_forma)
-            db.session.commit()
+            try:
+                db.session.add(lesion_forma)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return lesion_forma
 
@@ -36,8 +45,12 @@ class Seeds():
                 codigo=codigo,
                 nombre=nombre
             )
-            db.session.add(lesion_numero)
-            db.session.commit()
+            try:
+                db.session.add(lesion_numero)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return lesion_numero
 
@@ -48,8 +61,12 @@ class Seeds():
                 codigo=codigo,
                 nombre=nombre
             )
-            db.session.add(lesion_distribucion)
-            db.session.commit()
+            try:
+                db.session.add(lesion_distribucion)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return lesion_distribucion
 
@@ -62,7 +79,11 @@ class Seeds():
                 tipo_lesion=lesion_id,
                 tipo_piel=piel
             )
-            db.session.add(match_especialidad)
-            db.session.commit()
+            try:
+                db.session.add(match_especialidad)
+                db.session.commit()
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)
+                db.session.rollback()
 
         return match_especialidad

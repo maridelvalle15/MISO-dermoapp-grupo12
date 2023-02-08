@@ -1,5 +1,6 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..utils.helpers import construir_descripcion_caso
+from sqlalchemy import exc
 
 class Logica():
 
@@ -24,8 +25,13 @@ class Logica():
             especialidad_asociada=especialidad,
             nombre_paciente=nombre
             )
-        db.session.add(nuevo_caso)
-        db.session.commit()
+        try:
+            db.session.add(nuevo_caso)
+        except exc.SQLAlchemyError as e:
+            flaskr.logger.error(e)    
+            db.session.commit()
+            db.session.rollback()
+            return {"message":"Error al crear usuario"}, 500
 
         return nuevo_caso
 

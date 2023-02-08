@@ -89,7 +89,7 @@ class LogInView(Resource):
     def post(self):
         
         usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
-        #db.session.commit()
+
         if usuario and usuario.verificar_password(request.json["password"]):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
