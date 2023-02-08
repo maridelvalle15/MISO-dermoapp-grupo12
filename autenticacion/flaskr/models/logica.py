@@ -49,7 +49,9 @@ class Logica():
         return rol
 
     @staticmethod
-    def usuario_valido(email=''):
+    def usuario_valido(email='',cedula=''):
         usuario = Usuario.query.filter(Usuario.email==email).first()
     
+        if cedula != '':
+            usuario = UsuarioPaciente.query.filter(UsuarioPaciente.cedula==cedula).first()
         return usuario

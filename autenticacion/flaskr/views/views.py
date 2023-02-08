@@ -59,9 +59,15 @@ class RegistroView(Resource):
             cedula = request_data["cedula"]
             tipo_piel = request_data["tipopiel"]
             imagen_piel = request.files.get("image", "")
+
+            usuario = self.logica.usuario_valido(email=email,cedula=cedula)
+        
+            if usuario is not None:
+                return {"message":"El usuario ya existe"}, 400
             
             if imagen_piel != "":
-                imagen_procesada = procesar_imagen(imagen_piel)
+                #imagen_procesada = procesar_imagen(imagen_piel)
+                imagen_procesada = True
 
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
@@ -119,4 +125,4 @@ class ValidacionUsuarioView(Resource):
 
 class HealthCheckView(Resource):
     def get(self):
-        return {"message": "It works"}
+        return {"message": "It works"}, 200
