@@ -116,3 +116,7 @@ class ValidacionUsuarioView(Resource):
             tipo_piel = UsuarioPaciente.query.filter(UsuarioPaciente.id==id_usuario).first().tipo_piel
 
         return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre}, 200,{'Content-Type': 'application/json'}
+
+class HealthCheckView(Resource):
+    def get(self):
+        return {"message": "It works"}
