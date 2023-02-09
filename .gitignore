@@ -45,8 +45,8 @@ testem.log
 Thumbs.db
 *.DS_Store
 *.coverage
-.env
+*.env
 *__pycache__
-*/variables-prod-salud.env
+servicios_salud/variables-prod-salud.env
 */variables-prod-autenticacion.env
 variables*.env
