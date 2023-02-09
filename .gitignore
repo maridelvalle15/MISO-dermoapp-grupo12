@@ -10,6 +10,7 @@
 front/node_modules
 npm-debug.log
 yarn-error.log
+node_modules
 
 front/coverage
 front/.angular

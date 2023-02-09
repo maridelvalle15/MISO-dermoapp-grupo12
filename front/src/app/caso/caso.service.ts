@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CasoService {
 
-  private backUrl: string = "http://ec2-34-227-158-1.compute-1.amazonaws.com"
+  private backUrl: string = "http://ec2-3-95-34-180.compute-1.amazonaws.com:8001"
 
 constructor(private http: HttpClient) { }
 
