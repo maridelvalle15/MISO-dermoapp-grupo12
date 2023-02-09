@@ -31,7 +31,7 @@ class Logica():
             flaskr.logger.error(e)    
             db.session.commit()
             db.session.rollback()
-            return {"message":"Error al crear usuario"}, 500
+            return {"message":"Error al crear caso"}, 500
 
         return nuevo_caso
 
