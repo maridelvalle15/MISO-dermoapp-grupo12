@@ -27,9 +27,9 @@ class Logica():
             )
         try:
             db.session.add(nuevo_caso)
+            db.session.commit()
         except exc.SQLAlchemyError as e:
             flaskr.logger.error(e)    
-            db.session.commit()
             db.session.rollback()
             return {"message":"Error al crear caso"}, 500
 
