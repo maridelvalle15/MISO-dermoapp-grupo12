@@ -87,3 +87,7 @@ class CasosPacientesView(Resource):
             return {"message":"hola", "casos": casos_mostrar}, 200
         else:
             return {"message":"Unauthorized"}, 401
+
+class HealthCheckView(Resource):
+    def get(self):
+        return {"message": "It works"}

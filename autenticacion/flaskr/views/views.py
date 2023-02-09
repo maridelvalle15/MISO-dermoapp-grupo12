@@ -59,9 +59,15 @@ class RegistroView(Resource):
             cedula = request_data["cedula"]
             tipo_piel = request_data["tipopiel"]
             imagen_piel = request.files.get("image", "")
+
+            usuario = self.logica.usuario_valido(email=email,cedula=cedula)
+        
+            if usuario is not None:
+                return {"message":"El usuario ya existe"}, 400
             
             if imagen_piel != "":
-                imagen_procesada = procesar_imagen(imagen_piel)
+                #imagen_procesada = procesar_imagen(imagen_piel)
+                imagen_procesada = True
 
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
@@ -89,7 +95,7 @@ class LogInView(Resource):
     def post(self):
         
         usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
-        #db.session.commit()
+
         if usuario and usuario.verificar_password(request.json["password"]):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
@@ -103,16 +109,26 @@ class ValidacionUsuarioView(Resource):
     @jwt_required()
     def get(self):
         id_usuario = get_jwt_identity()
-        rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
-        rol = Rol.query.filter(Rol.id==rol_id).first().nombre
-        nombre = Usuario.query.filter(Usuario.id == id_usuario).first().nombre
+        rol = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first()
+        if rol:
+            rol_id = rol.rol_id
+            rol = Rol.query.filter(Rol.id==rol_id).first().nombre
+            nombre = Usuario.query.filter(Usuario.id == id_usuario).first().nombre
 
-        if rol == 'Medico':
-            especialidad_id = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).first().especialidad_id
-            especialidad = Especialidad.query.filter(Especialidad.id == especialidad_id).first().nombre
-            tipo_piel = ''
+            if rol == 'Medico':
+                especialidad_id = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).first().especialidad_id
+                especialidad = Especialidad.query.filter(Especialidad.id == especialidad_id).first().nombre
+                tipo_piel = ''
+            else:
+                especialidad = ''
+                tipo_piel = UsuarioPaciente.query.filter(UsuarioPaciente.id==id_usuario).first().tipo_piel
+
+            return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre}, 200,{'Content-Type': 'application/json'}
+
         else:
-            especialidad = ''
-            tipo_piel = UsuarioPaciente.query.filter(UsuarioPaciente.id==id_usuario).first().tipo_piel
+            return {"message":"Error con la identidad del usuario"}, 400
+        
 
-        return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre}, 200,{'Content-Type': 'application/json'}
+class HealthCheckView(Resource):
+    def get(self):
+        return {"message": "It works"}, 200
