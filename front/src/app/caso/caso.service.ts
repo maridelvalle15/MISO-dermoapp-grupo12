@@ -3,14 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Caso } from './caso';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment, environment2 } from 'environments/environment';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CasoService {
-
-  private backUrl: string = "http://ec2-3-95-34-180.compute-1.amazonaws.com:8001"
+  backUrl = environment2.servidor;
 
 constructor(private http: HttpClient,private cookieService: CookieService) {
 
