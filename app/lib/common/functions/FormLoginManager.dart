@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dermoapp/common/auth/saveLoginInfo.dart';
-import 'package:dermoapp/model/json/userModel.dart';
+import 'package:dermoapp/model/userModel.dart';
 import 'package:dermoapp/ui/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

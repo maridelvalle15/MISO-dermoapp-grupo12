@@ -1,5 +1,5 @@
 import 'package:dermoapp/common/functions/FormLoginManager.dart';
-import 'package:dermoapp/model/json/userModel.dart';
+import 'package:dermoapp/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
