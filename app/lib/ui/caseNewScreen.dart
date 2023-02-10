@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dermoapp/common/functions/FormCaseNewManager.dart';
+import 'package:dermoapp/common/managers/FormCaseNewManager.dart';
 import 'package:dermoapp/common/values/injuries.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';

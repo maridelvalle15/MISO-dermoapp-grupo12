@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dermoapp/common/functions/getToken.dart';
+import 'package:dermoapp/common/helpers/getToken.dart';
 import 'package:dermoapp/model/caseModel.dart';
 import 'package:http/http.dart' as http;
 

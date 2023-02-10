@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/functions/CaseListManager.dart';
+import 'package:dermoapp/common/managers/CaseListManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:flutter/material.dart';

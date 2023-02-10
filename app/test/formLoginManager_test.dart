@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/functions/FormLoginManager.dart';
+import 'package:dermoapp/common/managers/FormLoginManager.dart';
 import 'package:dermoapp/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';

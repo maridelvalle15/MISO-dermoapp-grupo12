@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dermoapp/common/functions/FormRegisterManager.dart';
+import 'package:dermoapp/common/managers/FormRegisterManager.dart';
 import 'package:dermoapp/main.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/uifunctions/showSingleDialogButton.dart';
+import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/ui/registerOkScreen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
