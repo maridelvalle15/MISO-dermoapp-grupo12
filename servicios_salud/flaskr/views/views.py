@@ -38,7 +38,8 @@ class SuministroLesionView(Resource):
         json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
         rol = json_response['rol']
         id_usuario = json_response['id_usuario']
-        nombre = json_response['id_usuario']
+        nombre = json_response['nombre']
+        ubicacion_id = json_response['ubicacion_id']
 
         if (rol == 'Paciente') and (response.status_code == 200):
             tipo_lesion = request.form.get('tipo')
@@ -51,7 +52,7 @@ class SuministroLesionView(Resource):
 
             if (imagen_lesion != "") and (imagen_lesion is not None):
                 imagen_procesada = procesar_imagen(imagen_lesion)
-
+                
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
             else:
@@ -60,8 +61,8 @@ class SuministroLesionView(Resource):
             logica = Logica()
 
             objetos_lesion = logica.obtener_objetos_lesion(tipo_lesion,forma,numero,distribucion)
-            nuevo_caso = logica.crear_caso(objetos_lesion,adicional,imagen_procesada,id_usuario,tipo_piel,nombre)
-            
+            nuevo_caso = logica.crear_caso(objetos_lesion,adicional,imagen_procesada,id_usuario,tipo_piel,nombre,ubicacion_id)
+
             return {"message":"Caso creado exitosamente", "id_caso": nuevo_caso.id}, 200
         else:
             return {"message":"Unauthorized"}, 401
@@ -76,11 +77,12 @@ class CasosPacientesView(Resource):
         json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
         rol = json_response['rol']
         especialidad = json_response['especialidad']
+        ubicacion = json_response['ubicacion_id']
 
         if (rol == 'Medico') and (response.status_code == 200):
 
             logica = Logica()
-            casos_disponibles = logica.obtener_casos_disponibles(especialidad)
+            casos_disponibles = logica.obtener_casos_disponibles(especialidad, ubicacion)
 
             casos_mostrar = construir_casos_mostrar(casos_disponibles)
             
@@ -90,4 +92,4 @@ class CasosPacientesView(Resource):
 
 class HealthCheckView(Resource):
     def get(self):
-        return {"message": "It works"}
+        return {"message": os.environ.get("DB_URI")}

@@ -1,6 +1,7 @@
 from ..models import db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..models.logica import Logica
 from sqlalchemy import exc
+import flaskr 
 
 class Seeds():
     def __init__(self):

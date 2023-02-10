@@ -1,5 +1,6 @@
 from ..models import UsuarioMedico, UsuarioPaciente, db, Ubicacion, Especialidad, Rol, Usuario
 from sqlalchemy import exc
+import flaskr
 
 class Logica():
     @staticmethod

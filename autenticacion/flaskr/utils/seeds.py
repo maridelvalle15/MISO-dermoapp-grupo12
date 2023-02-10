@@ -1,5 +1,6 @@
 from ..models import db, Ubicacion, Especialidad, Rol, logica
 from sqlalchemy import exc
+import flaskr
 
 class Seeds():
     def __init__(self):
