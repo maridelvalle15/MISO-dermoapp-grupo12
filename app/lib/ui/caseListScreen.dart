@@ -63,7 +63,7 @@ class CaseListScreenState extends State<CaseListScreen> {
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.all(10),
                 child: FutureBuilder(
-                    future: getMyCases(),
+                    future: CaseListManager().getMyCases(),
                     builder: (context, snapshot) {
                       results = snapshot.data ?? [];
                       return FittedBox(

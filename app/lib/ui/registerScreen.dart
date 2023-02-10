@@ -458,16 +458,17 @@ class RegisterScreenState extends State<RegisterScreen> {
                                 setState(() => isDisabled = true);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                bool result = await submit(
-                                    context,
-                                    _nameController.text,
-                                    _ageController.text,
-                                    _cityController.text,
-                                    _personIdController.text,
-                                    _emailController.text,
-                                    countryValue,
-                                    skinValue,
-                                    _pickedFile);
+                                bool result = await FormRegisterManager()
+                                    .submit(
+                                        context,
+                                        _nameController.text,
+                                        _ageController.text,
+                                        _cityController.text,
+                                        _personIdController.text,
+                                        _emailController.text,
+                                        countryValue,
+                                        skinValue,
+                                        _pickedFile);
 
                                 if (result == false) {
                                   setState(() => isDisabled = false);

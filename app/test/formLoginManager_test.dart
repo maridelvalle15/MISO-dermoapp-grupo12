@@ -1,45 +1,44 @@
-import 'dart:convert';
-import 'dart:io' as Io;
-
 import 'package:dermoapp/common/functions/FormLoginManager.dart';
 import 'package:dermoapp/model/json/userModel.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:mockito/mockito.dart';
+import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'formRegisterManager_test.mocks.dart';
+import 'formLoginManager_test.mocks.dart';
 
-@GenerateMocks([Client])
-@GenerateNiceMocks([MockSpec<BuildContext>(), MockSpec<StreamedResponse>()])
+@GenerateNiceMocks([MockSpec<BuildContext>()])
 void main() {
   MockBuildContext mockContext;
 
   group('loginManager', () {
     test('returns true if request is ok', () async {
-      final client = MockClient();
+      final loginManager = LoginManager();
+
+      loginManager.client = MockClient((request) async {
+        return Response('{"token":"1234", "user_id":150}', 200);
+      });
       mockContext = MockBuildContext();
 
-      when(
-        client.post(any),
-      ).thenAnswer(
-          (_) async => Response('{"token":"1234", "user_id":"150"}', 200));
+      final user =
+          await loginManager.submitLogin(mockContext, "user@gmail.com", "1234");
 
-      expect(await submitLogin(mockContext, 'abc@def.com', '1234'),
-          isA<UserModel>());
+      expect(user, isA<UserModel>());
     });
 
     test('returns false if there is an error', () async {
-      final client = MockClient();
+      final loginManager = LoginManager();
+
+      loginManager.client = MockClient((request) async {
+        return Response('{"token":"12345", "user_id":150}', 400);
+      });
       mockContext = MockBuildContext();
 
-      when(
-        client.post(any),
-      ).thenAnswer((_) async => Response('{"message":"whatever"}', 404));
+      final user = await loginManager.submitLogin(
+          mockContext, "user@gmail.com", "12345");
 
-      expect(await submitLogin(mockContext, 'abc@def.com', '5345'), null);
+      expect(user, null);
     });
   });
 }

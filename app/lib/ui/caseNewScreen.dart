@@ -426,14 +426,16 @@ class CaseNewScreenState extends State<CaseNewScreen> {
                                 setState(() => isDisabled = true);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                bool result = await submitCase(
-                                    context,
-                                    injuryTypeValue,
-                                    injuryFormValue,
-                                    injuryQtyValue,
-                                    injuryDistValue,
-                                    _pickedFile,
-                                    extraInfo: _additionalInfoController.text);
+                                bool result = await FormCaseNewManager()
+                                    .submitCase(
+                                        context,
+                                        injuryTypeValue,
+                                        injuryFormValue,
+                                        injuryQtyValue,
+                                        injuryDistValue,
+                                        _pickedFile,
+                                        extraInfo:
+                                            _additionalInfoController.text);
 
                                 if (result == false) {
                                   setState(() => isDisabled = false);

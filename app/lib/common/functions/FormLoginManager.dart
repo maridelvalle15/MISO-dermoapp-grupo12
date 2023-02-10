@@ -9,47 +9,51 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../uifunctions/showSingleDialogButton.dart';
 
-final http.Client client = http.Client();
+class LoginManager {
+  http.Client client = http.Client();
 
-Future<UserModel?> submitLogin(
-    BuildContext context, String correo, String clave) async {
-  Map<String, String> data = {
-    'correo': correo,
-    'password': clave,
-  };
+  Future<UserModel?> submitLogin(
+      BuildContext context, String correo, String clave) async {
+    Map<String, String> data = {
+      'correo': correo,
+      'password': clave,
+    };
 
-  var body = json.encode(data);
+    var body = json.encode(data);
 
-  final response = await client.post(Uri.parse('http://.../api/login'),
-      body: body, headers: {"Content-Type": "application/json"});
+    final response = await client.post(
+        Uri.parse('http://ec2-184-72-68-214.compute-1.amazonaws.com/api/login'),
+        body: body,
+        headers: {"Content-Type": "application/json"});
 
-  final loginResponseJson = json.decode(response.body);
+    final loginResponseJson = json.decode(response.body);
 
-  if (response.statusCode == 200) {
-    //final processedResponse = json.decode(loginResponseJson);
+    if (response.statusCode == 200) {
+      //final processedResponse = json.decode(loginResponseJson);
 
-    Map<String, dynamic> responseJson = {"email": correo};
-    responseJson["token"] = loginResponseJson["token"];
-    responseJson["id"] = loginResponseJson["user_id"];
+      Map<String, dynamic> responseJson = {"email": correo};
+      responseJson["token"] = loginResponseJson["token"];
+      responseJson["id"] = loginResponseJson["user_id"];
 
-    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
-      saveLoginInfo(responseJson);
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
-    }
-    return UserModel.fromJson(responseJson);
-  } else {
-    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
-      // ignore: use_build_context_synchronously
-      showDialogSingleButton(
+      if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+        saveLoginInfo(responseJson);
+        // ignore: use_build_context_synchronously
+        Navigator.push(
           context,
-          AppLocalizations.of(context).thereIsAnError,
-          loginResponseJson["message"],
-          "OK");
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
+      return UserModel.fromJson(responseJson);
+    } else {
+      if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+        // ignore: use_build_context_synchronously
+        showDialogSingleButton(
+            context,
+            AppLocalizations.of(context).thereIsAnError,
+            loginResponseJson["message"],
+            "OK");
+      }
+      return null;
     }
-    return null;
   }
 }
