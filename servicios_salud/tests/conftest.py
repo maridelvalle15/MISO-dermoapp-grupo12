@@ -1,6 +1,6 @@
 from flaskr import app
 import pytest, flask
-from flaskr.models import *
+from flaskr.models import db,Caso
 from flaskr.utils.seeds import Seeds
 
 @pytest.fixture
@@ -15,3 +15,26 @@ def client():
     with app.app.test_client() as client:
         
         yield client
+
+@pytest.fixture
+def headers():
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+
+    return headers
+
+@pytest.fixture
+def crear_caso():
+    caso = Caso(
+        tipo_lesion=1,
+        forma=1,
+        numero_lesiones=1,
+        distribucion=1,
+        paciente_id=1
+    )
+    db.session.add(caso)
+    db.session.commit()
+
+    return caso

@@ -2,7 +2,7 @@ from flask_restful import Resource
 from flask import request
 import requests, os, json
 from ..models.logica import Logica
-from .logica import procesar_imagen
+from .logica import procesar_imagen, generar_diagnostico_automatico
 from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente
 
 class SuministroLesionView(Resource):
@@ -93,3 +93,19 @@ class CasosPacientesView(Resource):
 class HealthCheckView(Resource):
     def get(self):
         return {"message": os.environ.get("DB_URI")}
+
+class DiagnosticoAutomaticoView(Resource):
+    def post(self):
+        
+        # Leer mensaje de la cola
+        # Debe llegar id del caso
+        
+        caso_id = request.json["caso_id"]
+        diagnostico = generar_diagnostico_automatico(caso_id)
+
+        if diagnostico == False:
+            # Esto deberia validarse y devolverse en el receptor, aqui solo hacer el diagnostico cuando es posible
+            return {"message":"No es posible realizar un diagnóstico al caso asignado"}, 400
+
+        else:
+            return {"diagnostico": diagnostico}, 200

@@ -1,4 +1,4 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -108,3 +108,15 @@ class Logica():
         
         return casos
         
+    def crear_diagnostico(self,caso,diagnosticos):
+        diagnostico = Diagnostico(tipo='automatico',
+            descripcion=str(diagnosticos),
+            caso=caso.id)
+        try:
+            db.session.add(diagnostico)
+            db.session.commit()
+
+        except exc.SQLAlchemyError as e:
+            flaskr.logger.error(e)    
+            db.session.rollback()
+            return {"message":"Error al crear diagnostico"}, 500
