@@ -1,4 +1,6 @@
 from ..utils.helpers import upload_file_to_s3, allowed_file
+from ..models import Caso, LesionDistribucion, LesionForma, LesionNumero, LesionTipo
+import json, random
 
 def procesar_imagen(imagen):
     print("DEPURANDO")
@@ -29,3 +31,51 @@ def procesar_imagen(imagen):
     else:
         print("File type not accepted,please try again.")
         return False
+
+def generar_diagnostico_automatico(caso_id):
+    caso = Caso.query.filter(Caso.id==caso_id).first()
+    tipo_id = caso.tipo_lesion
+    forma_id = caso.forma
+    numero_id = caso.numero_lesiones
+    distribucion_id = caso.distribucion
+
+    tipo_lesion = LesionTipo.query.filter(LesionTipo.id==tipo_id).nombre
+    forma_lesion = LesionForma.query.filter(LesionForma.id==forma_id).nombre
+    numero_lesion = LesionNumero.query.filter(LesionNumero.id==numero_id).nombre
+    distribucion_lesion = LesionDistribucion.query.filter(LesionDistribucion.id==distribucion_id).nombre
+
+
+
+    lesiones_json = "..utils/enfermedades_sintomas.json"
+    data = json.loads(open(lesiones_json).read())
+
+    try:
+        enfermedades = data[tipo_lesion][forma_lesion][numero_lesion][distribucion_lesion]["enfermedades"]
+
+        porcentaje = round(100/len(enfermedades),2)
+        ranges = construccion_porcentajes_certitud(enfermedades,porcentaje)
+
+        # Construccion del diagnostico
+        diagnostico = {}
+        for index,enfermedad in enumerate(enfermedades):
+            numero_opcion = index + 1
+            opcion = "Opcion " + str(numero_opcion) + ": "
+            porcentaje_string = str(random.randint(int(ranges[index][0]),int(ranges[index][1]))) + "%"
+            diagnostico[opcion] = enfermedad + " " + porcentaje_string
+
+        return diagnostico
+
+    except KeyError:
+        return False
+
+# Se construye diviendo en % iguales el arreglo, y luego creando rangos del 1 al 100
+def construccion_porcentajes_certitud(array,percentage):
+    ranges = []
+    for index,elem in enumerate(array):
+        if index == 0:
+            primer_percentage_range = 1
+        else:
+            primer_percentage_range = percentage*index
+        ranges.append([primer_percentage_range,percentage*(index+1)])
+
+    return ranges
