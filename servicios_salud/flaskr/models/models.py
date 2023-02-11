@@ -91,3 +91,9 @@ class MatchEspecialidadesSchema(SQLAlchemyAutoSchema):
          model = MatchEspecialidades
          include_relationships = True
          load_instance = True
+
+class DiagnosticoScrema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = Diagnostico
+         include_relationships = True
+         load_instance = True
