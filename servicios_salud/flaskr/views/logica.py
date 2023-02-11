@@ -39,14 +39,14 @@ def generar_diagnostico_automatico(caso_id):
     numero_id = caso.numero_lesiones
     distribucion_id = caso.distribucion
 
-    tipo_lesion = LesionTipo.query.filter(LesionTipo.id==tipo_id).nombre
-    forma_lesion = LesionForma.query.filter(LesionForma.id==forma_id).nombre
-    numero_lesion = LesionNumero.query.filter(LesionNumero.id==numero_id).nombre
-    distribucion_lesion = LesionDistribucion.query.filter(LesionDistribucion.id==distribucion_id).nombre
+    tipo_lesion = LesionTipo.query.filter(LesionTipo.id==tipo_id).first().nombre
+    forma_lesion = LesionForma.query.filter(LesionForma.id==forma_id).first().nombre
+    numero_lesion = LesionNumero.query.filter(LesionNumero.id==numero_id).first().nombre
+    distribucion_lesion = LesionDistribucion.query.filter(LesionDistribucion.id==distribucion_id).first().nombre
 
 
 
-    lesiones_json = "..utils/enfermedades_sintomas.json"
+    lesiones_json = "utils/enfermedades_sintomas.json"
     data = json.loads(open(lesiones_json).read())
 
     try:
@@ -56,17 +56,20 @@ def generar_diagnostico_automatico(caso_id):
         ranges = construccion_porcentajes_certitud(enfermedades,porcentaje)
 
         # Construccion del diagnostico
-        diagnostico = {}
+        diagnosticos = []
         for index,enfermedad in enumerate(enfermedades):
-            numero_opcion = index + 1
-            opcion = "Opcion " + str(numero_opcion) + ": "
-            porcentaje_string = str(random.randint(int(ranges[index][0]),int(ranges[index][1]))) + "%"
-            diagnostico[opcion] = enfermedad + " " + porcentaje_string
+            porcentaje = random.randint(int(ranges[index][0]),int(ranges[index][1]))
+            
+            # El diagnostico solo se entrega si el % de certitud es mayor a 30
+            if porcentaje > 30:
+                porcentaje_string = str(porcentaje) + "%"
+                diagnostico_dict = {'diagnostico': enfermedad, 'certitud': porcentaje_string}
+                diagnosticos.append(diagnostico_dict)
 
-        return diagnostico
+        return diagnosticos
 
     except KeyError:
-        return False
+         return False
 
 # Se construye diviendo en % iguales el arreglo, y luego creando rangos del 1 al 100
 def construccion_porcentajes_certitud(array,percentage):
