@@ -11,17 +11,17 @@ jobs:
         with:
           node-version: 19 # Versión de Node
       # Cargar cache de node_modules, para reducir tiempo de instalación en próximas ejecuciones
-      - name: Cache node modules
-        id: node-cache # Id del cache
-        uses: actions/cache@v1
-        with:
-          path: node_modules
+     # - name: Cache node modules
+      #  id: node-cache # Id del cache
+      #  uses: actions/cache@v1
+      #  with:
+       #   path: node_modules
           # Se usará el mismo cache siempre y cuando sea el mismo sistema operativo y no existan cambios en el archivo package-lock
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+       #   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       # Instalar dependencias
       - name: Install dependencies
         # No ejecutar si se obtuvo node_modules de cache
-        if: steps.node-cache.outputs.cache-hit != 'true'
+       # if: steps.node-cache.outputs.cache-hit != 'true'
         run: |
           cd front
           npm install
