@@ -1,6 +1,7 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
+import flaskr
 
 class Logica():
 
@@ -13,7 +14,7 @@ class Logica():
             .filter(MatchEspecialidades.tipo_piel==tipo_piel).first().especialidad
         return especialidad
 
-    def crear_caso(self,objetos_lesion, adicional,imagen_lesion,id_usuario,tipo_piel,nombre):
+    def crear_caso(self,objetos_lesion, adicional,imagen_lesion,id_usuario,tipo_piel,nombre,ubicacion_id):
         descripcion = construir_descripcion_caso(objetos_lesion, adicional)
         especialidad = self.obtener_especialidad_caso(objetos_lesion['tipo_lesion'].id,tipo_piel)
         nuevo_caso = Caso(descripcion=descripcion,
@@ -23,7 +24,8 @@ class Logica():
             distribucion=objetos_lesion['distribucion_lesion'].id,
             tipo_solucion='',imagen_caso=imagen_lesion,paciente_id=id_usuario,tipo_piel=tipo_piel,
             especialidad_asociada=especialidad,
-            nombre_paciente=nombre
+            nombre_paciente=nombre,
+            ubicacion_id=ubicacion_id
             )
         try:
             db.session.add(nuevo_caso)
@@ -78,11 +80,18 @@ class Logica():
 
         return lesion_distribucion
 
-    def obtener_casos_disponibles(self,especialidad):
-        casos = Caso.query.filter(Caso.especialidad_asociada==especialidad)\
-            .filter(Caso.medico_asignado == None).all()
-        
-        return casos
+    def obtener_casos_disponibles(self,especialidad, ubicacion_id):
+        casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
+        if casos_especialidad.all():   
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None)
+            if casos_sin_asignar.all():
+                casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
+
+                return casos_ubicacion.all()
+            else:
+                return []
+        else:
+            return []
 
     def match_especialidad_valida(self,especialidad, lesion, piel):
         match_especialidad = MatchEspecialidades.query.filter(

@@ -18,6 +18,7 @@ db.create_all()
 
 seeds = Seeds()
 seeds.poblar_ubicacion('co', 'bog')
+seeds.poblar_ubicacion('vz', 'ccs')
 seeds.poblar_rol('Medico')
 seeds.poblar_rol('Paciente')
 seeds.poblar_especialidad('General')
