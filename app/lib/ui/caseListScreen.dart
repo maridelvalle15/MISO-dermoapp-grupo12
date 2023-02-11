@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/functions/CaseListManager.dart';
+import 'package:dermoapp/common/managers/CaseListManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class CaseListScreenState extends State<CaseListScreen> {
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.all(10),
                 child: FutureBuilder(
-                    future: getMyCases(),
+                    future: CaseListManager().getMyCases(),
                     builder: (context, snapshot) {
                       results = snapshot.data ?? [];
                       return FittedBox(

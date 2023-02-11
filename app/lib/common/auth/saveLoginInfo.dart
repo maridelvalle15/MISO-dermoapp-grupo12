@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dermoapp/model/json/userModel.dart';
+import 'package:dermoapp/model/userModel.dart';
 
 saveLoginInfo(Map<String, dynamic> responseJson) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();

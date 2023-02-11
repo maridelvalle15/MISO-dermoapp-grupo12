@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dermoapp/common/functions/FormCaseNewManager.dart';
+import 'package:dermoapp/common/managers/FormCaseNewManager.dart';
 import 'package:dermoapp/common/values/injuries.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
@@ -426,14 +426,16 @@ class CaseNewScreenState extends State<CaseNewScreen> {
                                 setState(() => isDisabled = true);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                bool result = await submitCase(
-                                    context,
-                                    injuryTypeValue,
-                                    injuryFormValue,
-                                    injuryQtyValue,
-                                    injuryDistValue,
-                                    _pickedFile,
-                                    extraInfo: _additionalInfoController.text);
+                                bool result = await FormCaseNewManager()
+                                    .submitCase(
+                                        context,
+                                        injuryTypeValue,
+                                        injuryFormValue,
+                                        injuryQtyValue,
+                                        injuryDistValue,
+                                        _pickedFile,
+                                        extraInfo:
+                                            _additionalInfoController.text);
 
                                 if (result == false) {
                                   setState(() => isDisabled = false);

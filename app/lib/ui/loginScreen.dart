@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/functions/FormLoginManager.dart';
+import 'package:dermoapp/common/managers/FormLoginManager.dart';
 import 'package:dermoapp/ui/registerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:dermoapp/main.dart';
@@ -145,7 +145,9 @@ class LoginScreenState extends State<LoginScreen> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               //SystemChannels.textInput.invokeMethod('TextInput.hide');
-                              submitLogin(context, _userNameController.text,
+                              LoginManager().submitLogin(
+                                  context,
+                                  _userNameController.text,
                                   _passwordController.text);
                             }
                           },
