@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dermoapp/common/helpers/getToken.dart';
+import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/model/caseModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,8 +12,7 @@ class CaseListManager {
   Future<List> getMyCases() async {
     String token = await getToken() as String;
     final response = await client.get(
-      Uri.parse(
-          'http://ec2-34-227-158-1.compute-1.amazonaws.com/api/suministro-lesion'),
+      Uri.parse('$services["salud"]api/suministro-lesion'),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },

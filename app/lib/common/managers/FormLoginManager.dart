@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dermoapp/common/auth/saveLoginInfo.dart';
+import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/model/userModel.dart';
 import 'package:dermoapp/ui/homeScreen.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,8 @@ class LoginManager {
 
     var body = json.encode(data);
 
-    final response = await client.post(
-        Uri.parse('http://ec2-184-72-68-214.compute-1.amazonaws.com/api/login'),
-        body: body,
-        headers: {"Content-Type": "application/json"});
+    final response = await client.post(Uri.parse('$services["auth"]api/login'),
+        body: body, headers: {"Content-Type": "application/json"});
 
     final loginResponseJson = json.decode(response.body);
 

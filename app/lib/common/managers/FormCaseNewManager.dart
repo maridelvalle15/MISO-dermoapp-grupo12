@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
+import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/ui/caseDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,9 +19,7 @@ class FormCaseNewManager {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? token = preferences.getString("token");
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'http://ec2-34-227-158-1.compute-1.amazonaws.com/api/suministro-lesion'));
+        'POST', Uri.parse('$services["salud"]api/suministro-lesion'));
     request.headers.addAll({'Authorization': 'Bearer $token'});
     request.fields['tipo'] = tipolesion;
     request.fields['forma'] = formalesion;

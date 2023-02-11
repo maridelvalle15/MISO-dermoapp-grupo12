@@ -1,4 +1,5 @@
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
+import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/ui/registerOkScreen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,7 @@ class FormRegisterManager {
       String tipopiel,
       File? image) async {
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'http://ec2-184-72-68-214.compute-1.amazonaws.com/api/registro'));
+        'POST', Uri.parse('$services["auth"]api/registro'));
 
     request.fields['nombre'] = nombre;
     request.fields['edad'] = edad;
