@@ -95,5 +95,17 @@
 				}
 			}
 		}
+	},
+	"ampolla": {
+		"anillo": {
+			"diseminada": {
+				"confluente": {
+					"enfermedades": [
+						"Granuloma Papular Anular",
+						"Eritema polimorfo"
+                    ]
+				}
+			}
+		}
 	}
 }
