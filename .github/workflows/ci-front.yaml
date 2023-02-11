@@ -25,4 +25,4 @@ jobs:
         run: |
           cd front
           npm install
-          ng test
+          npm test
