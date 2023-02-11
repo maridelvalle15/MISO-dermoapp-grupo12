@@ -30,7 +30,7 @@ export class UsuarioService {
     licencia:string,
 
   ): Observable<any> {
-    return this.http.post<any>('http://ec2-44-211-208-8.compute-1.amazonaws.com:8000/api/registro', {
+    return this.http.post<any>(this.backUrl + '/api/registro', {
       "tipousuario": tipo_usuario,
       "correo": email,
       "nombre": nombre,
