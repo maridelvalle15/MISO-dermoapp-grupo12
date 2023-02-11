@@ -96,13 +96,16 @@ class HealthCheckView(Resource):
 
 class DiagnosticoAutomaticoView(Resource):
     def post(self):
+        
         # Leer mensaje de la cola
         # Debe llegar id del caso
-        caso_id = 1
+        
+        caso_id = request.json["caso_id"]
+        print('ola')
         diagnostico = generar_diagnostico_automatico(caso_id)
 
         if diagnostico == False:
             return {"message":"Las lesiones ingresadas no coinciden con un diagnóstico posible."}, 400
 
         else:
-            return {"diagnostico": diagnostico}, 400
+            return {"diagnostico": diagnostico}, 200

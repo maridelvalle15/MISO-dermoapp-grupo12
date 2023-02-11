@@ -44,8 +44,6 @@ def generar_diagnostico_automatico(caso_id):
     numero_lesion = LesionNumero.query.filter(LesionNumero.id==numero_id).first().nombre
     distribucion_lesion = LesionDistribucion.query.filter(LesionDistribucion.id==distribucion_id).first().nombre
 
-
-
     lesiones_json = "utils/enfermedades_sintomas.json"
     data = json.loads(open(lesiones_json).read())
 
