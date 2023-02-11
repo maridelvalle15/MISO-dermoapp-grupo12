@@ -6,8 +6,8 @@ jobs:
     name: Installation # Nombre del Job
     runs-on: ubuntu-latest # Ejecutar en Ubuntu
     steps:
-      - uses: actions/checkout@v2 # Clonar repositorio actual
-      - uses: actions/setup-node@v1 # Usar Node
+      - uses: actions/checkout@v3 # Clonar repositorio actual
+      - uses: actions/setup-node@v3 # Usar Node
         with:
           node-version: 19 # Versión de Node
       # Cargar cache de node_modules, para reducir tiempo de instalación en próximas ejecuciones
