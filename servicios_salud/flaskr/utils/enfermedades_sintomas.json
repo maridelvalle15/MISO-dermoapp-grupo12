@@ -1,0 +1,99 @@
+{
+	"macula": {
+		"anillo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+						"Eritema anular",
+						"Traumatismo por mordida"
+                    ]
+				},
+				"confluente": {
+					"enfermedades": [
+						"Eritema multiforme"
+                    ]
+				}
+			},
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Infección micótica",
+						"Infección bacteriana",
+						"Infección viral",
+                        "Infección medicamentosa",
+                        "Neurofibromatosis"
+                ]
+				},
+				"confluente": {
+					"enfermedades": [
+						"Pitiriasis"
+                    ]
+				}
+			}
+		},
+		"domo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+						"Eritema multiforme",
+						"Neurofibroma",
+						"Hemangioma cavernoso"
+                    ]
+				},
+				"confluente": {
+					"enfermedades": [
+						"Hemangioma cavernoso",
+						"Vitiligo",
+						"Eccema"
+                    ]
+				}
+			},
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Neurofibroma",
+						"Eritema multiforme",
+						"Hematoma"
+                    ]
+				}
+			}
+		}
+	},
+	"papula": {
+		"anillo": {
+			"multiple": {
+				"asimetrica": {
+					"enfermedades": [
+						"Granuloma Papular Anular"
+                    ]
+				}
+			}
+		},
+		"domo": {
+			"solitaria": {
+				"asimetrica": {
+					"enfermedades": [
+					"Alergia",
+                    "Picadura de insecto",
+                    "Verruga"
+                    ]
+				},
+				"confluente": {
+					"enfermedades": [
+						"Herpes",
+						"Acne nodular"
+                    ]
+				},
+				"multiple": {
+					"asimetrica": {
+						"enfermedades": [
+							"Alergia",
+							"Sarna",
+							"Verrugas"
+                        ]
+					}
+				}
+			}
+		}
+	}
+}
