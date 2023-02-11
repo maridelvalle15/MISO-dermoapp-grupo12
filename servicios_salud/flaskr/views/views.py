@@ -93,3 +93,7 @@ class CasosPacientesView(Resource):
 class HealthCheckView(Resource):
     def get(self):
         return {"message": os.environ.get("DB_URI")}
+
+class DiagnosticoAutomaticoView(Resource):
+    def post(self):
+        return {"message":"Diagnostico automatico"}, 200
