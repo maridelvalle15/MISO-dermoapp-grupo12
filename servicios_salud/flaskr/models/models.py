@@ -50,6 +50,12 @@ class MatchEspecialidades(db.Model):
     tipo_lesion = db.Column(db.Integer, db.ForeignKey('lesion_tipo.id'))
     tipo_piel = db.Column(db.String(100), unique=False)
 
+class Diagnostico(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tipo = db.Column(db.String(20), unique=False)
+    descripcion = db.Column(db.Text)
+    caso = db.Column(db.Integer, db.ForeignKey('caso.id'))
+
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = LesionTipo
