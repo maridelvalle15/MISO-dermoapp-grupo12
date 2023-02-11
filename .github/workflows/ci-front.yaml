@@ -25,4 +25,5 @@ jobs:
         run: |
           cd front
           npm install
-          npm test
+          npm run build
+          npm run test
