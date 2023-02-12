@@ -72,7 +72,6 @@
 
    ## Consideraciones productivas
    * Los archivos variables-prod-autenticacion.env y variables-prod-salud.env deben existir en el bucket de s3 dermoapp-config. Esto para que al momento del despliegue se puedan tomar las variables con valores de credenciales productivas y que no deben ser expuestas en el repositorio publico
-   * Actualmente no hay despliegue continuo implementado, sino que a través de un script de arranque que no se encuentra en el repositorio publico (ya que contiene credenciales de aws) se espera poder realizar el despliegue en instancias ec2
 
    ## DevOps
    ### Integración Continua
