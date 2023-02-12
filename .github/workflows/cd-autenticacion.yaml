@@ -1,0 +1,31 @@
+name: cd-autenticacion
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@main
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_AUTENTICACION }}
+          SOURCE: "autenticacion/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST_AUTENTICACION }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/app, /front"
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+          SCRIPT_BEFORE: |
+            sudo service apache2 stop
+            sudo apt remove apache2.*
+          SCRIPT_AFTER: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            sudo aws s3 cp s3://dermoapp-config/variables-prod-salud.env .
+            docker-compose rm -fs
+            docker-compose -f docker-compose.yaml up --build -d
