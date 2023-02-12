@@ -2,6 +2,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from "@angular/router/testing";
+
 
 import { HeaderComponent } from './header.component';
 
@@ -10,10 +15,16 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+     TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        RouterTestingModule
+      ],
       declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

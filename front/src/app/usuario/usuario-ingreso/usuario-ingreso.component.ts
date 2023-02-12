@@ -33,6 +33,7 @@ export class UsuarioIngresoComponent implements OnInit {
     this.usuarioForm = this.formBuilder.group({
 
       correo: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
+      password: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
 
     })
   }
