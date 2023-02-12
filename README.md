@@ -32,6 +32,8 @@
 
 ## Consideraciones aplicación backend: autenticacion
 * Para los servicios de registro y suministro de información de la lesión, se requiere cargar imágenes por parte del usuario. Para que funcione correctamente se deben configurar las variables de ambiente indicadas en el archivo .env.example con las credenciales programáticas de AWS para su correcto funcionamiento
+* Información permitida de ubicacion para registro: 
+   - Pais - Ciudad: (co, bog) - (vz, ccs)
 
 ## Consideraciones aplicación backend: servicios_salud
 
@@ -71,3 +73,9 @@
    ## Consideraciones productivas
    * Los archivos variables-prod-autenticacion.env y variables-prod-salud.env deben existir en el bucket de s3 dermoapp-config. Esto para que al momento del despliegue se puedan tomar las variables con valores de credenciales productivas y que no deben ser expuestas en el repositorio publico
    * Actualmente no hay despliegue continuo implementado, sino que a través de un script de arranque que no se encuentra en el repositorio publico (ya que contiene credenciales de aws) se espera poder realizar el despliegue en instancias ec2
+
+   ## DevOps
+   ### Integración Continua
+   * Tanto las aplicaciones backend en flask (autenticacion y servicios salud) como la aplicacion frontend en angular tienen configurados workflows en github actions para ejecutar las pruebas unitarias y mostrar los porcentajes de cobertura. Se ejecutan cuando se abre un pull request a cualquier rama.
+   ### Despliegue Continuo
+   * Las aplicaciones backend en flask tienen configurados workflows en github actions para hacer deploy de la aplicacion a instancias EC2 creadas y ejecutándose en AWS. Se configuran SECRETS en el repositorio para poder realizar la conexión ssh y ejecutar los comandos necesarios para actualizar el código y levantar los contenedores de docker. Se ejecutan cuando se cierra un pull request a la rama main.
