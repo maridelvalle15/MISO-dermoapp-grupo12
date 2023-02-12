@@ -1,6 +1,10 @@
 name: cd-autenticacion
 
-on: [push]
+on:
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
 
 jobs:
   build:
