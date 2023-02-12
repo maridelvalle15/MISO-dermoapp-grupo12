@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "1409b151-08d6-4e50-babb-e0adddfeb322",
+		"name": "Servicios Salud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "647324"
+	},
+	"item": [
+		{
+			"name": "Salud Obtener casos por lesion (paciente)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NjI0MjIzMCwianRpIjoiZjBlMzNlMWEtYWU5My00MTI0LTlmMzctYmVjZDUzYjg0Y2ExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTMsIm5iZiI6MTY3NjI0MjIzMCwiZXhwIjoxNjc2MzI4NjMwfQ.H6ydYJ-l7cvoNG2RpvLjZoLBmEMj6eeUsLfV18Pmebo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/suministro-lesion",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"suministro-lesion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salud Crear un caso por lesion (paciente)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NjI0MjIzMCwianRpIjoiZjBlMzNlMWEtYWU5My00MTI0LTlmMzctYmVjZDUzYjg0Y2ExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTMsIm5iZiI6MTY3NjI0MjIzMCwiZXhwIjoxNjc2MzI4NjMwfQ.H6ydYJ-l7cvoNG2RpvLjZoLBmEMj6eeUsLfV18Pmebo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tipo",
+							"value": "amp",
+							"type": "text"
+						},
+						{
+							"key": "forma",
+							"value": "ani",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "dis",
+							"type": "text"
+						},
+						{
+							"key": "distribucion",
+							"value": "con",
+							"type": "text"
+						},
+						{
+							"key": "adicional",
+							"value": "esto es info adicional.",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/mariseladelvalle/Desktop/Screen Shot 2022-09-28 at 7.20.11 PM.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/suministro-lesion",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"suministro-lesion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salud Actualizar imagen de casos por lesion (paciente)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NjI0MjIzMCwianRpIjoiZjBlMzNlMWEtYWU5My00MTI0LTlmMzctYmVjZDUzYjg0Y2ExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTMsIm5iZiI6MTY3NjI0MjIzMCwiZXhwIjoxNjc2MzI4NjMwfQ.H6ydYJ-l7cvoNG2RpvLjZoLBmEMj6eeUsLfV18Pmebo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "caso_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/mariseladelvalle/Desktop/Screen Shot 2022-11-20 at 4.21.41 PM.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/suministro-lesion",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"suministro-lesion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salud Generacion Diagnostico Automatico a Paciente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5NDYxNSwianRpIjoiMDk0YTc2NzctMjMxZC00ODE5LWEzNjAtZDNmNjE2YTJlYmFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTEsIm5iZiI6MTY3NTk5NDYxNSwiZXhwIjoxNjc2MDgxMDE1fQ.sI0qpROJnVV0civ0NqWY41CSci2HSv27xtK2DGp6ut4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/diagnostico-automatico",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"diagnostico-automatico"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salud Obtener casos de pacientes (medico)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5NDYxNSwianRpIjoiMDk0YTc2NzctMjMxZC00ODE5LWEzNjAtZDNmNjE2YTJlYmFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTEsIm5iZiI6MTY3NTk5NDYxNSwiZXhwIjoxNjc2MDgxMDE1fQ.sI0qpROJnVV0civ0NqWY41CSci2HSv27xtK2DGp6ut4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/casos-pacientes",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"casos-pacientes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
