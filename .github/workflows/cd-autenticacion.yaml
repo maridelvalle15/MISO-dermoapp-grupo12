@@ -1,0 +1,38 @@
+name: cd-autenticacion
+
+on:
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@master
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+      with:
+        host: ${{ secrets.REMOTE_HOST_AUTENTICACION }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_AUTENTICACION }}
+        port: 22
+        envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
+        script: |
+          sudo service apache2 stop
+          sudo apt remove apache2.*
+          cd /MISO-dermoapp-grupo12/autenticacion
+          sudo git checkout develop
+          sudo git pull
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          sudo rm variables-prod-autenticacion.env
+          sudo aws s3 cp s3://dermoapp-config/variables-prod-autenticacion.env .
+          docker-compose rm -fs
+          docker-compose -f docker-compose.yaml up --build -d
