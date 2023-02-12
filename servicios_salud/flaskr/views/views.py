@@ -67,6 +67,35 @@ class SuministroLesionView(Resource):
         else:
             return {"message":"Unauthorized"}, 401
 
+    def put(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+
+        if (rol == 'Paciente') and (response.status_code == 200):
+            caso_id = request.form.get('caso_id')
+            imagen_lesion = request.files.get('image')
+
+            if (imagen_lesion != "") and (imagen_lesion is not None):
+                imagen_procesada = procesar_imagen(imagen_lesion)
+                
+                if imagen_procesada is False:
+                    return {"message":"error al procesar la imagen"}, 400
+            else:
+                imagen_procesada = imagen_lesion
+
+            logica = Logica()
+
+            nueva_imagen_caso = logica.crear_imagen_caso(caso_id,imagen_procesada)
+
+            return {"message":"Imagen guardada exitosamente", "id_imagen_caso": nueva_imagen_caso.id}, 200
+        else:
+            return {"message":"Unauthorized"}, 401
+
 class CasosPacientesView(Resource):
     def get(self):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'

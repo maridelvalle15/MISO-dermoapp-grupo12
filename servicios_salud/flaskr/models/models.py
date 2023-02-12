@@ -44,6 +44,11 @@ class Caso(db.Model):
     def nombre_lesion(self):
         return LesionTipo.query.filter(LesionTipo.id == self.tipo_lesion).first().nombre
 
+class ImagenCaso(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    caso_id = db.Column(db.Integer, unique=False)
+    imagen = db.Column(db.String(250), unique=False)
+
 class MatchEspecialidades(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     especialidad = db.Column(db.String(50), unique=False)
@@ -92,7 +97,13 @@ class MatchEspecialidadesSchema(SQLAlchemyAutoSchema):
          include_relationships = True
          load_instance = True
 
-class DiagnosticoScrema(SQLAlchemyAutoSchema):
+class DiagnosticoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = Diagnostico
+         include_relationships = True
+         load_instance = True
+
+class ImagenCasoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = Diagnostico
          include_relationships = True
