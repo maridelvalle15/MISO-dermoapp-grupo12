@@ -26,4 +26,4 @@ jobs:
           cd front
           npm install
           npm run build
-        # npm run test
+          npm test -- --watch=false --browsers=ChromeHeadless
