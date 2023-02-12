@@ -20,7 +20,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY_AUTENTICACION }}
         port: 22
         envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
-        script:
+        script: |
           sudo service apache2 stop
           sudo apt remove apache2.*
           cd /MISO-dermoapp-grupo12/autenticacion
