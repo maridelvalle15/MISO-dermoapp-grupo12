@@ -12,7 +12,7 @@ class CaseListManager {
   Future<List> getMyCases() async {
     String token = await getToken() as String;
     final response = await client.get(
-      Uri.parse('$services["salud"]api/suministro-lesion'),
+      Uri.parse('${services["salud"]}api/suministro-lesion'),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },

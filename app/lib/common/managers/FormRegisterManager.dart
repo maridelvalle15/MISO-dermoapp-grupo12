@@ -22,7 +22,7 @@ class FormRegisterManager {
       String tipopiel,
       File? image) async {
     final request = http.MultipartRequest(
-        'POST', Uri.parse('$services["auth"]api/registro'));
+        'POST', Uri.parse('${services["auth"]}api/registro'));
 
     request.fields['nombre'] = nombre;
     request.fields['edad'] = edad;
