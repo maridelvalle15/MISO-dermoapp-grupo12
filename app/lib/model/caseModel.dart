@@ -1,14 +1,21 @@
 class CaseModel {
   final int id;
-  final String fecha;
-  final String tipodiagnostico;
+  final String tipo;
+  final String forma;
+  final String cantidad;
+  final String distrib;
+  final String imagen;
+  final String adicional;
 
-  CaseModel(this.fecha, this.tipodiagnostico, this.id);
+  CaseModel(this.forma, this.tipo, this.id, this.cantidad, this.distrib,
+      this.imagen, this.adicional);
 
   CaseModel.fromJson(Map<dynamic, dynamic> json)
-      : fecha = json['fecha'].substring(0, 10),
-        tipodiagnostico = json['tipodiagnostico'],
-        id = json['id'];
-
-  //Map<String, dynamic> toJson() => {'token': token, 'email': email, 'id': id};
+      : id = json['id'],
+        tipo = json['tipo'],
+        forma = json['forma'],
+        cantidad = json['cantidad'],
+        distrib = json['distrib'],
+        imagen = json['imagen'],
+        adicional = json['adicional'];
 }

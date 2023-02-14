@@ -1,30 +1,33 @@
 import 'dart:io';
 
+import 'package:dermoapp/common/managers/CaseDetailManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
+import 'package:dermoapp/model/caseModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 
-class CaseDetailScreen extends StatelessWidget {
-  CaseDetailScreen(this.id,
-      {super.key,
-      this.newCase = false,
-      this.tipo,
-      this.forma,
-      this.cantidad,
-      this.dist,
-      this.adicional,
-      this.foto});
+class CaseDetailScreen extends StatefulWidget {
+  const CaseDetailScreen(this.id, {super.key});
 
   final int id;
-  final bool newCase;
-  final String? tipo;
-  final String? forma;
-  final String? cantidad;
-  final String? dist;
-  final String? adicional;
-  final File? foto;
+
+  @override
+  State<StatefulWidget> createState() {
+    return CaseDetailScreenState();
+  }
+}
+
+class CaseDetailScreenState extends State<CaseDetailScreen> {
+  CaseModel caseDetail = CaseModel('', '', 0, '', '', '', '');
+
+  @override
+  void initState() {
+    super.initState();
+
+    getCase(widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,16 +105,6 @@ class CaseDetailScreen extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 16.0, color: Color(0xffdfdfdf))),
                 )),
-            if (newCase) ...[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 10.0),
-                child: Text(AppLocalizations.of(context).caseCreated,
-                    style: const TextStyle(
-                        fontSize: 24.0,
-                        color: Color(0xFFDFDFDF),
-                        fontWeight: FontWeight.bold)),
-              ),
-            ],
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -129,7 +122,7 @@ class CaseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text('$id',
+                    child: Text(widget.id.toString(),
                         style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFFDFDFDF),
@@ -155,7 +148,7 @@ class CaseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryType[tipo] as String,
+                    child: Text(injuryType[caseDetail.tipo] ?? '',
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -181,7 +174,7 @@ class CaseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryForm[forma] as String,
+                    child: Text(injuryForm[caseDetail.forma] ?? '',
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -207,7 +200,7 @@ class CaseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryQty[cantidad] as String,
+                    child: Text(injuryQty[caseDetail.cantidad] ?? '',
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -233,7 +226,7 @@ class CaseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryDist[dist] as String,
+                    child: Text(injuryDist[caseDetail.distrib] ?? '',
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -253,9 +246,9 @@ class CaseDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Text(
-                  adicional!.isEmpty
+                  caseDetail.adicional.isEmpty
                       ? AppLocalizations.of(context).noAdditionalInfo
-                      : adicional as String,
+                      : caseDetail.adicional,
                   style: const TextStyle(
                       fontSize: 18.0, color: Color(0xFFDFDFDF))),
             ),
@@ -263,38 +256,20 @@ class CaseDetailScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 200,
-                child: foto != null
-                    ? Image.file(
-                        File(foto!.path),
+                child: caseDetail.imagen.isNotEmpty
+                    ? Image.network(
+                        caseDetail.imagen,
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover,
                       )
-                    : Text(AppLocalizations.of(context).noImageSelected)),
+                    : const Text('')),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
-                  key: const Key('btnDiagnosticAuto'),
-                  onPressed: () {
-                    /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
-                  },
-                  child: Text(AppLocalizations.of(context).diagnosticAuto,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 22.0)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-              child: SizedBox(
-                height: 55.0,
-                child: ElevatedButton(
-                  key: const Key('btnDiagnosticManual'),
+                  key: const Key('btnCaseDetails'),
                   onPressed: () {
                     /*Navigator.push(
                         context,
@@ -307,20 +282,14 @@ class CaseDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-              child: SizedBox(
-                height: 55.0,
-                child: ElevatedButton(
-                  key: const Key('btnBack'),
-                  onPressed: () {},
-                  child: Text(AppLocalizations.of(context).back,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 22.0)),
-                ),
-              ),
-            ),
           ],
         )));
+  }
+
+  void getCase(int id) async {
+    var caseResult = await CaseDetailManager().getCase(id);
+    setState(() {
+      caseDetail = caseResult;
+    });
   }
 }

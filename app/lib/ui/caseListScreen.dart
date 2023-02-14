@@ -1,6 +1,7 @@
 import 'package:dermoapp/common/managers/CaseListManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
+import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
@@ -120,7 +121,13 @@ class CaseListScreenState extends State<CaseListScreen> {
         DataCell(
           ElevatedButton(
             key: const Key('btnCaseDetails'),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CaseDetailScreen(caseId)),
+              );
+            },
             child: Text(AppLocalizations.of(context).caseDetails,
                 style: const TextStyle(
                     color: Colors.white,

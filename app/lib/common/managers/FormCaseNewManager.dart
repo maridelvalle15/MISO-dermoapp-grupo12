@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/ui/caseDetailScreen.dart';
+import 'package:dermoapp/ui/caseCreatedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -47,7 +47,7 @@ class FormCaseNewManager {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => CaseDetailScreen(
+              builder: (context) => CaseCreatedScreen(
                     caseId,
                     newCase: true,
                     tipo: tipolesion,
