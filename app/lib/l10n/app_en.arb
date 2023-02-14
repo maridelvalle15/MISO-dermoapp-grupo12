@@ -94,5 +94,11 @@
   "diagnosticType" : "Diagnostic",
   "caseDetails" : "Details",
   "automatic" : "Automatic",
-  "manual"    : "Manual"
+  "manual"    : "Manual",
+  "caseAddImages" : "Add Photos",
+  "backToCaseList" : "Back to list",
+  "uploadExtraImage" : "Upload extra photo",
+  "backToCaseDetails" : "Back to Case details",
+  "imageUploadedTitle": "Image uploaded",
+  "imageUploadedText" : "Your new photo has been added to the case"
 }

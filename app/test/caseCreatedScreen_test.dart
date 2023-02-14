@@ -12,7 +12,7 @@ void main() {
     );
   }
 
-  group('caseDetail', () {
+  group('caseCreated', () {
     testWidgets('Fields, image and additional info are displayed',
         (WidgetTester tester) async {
       var image = Io.File("image.png");

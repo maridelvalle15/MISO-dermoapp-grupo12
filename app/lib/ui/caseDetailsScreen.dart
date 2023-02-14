@@ -4,6 +4,8 @@ import 'package:dermoapp/common/managers/CaseDetailManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/model/caseModel.dart';
+import 'package:dermoapp/ui/caseAddImagesScreen.dart';
+import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
@@ -269,14 +271,33 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
-                  key: const Key('btnCaseDetails'),
+                  key: const Key('btnAddImages'),
                   onPressed: () {
-                    /*Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
+                            builder: (context) =>
+                                CaseAddImagesScreen(widget.id)));
                   },
-                  child: Text(AppLocalizations.of(context).diagnosticManual,
+                  child: Text(AppLocalizations.of(context).caseAddImages,
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 22.0)),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+              child: SizedBox(
+                height: 55.0,
+                child: ElevatedButton(
+                  key: const Key('btnBackToList'),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CaseListScreen()));
+                  },
+                  child: Text(AppLocalizations.of(context).backToCaseList,
                       style:
                           const TextStyle(color: Colors.white, fontSize: 22.0)),
                 ),
