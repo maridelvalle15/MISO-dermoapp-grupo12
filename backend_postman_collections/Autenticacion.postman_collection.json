@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "cb31e854-f4c5-4037-81d7-02173ac086e6",
+		"name": "Autenticacion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "647324"
+	},
+	"item": [
+		{
+			"name": "Autenticacion Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-54-174-93-128.compute-1.amazonaws.com:8000/api/health-check",
+					"protocol": "http",
+					"host": [
+						"ec2-54-174-93-128",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacion Validacion de Usuario",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5MzM3NywianRpIjoiYjgyYTg4ODgtMjBlMC00MDE0LThlOWYtYjIyYmFmOGFmYzg1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjc1OTkzMzc3LCJleHAiOjE2NzYwNzk3Nzd9.SHEtvr5Ku8qvJYcj_Py6IrIvXsq-J4ZIRnGkFKOtwkA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/validacion-usuario",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"validacion-usuario"
+					]
+				},
+				"description": "Validacion del token de usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacion Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"correo\": \"mama@paciente.com\",\n    \"password\": \"DOEIBgpI\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacion Registro (campos paciente)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "correo",
+							"value": "mama@paciente.com",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "paciente m",
+							"type": "text"
+						},
+						{
+							"key": "direccion",
+							"value": "direc",
+							"type": "text"
+						},
+						{
+							"key": "pais",
+							"value": "co",
+							"type": "text"
+						},
+						{
+							"key": "ciudad",
+							"value": "bog",
+							"type": "text"
+						},
+						{
+							"key": "edad",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "cedula",
+							"value": "443321",
+							"type": "text"
+						},
+						{
+							"key": "tipopiel",
+							"value": "normal",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/mariseladelvalle/Desktop/Screen Shot 2022-09-28 at 7.18.00 PM.png"
+						},
+						{
+							"key": "tipousuario",
+							"value": "PACIENTE",
+							"type": "text"
+						},
+						{
+							"key": "especialidad",
+							"value": "General",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "licencia",
+							"value": "XX12900s",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/registro",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacion Registro (campos medico)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "correo",
+							"value": "mama@paciente.com",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "paciente m",
+							"type": "text"
+						},
+						{
+							"key": "direccion",
+							"value": "direc",
+							"type": "text"
+						},
+						{
+							"key": "pais",
+							"value": "co",
+							"type": "text"
+						},
+						{
+							"key": "ciudad",
+							"value": "bog",
+							"type": "text"
+						},
+						{
+							"key": "edad",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "cedula",
+							"value": "443321",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tipopiel",
+							"value": "normal",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/mariseladelvalle/Desktop/Screen Shot 2022-09-28 at 7.18.00 PM.png",
+							"disabled": true
+						},
+						{
+							"key": "tipousuario",
+							"value": "MEDICO",
+							"type": "text"
+						},
+						{
+							"key": "especialidad",
+							"value": "General",
+							"type": "text"
+						},
+						{
+							"key": "licencia",
+							"value": "XX12900s",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/registro",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

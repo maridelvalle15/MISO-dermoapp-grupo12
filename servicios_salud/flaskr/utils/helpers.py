@@ -1,7 +1,7 @@
-import os
-import boto3
+import os, boto3, base64
 from werkzeug.utils import secure_filename
 from flask import jsonify
+import time
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -16,30 +16,40 @@ def construir_descripcion_caso(objetos_lesion,adicional):
     
 def upload_file_to_s3(file):
 
-    s3 = boto3.client(
-    "s3",
-    aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
-    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
-)
-
     try:
-        s3.upload_fileobj(
-            file,
-            os.getenv("AWS_BUCKET_NAME"),
-            'imagenes-creacion-caso/' + file.filename,
-            ExtraArgs={
-                "ContentType": file.content_type
-            }
-        )
+        if type(file) == str:
+            filename = (str(time.time())).replace('.','') + '.png'
+            session = boto3.Session(
+                aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+                aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+                )
+            s3 = session.resource('s3')
+            s3.Object(os.getenv("AWS_BUCKET_NAME"), 'imagenes-creacion-caso/' + filename).put(Body=base64.b64decode(file))
+        else:
+            filename = file.filename
+            s3 = boto3.client(
+                "s3",
+                aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+                aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+            )
+            s3.upload_fileobj(
+                file,
+                os.getenv("AWS_BUCKET_NAME"),
+                'imagenes-creacion-caso/' + filename,
+                ExtraArgs={
+                    "ContentType": file.content_type
+                }
+            )
+        
 
     except Exception as e:
         # This is a catch all exception, edit this part to fit your needs.
         print("Something Happened: ", e)
-        return e
+        return False
     
 
     # after upload file to s3 bucket, return filename of the uploaded file
-    return file.filename
+    return filename
 
 # function to check file extension
 def allowed_file(filename):
