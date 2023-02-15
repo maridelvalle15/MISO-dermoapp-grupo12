@@ -74,7 +74,7 @@ cors = CORS(app)
 
 api = Api(app)
 
-api.add_resource(SuministroLesionView, '/api/suministro-lesion')
+api.add_resource(SuministroLesionView, '/api/suministro-lesion/', '/api/suministro-lesion/<int:caso_id>')
 api.add_resource(CasosPacientesView, '/api/casos-pacientes')
 api.add_resource(HealthCheckView, '/api/health-check')
 api.add_resource(DiagnosticoAutomaticoView, '/api/diagnostico-automatico')

@@ -133,3 +133,23 @@ class Logica():
             return {"message":"Error al crear diagnostico"}, 500
 
         return imagen_caso
+
+    def obtener_informacion_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+        imagenes_array = []
+        imagenes = ImagenCaso.query.filter(ImagenCaso.caso_id==caso_id).all()
+        for imagen in imagenes:
+            imagenes_array.append(imagen.imagen)
+        if caso:
+            caso_dict = {
+                'id': caso.id,
+                'descripcion': caso.descripcion,
+                'image': caso.imagen_caso,
+                'tipo_solucion': caso.tipo_solucion,
+                'nombre_paciente': caso.nombre_paciente,
+                'medico_asignado': caso.medico_asignado,
+                'tipo_piel': caso.tipo_piel,
+                'fecha': str(caso.fecha_creacion),
+                'imagenes_extra': imagenes_array
+            }
+            return caso_dict
