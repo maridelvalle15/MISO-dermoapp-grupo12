@@ -3,7 +3,7 @@ from flask import request
 import requests, os, json
 from ..models.logica import Logica
 from .logica import procesar_imagen, generar_diagnostico_automatico
-from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente
+from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente, upload_file_to_s3
 
 class SuministroLesionView(Resource):
 
@@ -77,12 +77,14 @@ class SuministroLesionView(Resource):
         rol = json_response['rol']
 
         if (rol == 'Paciente') and (response.status_code == 200):
-            caso_id = request.form.get('caso_id')
-            imagen_lesion = request.files.get('image')
+
+            caso_id = request.json["caso_id"]
+            imagen_lesion = request.json["image"]
+
 
             if (imagen_lesion != "") and (imagen_lesion is not None):
-                imagen_procesada = procesar_imagen(imagen_lesion)
-                
+                imagen_procesada = upload_file_to_s3(imagen_lesion)
+
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
             else:
