@@ -7,27 +7,43 @@ from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_pac
 
 class SuministroLesionView(Resource):
 
-    def get(self):
+    def get(self,caso_id=None):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
         headers = {'Authorization': request.headers.get('Authorization')}
     
         response = requests.get(auth_url_validacion_usuario, headers=headers)
 
-        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
-        rol = json_response['rol']
-        id_usuario = json_response['id_usuario']
+        if caso_id:
+            auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+            headers = {'Authorization': request.headers.get('Authorization')}
+        
+            response = requests.get(auth_url_validacion_usuario, headers=headers)
 
-        if (rol == 'Paciente') and (response.status_code == 200):
+            if response.status_code == 200:
 
-            logica = Logica()
+                logica = Logica()
 
-            casos_paciente = logica.obtener_casos_paciente(id_usuario)
-            casos = construir_casos_mostrar_paciente(casos_paciente)
-            
-            return {"casos": casos }, 200
+                caso = logica.obtener_informacion_caso(caso_id)
+                
+                return caso, 200
+            else:
+                return {"message":"Unauthorized"}, 401
         else:
-            return {"message":"Unauthorized"}, 401
+        
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            id_usuario = json_response['id_usuario']
 
+            if (rol == 'Paciente') and (response.status_code == 200):
+
+                logica = Logica()
+
+                casos_paciente = logica.obtener_casos_paciente(id_usuario)
+                casos = construir_casos_mostrar_paciente(casos_paciente)
+                
+                return {"casos": casos }, 200
+            else:
+                return {"message":"Unauthorized"}, 401
 
     def post(self):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
