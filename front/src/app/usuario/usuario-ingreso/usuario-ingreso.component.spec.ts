@@ -32,18 +32,36 @@ describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
     expect(UsuarioIngresoComponent).toBeTruthy();
   });
 
-  it('Campo correo de tipo texto', () => {
+
+
+  it('Debe retornar formulario valido', () => {
     const fixture = TestBed.createComponent(UsuarioIngresoComponent);
-    const app = fixture.componentInstance;
+    const app = fixture.componentInstance
     fixture.detectChanges()
-    expect(fixture.debugElement.query(By.css('#submit')).attributes['type']).toEqual('text');
+
+
+    let correo = app.usuarioForm.controls['correo']
+    let password = app.usuarioForm.controls['password']
+
+    correo.setValue('juan@gmail.com')
+    password.setValue('xxxxxxx')
+
+    expect(app.usuarioForm.invalid).toBeFalse();
   });
 
-  it('Campo password de tipo password', () => {
+  it('Debe retornar formulario invalido', () => {
     const fixture = TestBed.createComponent(UsuarioIngresoComponent);
-    const app = fixture.componentInstance;
+    const app = fixture.componentInstance
     fixture.detectChanges()
-    expect(fixture.debugElement.query(By.css('#password')).attributes['type']).toEqual('text');
+
+
+    let correo = app.usuarioForm.controls['correo']
+    let password = app.usuarioForm.controls['password']
+
+    correo.setValue('')
+    password.setValue('')
+
+    expect(app.usuarioForm.invalid).toBeTrue();
   });
 
 

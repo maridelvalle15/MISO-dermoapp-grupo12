@@ -11,7 +11,7 @@ import { PermisoGuard } from './permiso.guard';
 const routes: Routes = [
   {path:'',component: UsuarioIngresoComponent},
   {path:'usuario-registro',component: UsuarioRegistroComponent},
-  {path:'usuario-registro/registro-exitoso',component: RegistroExitosoComponent,canActivate: [PermisoGuard]},
+  {path:'usuario-registro/registro-exitoso',component: RegistroExitosoComponent},
   {path:'caso-listar',component: CasoListarComponent,canActivate: [PermisoGuard]}
 ];
 

@@ -14,9 +14,9 @@
      <form [formGroup]="usuarioForm">
       <label #error style="color: red;"  *ngIf="error"> Usuario o contraseña incorrectos </label>
       <input #correo formControlName="correo" type="text" placeholder="Correo" required>
-      <input #password type="password" placeholder="Contraseña" required>
+      <input #password formControlName="password" type="password" placeholder="Contraseña" required>
 
-      <button (click)="onLogInUsuario(correo.value, password.value)" type="button">Ingresar</button>
+      <button (click)="onLogInUsuario(correo.value, password.value)" type="button" [disabled]="!usuarioForm.valid">Ingresar</button>
       <button><a href="../usuario-registro/"> Registrarse </a></button>
 
 

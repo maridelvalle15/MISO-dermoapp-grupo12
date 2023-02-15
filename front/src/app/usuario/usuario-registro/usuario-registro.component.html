@@ -17,14 +17,14 @@
     <form [formGroup]="usuarioForm" (ngSubmit)="registrarUsuario()">
 
 
-      <label for="tipousuario">Tipo de usuario *</label> <br>
+      <!-- <label for="tipousuario">Tipo de usuario *</label> <br>
       <input type="text" formControlName="tipousuario" required><br>
       <div *ngIf="
       usuarioForm.get('tipousuario')!.hasError('required') &&
       usuarioForm.get('tipousuario')!.touched
       ">
         Tipo de usuario requerido
-      </div>
+      </div> -->
 
 
       <label for="nombre">Nombre Completo *</label> <br>
