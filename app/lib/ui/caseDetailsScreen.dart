@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dermoapp/common/managers/CaseDetailManager.dart';
+import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/model/caseModel.dart';
@@ -22,7 +21,7 @@ class CaseDetailScreen extends StatefulWidget {
 }
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail = CaseModel('', '', 0, '', '', '', '');
+  CaseModel caseDetail = CaseModel(0, '', '', '', '', '', '', '', List.empty());
 
   @override
   void initState() {
@@ -33,40 +32,6 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final injuryType = {
-      'mac': AppLocalizations.of(context).typeMacula,
-      'pap': AppLocalizations.of(context).typePapula,
-      'par': AppLocalizations.of(context).typeParche,
-      'pla': AppLocalizations.of(context).typePlaca,
-      'nod': AppLocalizations.of(context).typeNodulo,
-      'amp': AppLocalizations.of(context).typeAmpolla,
-      'ulc': AppLocalizations.of(context).typeUlcera,
-      'ves': AppLocalizations.of(context).typeVesicula
-    };
-
-    final injuryForm = {
-      'ani': AppLocalizations.of(context).formAnillo,
-      'dom': AppLocalizations.of(context).formDomo,
-      'enr': AppLocalizations.of(context).formEnrollada,
-      'ind': AppLocalizations.of(context).formIndefinida,
-      'ova': AppLocalizations.of(context).formOvalada,
-      'red': AppLocalizations.of(context).formRedonda
-    };
-
-    final injuryQty = {
-      'dis': AppLocalizations.of(context).qtyDiseminada,
-      'mul': AppLocalizations.of(context).qtyMultiple,
-      'rec': AppLocalizations.of(context).qtyRecurrente,
-      'sol': AppLocalizations.of(context).qtySolitaria
-    };
-
-    final injuryDist = {
-      'asi': AppLocalizations.of(context).distAsimetrica,
-      'con': AppLocalizations.of(context).distConfluente,
-      'esp': AppLocalizations.of(context).distEsparcida,
-      'sim': AppLocalizations.of(context).distSimetrica
-    };
-
     return Scaffold(
         drawer: const MainDrawer(
           currentSelected: 2,
@@ -133,113 +98,9 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(AppLocalizations.of(context).injuryType,
-                        style: const TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFDFDFDF),
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const VerticalDivider(width: 1),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(injuryType[caseDetail.tipo] ?? '',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                        )),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(AppLocalizations.of(context).injuryForm,
-                        style: const TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFDFDFDF),
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const VerticalDivider(width: 1),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(injuryForm[caseDetail.forma] ?? '',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                        )),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(AppLocalizations.of(context).injuryQty,
-                        style: const TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFDFDFDF),
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const VerticalDivider(width: 1),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(injuryQty[caseDetail.cantidad] ?? '',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                        )),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(AppLocalizations.of(context).injuryDist,
-                        style: const TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFDFDFDF),
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const VerticalDivider(width: 1),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(injuryDist[caseDetail.distrib] ?? '',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                        )),
-                  ),
-                ),
-              ],
-            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Text(AppLocalizations.of(context).additionalInfo,
+              child: Text(AppLocalizations.of(context).description,
                   style: const TextStyle(
                       fontSize: 18.0,
                       color: Color(0xFFDFDFDF),
@@ -247,10 +108,7 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Text(
-                  caseDetail.adicional.isEmpty
-                      ? AppLocalizations.of(context).noAdditionalInfo
-                      : caseDetail.adicional,
+              child: Text(caseDetail.descripcion,
                   style: const TextStyle(
                       fontSize: 18.0, color: Color(0xFFDFDFDF))),
             ),
@@ -258,14 +116,40 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 200,
-                child: caseDetail.imagen.isNotEmpty
+                child: caseDetail.image.isNotEmpty
                     ? Image.network(
-                        caseDetail.imagen,
+                        caseDetail.image,
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover,
                       )
-                    : const Text('')),
+                    : Text(AppLocalizations.of(context).noImage)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Text(AppLocalizations.of(context).extraImages,
+                  style: const TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xFFDFDFDF),
+                      fontWeight: FontWeight.bold)),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                for (var imageExtra in caseDetail.imagenes_extra)
+                  Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 200,
+                      child: imageExtra.isNotEmpty
+                          ? Image.network(
+                              services["bucket_caso"] ?? '' + imageExtra,
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            )
+                          : Text(AppLocalizations.of(context).noImage))
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: SizedBox(

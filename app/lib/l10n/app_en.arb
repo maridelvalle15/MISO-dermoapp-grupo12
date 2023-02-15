@@ -100,5 +100,10 @@
   "uploadExtraImage" : "Upload extra photo",
   "backToCaseDetails" : "Back to Case details",
   "imageUploadedTitle": "Image uploaded",
-  "imageUploadedText" : "Your new photo has been added to the case"
+  "imageUploadedText" : "Your new photo has been added to the case",
+  "description" : "Description",
+  "noImage" : "We couldn't find an image",
+  "extraImages" : "Extra Images",
+  "reload" : "Reload",
+  "copyPassword" : "Copy password"
 }

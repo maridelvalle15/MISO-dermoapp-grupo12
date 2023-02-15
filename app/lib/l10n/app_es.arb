@@ -100,5 +100,10 @@
   "uploadExtraImage" : "Subir foto adicional",
   "backToCaseDetails" : "Regresar a la consulta",
   "imageUploadedTitle": "Imagen agregada",
-  "imageUploadedText" : "La foto ha sido agregada a la consulta."
+  "imageUploadedText" : "La foto ha sido agregada a la consulta.",
+  "description" : "Descripción",
+  "noImage" : "No se encontró imagen.",
+  "extraImages" : "Imágenes adicionales",
+  "reload" : "Recargar",
+  "copyPassword": "Copiar clave"
 }

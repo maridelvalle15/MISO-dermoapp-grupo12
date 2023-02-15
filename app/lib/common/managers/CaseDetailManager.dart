@@ -12,7 +12,7 @@ class CaseDetailManager {
   Future<CaseModel> getCase(int id) async {
     String token = await getToken() as String;
     final response = await client.get(
-      Uri.parse('${services["salud"]}api/casodetalle/$id'),
+      Uri.parse('${services["salud"]}api/suministro-lesion/$id'),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
@@ -21,11 +21,11 @@ class CaseDetailManager {
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 
-      CaseModel caseDetail = CaseModel.fromJson(responseJson["caso"]);
+      CaseModel caseDetail = CaseModel.fromJson(responseJson);
 
       return caseDetail;
     } else {
-      return CaseModel('', '', 0, '', '', '', '');
+      return CaseModel(0, '', '', '', '', '', '', '', List.empty());
     }
   }
 }
