@@ -10,7 +10,7 @@ class TestSuministroLesion:
         os_mock = mocker.patch("os.environ.get")
         os_mock.return_value.content = ''
 
-        response = client.post('/api/suministro-lesion')
+        response = client.post('/api/suministro-lesion/')
 
         assert response.status_code==401
         assert response.json['message'] == 'Unauthorized'
@@ -33,7 +33,7 @@ class TestSuministroLesion:
             'image': '',
         }
 
-        response = client.post('/api/suministro-lesion', data=data)
+        response = client.post('/api/suministro-lesion/', data=data)
 
         assert response.status_code==200
         assert response.json['message'] == 'Caso creado exitosamente'
@@ -46,7 +46,7 @@ class TestSuministroLesion:
         os_mock = mocker.patch("os.environ.get")
         os_mock.return_value.content = ''
 
-        response = client.get('/api/suministro-lesion')
+        response = client.get('/api/suministro-lesion/')
 
         assert response.status_code==401
         assert response.json['message'] == 'Unauthorized'
@@ -60,7 +60,7 @@ class TestSuministroLesion:
         os_mock = mocker.patch("os.environ.get")
         os_mock.return_value.content = ''
 
-        response = client.get('/api/suministro-lesion')
+        response = client.get('/api/suministro-lesion/')
 
         assert response.status_code==200
         assert "casos" in response.json
