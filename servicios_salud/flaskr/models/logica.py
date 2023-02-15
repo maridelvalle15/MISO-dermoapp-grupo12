@@ -1,4 +1,4 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, ImagenCaso
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -120,3 +120,16 @@ class Logica():
             flaskr.logger.error(e)    
             db.session.rollback()
             return {"message":"Error al crear diagnostico"}, 500
+
+    def crear_imagen_caso(self,caso_id,imagen):
+        imagen_caso = ImagenCaso(caso_id=caso_id,imagen=imagen)
+        try:
+            db.session.add(imagen_caso)
+            db.session.commit()
+
+        except exc.SQLAlchemyError as e:
+            flaskr.logger.error(e)    
+            db.session.rollback()
+            return {"message":"Error al crear diagnostico"}, 500
+
+        return imagen_caso
