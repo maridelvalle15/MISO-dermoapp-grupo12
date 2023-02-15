@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 
-class CaseDetailScreen extends StatelessWidget {
-  CaseDetailScreen(this.id,
+class CaseCreatedScreen extends StatelessWidget {
+  CaseCreatedScreen(this.id,
       {super.key,
       this.newCase = false,
       this.tipo,
@@ -312,8 +312,13 @@ class CaseDetailScreen extends StatelessWidget {
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
-                  key: const Key('btnBack'),
-                  onPressed: () {},
+                  key: const Key('btnAddImages'),
+                  onPressed: () {
+                    /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));*/
+                  },
                   child: Text(AppLocalizations.of(context).back,
                       style:
                           const TextStyle(color: Colors.white, fontSize: 22.0)),

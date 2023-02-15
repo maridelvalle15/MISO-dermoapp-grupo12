@@ -22,8 +22,10 @@ class LoginManager {
 
     var body = json.encode(data);
 
-    final response = await client.post(Uri.parse('$services["auth"]api/login'),
-        body: body, headers: {"Content-Type": "application/json"});
+    final response = await client.post(
+        Uri.parse('${services["auth"]}api/login'),
+        body: body,
+        headers: {"Content-Type": "application/json"});
 
     final loginResponseJson = json.decode(response.body);
 

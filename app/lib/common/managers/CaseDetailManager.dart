@@ -3,16 +3,16 @@ import 'dart:io';
 
 import 'package:dermoapp/common/helpers/getToken.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/model/caseListModel.dart';
+import 'package:dermoapp/model/caseModel.dart';
 import 'package:http/http.dart' as http;
 
-class CaseListManager {
+class CaseDetailManager {
   http.Client client = http.Client();
 
-  Future<List> getMyCases() async {
+  Future<CaseModel> getCase(int id) async {
     String token = await getToken() as String;
     final response = await client.get(
-      Uri.parse('${services["salud"]}api/suministro-lesion'),
+      Uri.parse('${services["salud"]}api/suministro-lesion/$id'),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
@@ -21,14 +21,11 @@ class CaseListManager {
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 
-      List<dynamic> cases = [];
-      cases = responseJson["casos"]
-          .map<CaseListModel>((json) => CaseListModel.fromJson(json))
-          .toList();
+      CaseModel caseDetail = CaseModel.fromJson(responseJson);
 
-      return cases;
+      return caseDetail;
     } else {
-      return List.empty();
+      return CaseModel(0, '', '', '', '', '', '', '', List.empty());
     }
   }
 }

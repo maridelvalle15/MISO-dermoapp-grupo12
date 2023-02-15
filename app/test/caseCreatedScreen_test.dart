@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io' as Io;
-import 'package:dermoapp/ui/caseDetailScreen.dart';
+import 'package:dermoapp/ui/caseCreatedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +12,7 @@ void main() {
     );
   }
 
-  group('caseDetail', () {
+  group('caseCreated', () {
     testWidgets('Fields, image and additional info are displayed',
         (WidgetTester tester) async {
       var image = Io.File("image.png");
@@ -23,7 +23,7 @@ void main() {
           child: Localizations(
               delegates: AppLocalizations.localizationsDelegates,
               locale: const Locale('en'),
-              child: CaseDetailScreen(15,
+              child: CaseCreatedScreen(15,
                   newCase: true,
                   tipo: 'pap',
                   forma: 'dom',

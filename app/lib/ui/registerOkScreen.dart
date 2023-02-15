@@ -1,6 +1,7 @@
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/ui/loginScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterOkScreen extends StatelessWidget {
@@ -75,6 +76,20 @@ class RegisterOkScreen extends StatelessWidget {
                   "${AppLocalizations.of(context).password}: $password",
                   style:
                       const TextStyle(fontSize: 18.0, color: Color(0xFFDFDFDF)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                child: SizedBox(
+                  height: 55.0,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await Clipboard.setData(ClipboardData(text: password));
+                    },
+                    child: Text(AppLocalizations.of(context).copyPassword,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 22.0)),
+                  ),
                 ),
               ),
               Padding(

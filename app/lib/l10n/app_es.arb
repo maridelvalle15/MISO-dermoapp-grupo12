@@ -94,5 +94,16 @@
   "diagnosticType" : "Diagnóstico",
   "caseDetails" : "Detalles",
   "automatic" : "Automático",
-  "manual"    : "Manual"
+  "manual"    : "Manual",
+  "caseAddImages" : "Agregar fotos",
+  "backToCaseList" : "Regresar al listado",
+  "uploadExtraImage" : "Subir foto adicional",
+  "backToCaseDetails" : "Regresar a la consulta",
+  "imageUploadedTitle": "Imagen agregada",
+  "imageUploadedText" : "La foto ha sido agregada a la consulta.",
+  "description" : "Descripción",
+  "noImage" : "No se encontró imagen.",
+  "extraImages" : "Imágenes adicionales",
+  "reload" : "Recargar",
+  "copyPassword": "Copiar clave"
 }
