@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Caso } from '../caso';
 import { CasoService } from '../caso.service';
-;
+import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
+import { CasoPopupComponent } from '../caso-popup/caso-popup.component';
 
 interface Student{
   id: number;
@@ -16,7 +16,7 @@ interface Student{
 export class CasoListarComponent implements OnInit {
 
   casos: any;
-  constructor(private casoService: CasoService,) {}
+  constructor(private casoService: CasoService, public dialog:MatDialog) {}
 
 
   ngOnInit() {
@@ -32,11 +32,12 @@ export class CasoListarComponent implements OnInit {
     })
 
   }
+  openDialog() {
 
-
-
-
-
-
+    this.dialog.open(CasoPopupComponent, {
+      width: '600px',
+      height: '700px',
+    })
+  }
 
 }
