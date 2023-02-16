@@ -48,7 +48,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
 
     return Scaffold(
         drawer: const MainDrawer(
-          currentSelected: 2,
+          currentSelected: 3,
         ),
         appBar: AppBar(
             title: Text(AppLocalizations.of(context).uploadExtraImage,

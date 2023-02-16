@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/ui/caseListScreen.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 
-class CaseCreatedScreen extends StatelessWidget {
+class CaseCreatedScreen extends StatefulWidget {
   CaseCreatedScreen(this.id,
       {super.key,
       this.newCase = false,
@@ -26,6 +28,15 @@ class CaseCreatedScreen extends StatelessWidget {
   final String? dist;
   final String? adicional;
   final File? foto;
+
+  @override
+  State<StatefulWidget> createState() {
+    return CaseCreatedScreenState();
+  }
+}
+
+class CaseCreatedScreenState extends State<CaseCreatedScreen> {
+  bool isDisabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +114,7 @@ class CaseCreatedScreen extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 16.0, color: Color(0xffdfdfdf))),
                 )),
-            if (newCase) ...[
+            if (widget.newCase) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 10.0),
                 child: Text(AppLocalizations.of(context).caseCreated,
@@ -130,7 +141,7 @@ class CaseCreatedScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text('$id',
+                    child: Text(widget.id.toString(),
                         style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFFDFDFDF),
@@ -156,7 +167,7 @@ class CaseCreatedScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryType[tipo] as String,
+                    child: Text(injuryType[widget.tipo] as String,
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -182,7 +193,7 @@ class CaseCreatedScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryForm[forma] as String,
+                    child: Text(injuryForm[widget.forma] as String,
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -208,7 +219,7 @@ class CaseCreatedScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryQty[cantidad] as String,
+                    child: Text(injuryQty[widget.cantidad] as String,
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -234,7 +245,7 @@ class CaseCreatedScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Text(injuryDist[dist] as String,
+                    child: Text(injuryDist[widget.dist] as String,
                         style: const TextStyle(
                           fontSize: 18.0,
                           color: Color(0xFFDFDFDF),
@@ -254,9 +265,9 @@ class CaseCreatedScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Text(
-                  adicional!.isEmpty
+                  widget.adicional!.isEmpty
                       ? AppLocalizations.of(context).noAdditionalInfo
-                      : adicional as String,
+                      : widget.adicional as String,
                   style: const TextStyle(
                       fontSize: 18.0, color: Color(0xFFDFDFDF))),
             ),
@@ -264,9 +275,9 @@ class CaseCreatedScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 200,
-                child: foto != null
+                child: widget.foto != null
                     ? Image.file(
-                        File(foto!.path),
+                        File(widget.foto!.path),
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover,
@@ -278,12 +289,31 @@ class CaseCreatedScreen extends StatelessWidget {
                 height: 55.0,
                 child: ElevatedButton(
                   key: const Key('btnDiagnosticAuto'),
-                  onPressed: () {
-                    /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
-                  },
+                  style: ElevatedButton.styleFrom(
+                      disabledBackgroundColor: Colors.grey),
+                  onPressed: isDisabled
+                      ? null
+                      : () async {
+                          setState(() => isDisabled = true);
+                          bool result = await CaseDiagnosticAutoManager()
+                              .askDiagnosticAuto(widget.id);
+                          if (result == true) {
+                            // ignore: use_build_context_synchronously
+                            showDialogSingleButton(
+                                context,
+                                AppLocalizations.of(context).autoDiagRequested,
+                                AppLocalizations.of(context).autoDiagGoLookAtIt,
+                                "OK");
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            showDialogSingleButton(
+                                context,
+                                AppLocalizations.of(context).thereIsAnError,
+                                AppLocalizations.of(context).tryAgain,
+                                "OK");
+                            setState(() => isDisabled = false);
+                          }
+                        },
                   child: Text(AppLocalizations.of(context).diagnosticAuto,
                       style:
                           const TextStyle(color: Colors.white, fontSize: 22.0)),

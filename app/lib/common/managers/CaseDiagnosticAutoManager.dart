@@ -9,6 +9,28 @@ import 'package:http/http.dart' as http;
 class CaseDiagnosticAutoManager {
   http.Client client = http.Client();
 
+  Future<bool> askDiagnosticAuto(int id) async {
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {'caso_id': id};
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/diagnostico-automatico'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<List<CaseDiagnosticAutoModel>> getDiagnostic(int id) async {
     String token = await getToken() as String;
 
