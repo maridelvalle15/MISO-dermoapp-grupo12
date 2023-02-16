@@ -1,9 +1,12 @@
 import 'package:dermoapp/common/managers/CaseDetailManager.dart';
+import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/model/caseModel.dart';
 import 'package:dermoapp/ui/caseAddImagesScreen.dart';
+import 'package:dermoapp/ui/caseDiagnosticAutoScreen.dart';
 import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +25,7 @@ class CaseDetailScreen extends StatefulWidget {
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
   CaseModel caseDetail = CaseModel(0, '', '', '', '', '', '', '', List.empty());
+  bool isDisabled = false;
 
   @override
   void initState() {
@@ -150,6 +154,86 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                           : Text(AppLocalizations.of(context).noImage))
               ],
             ),
+            if (caseDetail.tipo_solucion == '')
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                child: SizedBox(
+                  height: 55.0,
+                  child: ElevatedButton(
+                    key: const Key('btnDiagnosticAuto'),
+                    style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: Colors.grey),
+                    onPressed: isDisabled
+                        ? null
+                        : () async {
+                            setState(() => isDisabled = true);
+                            bool result = await CaseDiagnosticAutoManager()
+                                .askDiagnosticAuto(widget.id);
+                            if (result == true) {
+                              // ignore: use_build_context_synchronously
+                              showDialogSingleButton(
+                                  context,
+                                  AppLocalizations.of(context)
+                                      .autoDiagRequested,
+                                  AppLocalizations.of(context)
+                                      .autoDiagGoLookAtIt,
+                                  "OK");
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              showDialogSingleButton(
+                                  context,
+                                  AppLocalizations.of(context).thereIsAnError,
+                                  AppLocalizations.of(context).tryAgain,
+                                  "OK");
+                              setState(() => isDisabled = false);
+                            }
+                          },
+                    child: Text(AppLocalizations.of(context).diagnosticAuto,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 22.0)),
+                  ),
+                ),
+              ),
+            if (caseDetail.tipo_solucion == '')
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                child: SizedBox(
+                  height: 55.0,
+                  child: ElevatedButton(
+                    key: const Key('btnDiagnosticManual'),
+                    onPressed: () {
+                      /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));*/
+                    },
+                    child: Text(AppLocalizations.of(context).diagnosticManual,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 22.0)),
+                  ),
+                ),
+              ),
+            if (caseDetail.tipo_solucion == 'auto')
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                child: SizedBox(
+                  height: 55.0,
+                  child: ElevatedButton(
+                    key: const Key('btnDiagAutoDetails'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CaseDiagnosticAutoScreen(widget.id)));
+                    },
+                    child: Text(
+                        AppLocalizations.of(context).seeAutomaticDiagnostic,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 22.0)),
+                  ),
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: SizedBox(

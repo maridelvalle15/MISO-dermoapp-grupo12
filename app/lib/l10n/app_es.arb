@@ -109,5 +109,7 @@
   "tryAgain" : "Por favor intente de nuevo más tarde.",
   "autoDiagRequested" : "Diagnóstico solicitado",
   "autoDiagGoLookAtIt" : "En unos segundos su diagnóstico estará listo, lo encontrará en los detalles de su consulta.",
-  "caseDiagnosticAuto" : "Diagnóstico automático"
+  "caseDiagnosticAuto" : "Diagnóstico automático",
+  "seeAutomaticDiagnostic" : "Ver diagnóstico automático",
+  "seeManualDiagnostic" : "Ver diagnóstico manual"
 }

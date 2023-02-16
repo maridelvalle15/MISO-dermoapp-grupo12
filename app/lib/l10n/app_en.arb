@@ -109,5 +109,7 @@
   "tryAgain" : "Please try again later",
   "autoDiagRequested" : "Diagnostic requested",
   "autoDiagGoLookAtIt" : "Your automatic diagnostic will be ready in a few seconds. Go get it in your Case Detail",
-  "caseDiagnosticAuto" : "Automatic Diagnostic"
+  "caseDiagnosticAuto" : "Automatic Diagnostic",
+  "seeAutomaticDiagnostic" : "Check automatic diagnostic",
+  "seeManualDiagnostic" : "Check manual diagnostic"
 }
