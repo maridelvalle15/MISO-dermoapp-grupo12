@@ -137,7 +137,8 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                         height: 200,
                         child: caseDetail.image.isNotEmpty
                             ? Image.network(
-                                caseDetail.image,
+                                (services["bucket_caso"] ?? '') +
+                                    caseDetail.image,
                                 width: 150,
                                 height: 150,
                                 fit: BoxFit.cover,
@@ -161,8 +162,8 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                               height: 200,
                               child: imageExtra.isNotEmpty
                                   ? Image.network(
-                                      services["bucket_caso"] ??
-                                          '' + imageExtra,
+                                      (services["bucket_caso"] ?? '') +
+                                          imageExtra,
                                       width: 150,
                                       height: 150,
                                       fit: BoxFit.cover,

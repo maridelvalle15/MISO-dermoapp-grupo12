@@ -1,43 +1,42 @@
-import 'package:dermoapp/common/managers/CaseDetailManager.dart';
+import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
-import 'package:dermoapp/model/caseModel.dart';
-import 'package:dermoapp/ui/caseAddImagesScreen.dart';
+import 'package:dermoapp/model/caseDiagnosticAutoModel.dart';
 import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 
-class CaseDetailScreen extends StatefulWidget {
-  const CaseDetailScreen(this.id, {super.key});
+class CaseDiagnosticAutoScreen extends StatefulWidget {
+  const CaseDiagnosticAutoScreen(this.id, {super.key});
 
   final int id;
 
   @override
   State<StatefulWidget> createState() {
-    return CaseDetailScreenState();
+    return CaseDiagnosticAutoScreenState();
   }
 }
 
-class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail = CaseModel(0, '', '', '', '', '', '', '', List.empty());
+class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
+  List<CaseDiagnosticAutoModel> caseDiagnosticAuto = [];
 
   @override
   void initState() {
     super.initState();
 
-    getCase(widget.id);
+    getCaseDiagnosticAuto(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const MainDrawer(
-          currentSelected: 2,
+          currentSelected: 3,
         ),
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).caseDetail,
+            title: Text(AppLocalizations.of(context).caseDiagnosticAuto,
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
               IconButton(
@@ -107,74 +106,11 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Text(caseDetail.descripcion,
-                  style: const TextStyle(
-                      fontSize: 18.0, color: Color(0xFFDFDFDF))),
-            ),
-            Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                height: 200,
-                child: caseDetail.image.isNotEmpty
-                    ? Image.network(
-                        (services["bucket_caso"] ?? '') + caseDetail.image,
-                        width: 150,
-                        height: 150,
-                        fit: BoxFit.cover,
-                      )
-                    : Text(AppLocalizations.of(context).noImage)),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Text(AppLocalizations.of(context).extraImages,
-                  style: const TextStyle(
-                      fontSize: 18.0,
-                      color: Color(0xFFDFDFDF),
-                      fontWeight: FontWeight.bold)),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                for (var imageExtra in caseDetail.imagenes_extra)
-                  Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 200,
-                      child: imageExtra.isNotEmpty
-                          ? Image.network(
-                              (services["bucket_caso"] ?? '') + imageExtra,
-                              width: 150,
-                              height: 150,
-                              fit: BoxFit.cover,
-                            )
-                          : Text(AppLocalizations.of(context).noImage))
-              ],
-            ),
-            Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
-                  key: const Key('btnAddImages'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CaseAddImagesScreen(widget.id)));
-                  },
-                  child: Text(AppLocalizations.of(context).caseAddImages,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 22.0)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-              child: SizedBox(
-                height: 55.0,
-                child: ElevatedButton(
-                  key: const Key('btnBackToList'),
+                  key: const Key('btnBackToDetails'),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -191,10 +127,10 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
         )));
   }
 
-  void getCase(int id) async {
-    var caseResult = await CaseDetailManager().getCase(id);
+  void getCaseDiagnosticAuto(int id) async {
+    var caseResult = await CaseDiagnosticAutoManager().getDiagnostic(id);
     setState(() {
-      caseDetail = caseResult;
+      caseDiagnosticAuto = caseResult;
     });
   }
 }

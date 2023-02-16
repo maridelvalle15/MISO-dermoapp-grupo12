@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
+import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
@@ -312,12 +313,12 @@ class CaseCreatedScreen extends StatelessWidget {
               child: SizedBox(
                 height: 55.0,
                 child: ElevatedButton(
-                  key: const Key('btnAddImages'),
+                  key: const Key('btnBackToList'),
                   onPressed: () {
-                    /*Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
+                            builder: (context) => const CaseListScreen()));
                   },
                   child: Text(AppLocalizations.of(context).back,
                       style:
