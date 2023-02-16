@@ -44,7 +44,7 @@ describe('CasoListarComponent', () => {
 
     for (let i=0; i<10; i++){
       testCasos[i] = new Caso(
-        faker.datatype.number(),
+        faker.lorem.sentence(),
         faker.lorem.sentence(),
         faker.datatype.number(),
         faker.lorem.sentence(),

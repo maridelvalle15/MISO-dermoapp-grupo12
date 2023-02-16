@@ -1,5 +1,5 @@
 export class Caso{
-  id: number;
+  id: string;
   descripcion: string;
   //tipo_lesion: LesionTipo;
   //forma: LesionForma;
@@ -15,7 +15,7 @@ export class Caso{
   fecha:string;
 
   constructor(
-    id: number,
+    id: string,
     descripcion: string,
     //tipo_lesion: LesionTipo,
     //forma: LesionForma,

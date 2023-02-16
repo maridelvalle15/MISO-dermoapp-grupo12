@@ -14,12 +14,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let caso of casos" class="listar-casos">
+    <tr *ngFor="  let caso of casos" class="listar-casos">
       <td>{{caso.fecha}}</td>
       <td>{{caso.id}}</td>
       <td>{{caso.descripcion}}</td>
       <td>{{caso.nombre_paciente}}</td>
-      <button (click)="openDialog()">Ver Detalle</button>
+      <button (click)="openDialog(caso.id)">Ver Detalle</button>
 
     </tr>
 

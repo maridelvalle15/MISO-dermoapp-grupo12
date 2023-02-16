@@ -2,9 +2,9 @@
 <h4 style="text-align: center;">Detalle del caso seleccionado</h4> <br>
 
 <div>
-<table style="width:100%">
+<table *ngIf="caso != undefined" style="width:100%">
   <tr>
-    <th><span id="idCaso" class="bolded">Casi ID: </span> </th>
+    <th><span id="idCaso" class="bolded">Caso ID: </span> </th>
     <td>{{caso.id}}</td>
   </tr>
   <br>

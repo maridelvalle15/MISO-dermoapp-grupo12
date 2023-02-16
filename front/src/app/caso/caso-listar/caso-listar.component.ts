@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CasoService } from '../caso.service';
 import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { CasoPopupComponent } from '../caso-popup/caso-popup.component';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-caso-listar',
@@ -10,9 +10,9 @@ import { CasoPopupComponent } from '../caso-popup/caso-popup.component';
   styleUrls: ['./caso-listar.component.css']
 })
 export class CasoListarComponent implements OnInit {
-
+  caso: any ;
   casos: any;
-  constructor(private casoService: CasoService, public dialog:MatDialog) {}
+  constructor(private casoService: CasoService, public dialog:MatDialog,private cookieService: CookieService,) {}
 
 
   ngOnInit() {
@@ -28,13 +28,16 @@ export class CasoListarComponent implements OnInit {
     })
 
   }
-  openDialog() {
+  openDialog(id:string) {
 
     this.dialog.open(CasoPopupComponent, {
       width: '600px',
       height: '700px',
+      data: id
     })
 
+    console.log(id)
+    this.cookieService.set('id',id)
   }
 
 }
