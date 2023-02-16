@@ -1,0 +1,32 @@
+<br>
+<h4 style="text-align: center;">Detalle del caso seleccionado</h4> <br>
+
+<div>
+<table *ngIf="caso != undefined" style="width:100%">
+  <tr>
+    <th><span id="idCaso" class="bolded">Caso ID: </span> </th>
+    <td>{{caso.id}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Paciente: </span></th>
+    <td>{{caso.nombre_paciente}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Descripción: </span></th>
+    <td>{{caso.descripcion}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Foto: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + caso.image}}" width="50%" height="50%"> </td>
+  </tr>
+</table>
+</div>
+<div class="center-button">
+
+  <button (click)="onNoClick()">Regresar</button>
+<button>Reclamar</button>
+</div>
+

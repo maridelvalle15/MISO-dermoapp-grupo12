@@ -11,7 +11,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppHeaderModule } from 'app/app-header/app-header.module';
 import { Caso } from '../caso';
 import { faker } from '@faker-js/faker';
-import { CasoService } from '../caso.service';
+import { MaterialModule } from 'app/material/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CasoListarComponent', () => {
   let component: CasoListarComponent;
@@ -26,7 +27,9 @@ describe('CasoListarComponent', () => {
         HttpClientTestingModule,
         ToastrModule.forRoot(),
         RouterTestingModule,
-        AppHeaderModule
+        AppHeaderModule,
+        MaterialModule,
+        BrowserAnimationsModule
       ],
       declarations: [ CasoListarComponent ]
     })
@@ -41,7 +44,7 @@ describe('CasoListarComponent', () => {
 
     for (let i=0; i<10; i++){
       testCasos[i] = new Caso(
-        faker.datatype.number(),
+        faker.lorem.sentence(),
         faker.lorem.sentence(),
         faker.datatype.number(),
         faker.lorem.sentence(),
