@@ -29,13 +29,13 @@ getCasos(): Observable<Caso[]>{
   return this.http.get<Caso[]>(`${this.backUrl}/api/casos-pacientes`, {headers: headers})
 }
 
-getCaso(): Observable<Caso[]>{
+getCaso(): Observable<Caso>{
   const cookie= this.cookieService.get('token_access');
   const headers = new HttpHeaders({
 
     'Authorization': `Bearer ${cookie}`
   })
-  return this.http.get<Caso[]>(`${this.backUrl}/api/suministro-lesion/1`, {headers: headers})
+  return this.http.get<Caso>(`${this.backUrl}/api/suministro-lesion/1`, {headers: headers})
 }
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CasoService } from '../caso.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import {AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-caso-popup',
@@ -11,9 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 export class CasoPopupComponent {
   caso: any ;
 
+
   constructor(private casoService: CasoService, private dialog:MatDialog, private route: ActivatedRoute) {}
 
     ngOnInit() {
+
       this.getCasoPopUp()
 
   }
@@ -24,6 +27,7 @@ export class CasoPopupComponent {
       console.log(caso)
 
     })
+
 
   }
   onNoClick(): void {

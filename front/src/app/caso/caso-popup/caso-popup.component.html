@@ -1,12 +1,28 @@
 <br>
 <h4 style="text-align: center;">Detalle del caso seleccionado</h4> <br>
-  <div>
-    <label> <span class="bolded">Casi ID:</span>  {{caso.id}}</label> <br>
-    <label> <span class="bolded">Paciente:</span> {{caso.descripcion}}</label> <br>
-    <label> <span class="bolded">Descripción:</span> {{caso.nombre_paciente}} </label>
-    <label> <span class="bolded">Foto:</span> <img src="https://cdn-icons-png.flaticon.com/512/6670/6670299.png" width="50%" height="50%"> </label> <br>
 
-
+<div>
+<table style="width:100%">
+  <tr>
+    <th><span id="idCaso" class="bolded">Casi ID: </span> </th>
+    <td>{{caso.id}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Paciente: </span></th>
+    <td>{{caso.nombre_paciente}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Descripción: </span></th>
+    <td>{{caso.descripcion}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Foto: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + caso.image}}" width="50%" height="50%"> </td>
+  </tr>
+</table>
 </div>
 <div class="center-button">
 

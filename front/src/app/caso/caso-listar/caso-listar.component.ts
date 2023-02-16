@@ -34,6 +34,7 @@ export class CasoListarComponent implements OnInit {
       width: '600px',
       height: '700px',
     })
+
   }
 
 }
