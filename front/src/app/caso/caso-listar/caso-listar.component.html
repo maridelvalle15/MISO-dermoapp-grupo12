@@ -17,8 +17,8 @@
     <tr *ngFor="let caso of casos" class="listar-casos">
       <td>{{caso.fecha}}</td>
       <td>{{caso.id}}</td>
-      <td>{{caso.informacion}}</td>
-      <td>{{caso.nombrepaciente}}</td>
+      <td>{{caso.descripcion}}</td>
+      <td>{{caso.nombre_paciente}}</td>
       <button (click)="openDialog()">Ver Detalle</button>
 
     </tr>

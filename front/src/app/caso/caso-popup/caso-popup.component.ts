@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CasoService } from '../caso.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-caso-popup',
@@ -8,24 +9,28 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./caso-popup.component.css']
 })
 export class CasoPopupComponent {
-  casos: any;
-  constructor(private casoService: CasoService, private dialog:MatDialog) {}
+  caso: any ;
 
-  ngOnInit() {
-    this.getCasoPopUp();
+  constructor(private casoService: CasoService, private dialog:MatDialog, private route: ActivatedRoute) {}
+
+    ngOnInit() {
+      this.getCasoPopUp()
 
   }
 
   getCasoPopUp(){
-    this.casoService.getCasos().subscribe(casos => {
-      this.casos = casos;
-      this.casos = Object.values(this.casos.casos)
+    this.casoService.getCaso().subscribe(caso => {
+      this.caso = caso;
+      console.log(caso)
+
     })
 
   }
-
   onNoClick(): void {
     this.dialog.closeAll();
   }
+  }
 
-}
+
+
+

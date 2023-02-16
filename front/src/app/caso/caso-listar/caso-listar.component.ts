@@ -3,10 +3,6 @@ import { CasoService } from '../caso.service';
 import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { CasoPopupComponent } from '../caso-popup/caso-popup.component';
 
-interface Student{
-  id: number;
-  informacion:string;
-}
 
 @Component({
   selector: 'app-caso-listar',
