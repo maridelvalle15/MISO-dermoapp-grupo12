@@ -111,5 +111,7 @@
   "autoDiagGoLookAtIt" : "Your automatic diagnostic will be ready in a few seconds. Go get it in your Case Detail",
   "caseDiagnosticAuto" : "Automatic Diagnostic",
   "seeAutomaticDiagnostic" : "Check automatic diagnostic",
-  "seeManualDiagnostic" : "Check manual diagnostic"
+  "seeManualDiagnostic" : "Check manual diagnostic",
+  "diagnostic" : "Diagnostic",
+  "certainty" : "Certainty"
 }

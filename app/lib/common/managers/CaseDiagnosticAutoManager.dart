@@ -34,22 +34,23 @@ class CaseDiagnosticAutoManager {
   Future<List<CaseDiagnosticAutoModel>> getDiagnostic(int id) async {
     String token = await getToken() as String;
 
-    final response = await client
-        .get(Uri.parse('${services["auth"]}api/diagnostico-auto/'), headers: {
-      "Content-Type": "application/json",
-      "authorization": 'Bearer $token'
-    });
-
+    final response = await client.get(
+        Uri.parse('${services["salud"]}api/diagnostico-automatico'),
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
-
-      List<CaseDiagnosticAutoModel> diagnostics = [];
-      diagnostics = responseJson["diagnosticos"]
+      print(responseJson);
+      List<CaseDiagnosticAutoModel> diagnostic = [];
+      diagnostic = responseJson["diagnostico"]
           .map<CaseDiagnosticAutoModel>(
               (json) => CaseDiagnosticAutoModel.fromJson(json))
           .toList();
 
-      return diagnostics;
+      return diagnostic;
     } else {
       return [];
     }

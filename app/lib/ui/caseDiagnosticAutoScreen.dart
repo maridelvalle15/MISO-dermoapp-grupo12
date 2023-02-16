@@ -20,7 +20,7 @@ class CaseDiagnosticAutoScreen extends StatefulWidget {
 }
 
 class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
-  List<CaseDiagnosticAutoModel> caseDiagnosticAuto = [];
+  List<CaseDiagnosticAutoModel> caseDiagnostic = [];
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
                 alignment: Alignment.topCenter,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                  child: Text(AppLocalizations.of(context).caseText,
+                  child: Text(AppLocalizations.of(context).diagnosticAuto,
                       style: const TextStyle(
                           fontSize: 16.0, color: Color(0xffdfdfdf))),
                 )),
@@ -105,6 +105,38 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
                       color: Color(0xFFDFDFDF),
                       fontWeight: FontWeight.bold)),
             ),
+            SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.all(10),
+                child: FutureBuilder(
+                    future:
+                        CaseDiagnosticAutoManager().getDiagnostic(widget.id),
+                    builder: (context, snapshot) {
+                      caseDiagnostic = snapshot.data ?? [];
+                      return FittedBox(
+                        child: DataTable(
+                            headingTextStyle: const TextStyle(
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            dataTextStyle:
+                                const TextStyle(color: Color(0xFFDFDFDF)),
+                            columns: <DataColumn>[
+                              DataColumn(
+                                label: Text(
+                                  AppLocalizations.of(context).diagnostic,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                    AppLocalizations.of(context).certainty),
+                              ),
+                            ],
+                            rows: List.generate(
+                                caseDiagnostic.length,
+                                (index) =>
+                                    getDataRow(index, caseDiagnostic[index]))),
+                      );
+                    })),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: SizedBox(
@@ -128,9 +160,23 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
   }
 
   void getCaseDiagnosticAuto(int id) async {
+    print('pasa aca');
     var caseResult = await CaseDiagnosticAutoManager().getDiagnostic(id);
     setState(() {
-      caseDiagnosticAuto = caseResult;
+      caseDiagnostic = caseResult;
     });
+  }
+
+  DataRow getDataRow(index, data) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Text(data.diagnostic),
+        ),
+        DataCell(
+          Text(data.certitud),
+        ),
+      ],
+    );
   }
 }

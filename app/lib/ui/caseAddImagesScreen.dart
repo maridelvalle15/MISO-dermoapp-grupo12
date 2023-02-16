@@ -299,7 +299,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                       child: SizedBox(
                         height: 55.0,
                         child: ElevatedButton(
-                          key: const Key('btnAddImages'),
+                          key: const Key('btnReload'),
                           onPressed: () {
                             Navigator.push(
                                 context,
