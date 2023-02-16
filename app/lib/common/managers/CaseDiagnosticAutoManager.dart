@@ -40,12 +40,12 @@ class CaseDiagnosticAutoManager {
           "Content-Type": "application/json",
           "authorization": 'Bearer $token'
         });
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
-      print(responseJson);
+
       List<CaseDiagnosticAutoModel> diagnostic = [];
-      diagnostic = responseJson["diagnostico"]
+      diagnostic = responseJson["diagnostico"]["descripcion"]
           .map<CaseDiagnosticAutoModel>(
               (json) => CaseDiagnosticAutoModel.fromJson(json))
           .toList();

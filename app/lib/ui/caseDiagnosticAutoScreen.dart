@@ -171,7 +171,7 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
     return DataRow(
       cells: <DataCell>[
         DataCell(
-          Text(data.diagnostic),
+          Text(data.diagnostico),
         ),
         DataCell(
           Text(data.certitud),
