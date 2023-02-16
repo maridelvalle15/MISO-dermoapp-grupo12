@@ -63,8 +63,8 @@ def construir_casos_mostrar(casos):
             'id': caso.id,
             'fecha': str(caso.fecha_creacion),
             'tipopiel': caso.tipo_piel,
-            'informacion': caso.descripcion,
-            'nombrepaciente': caso.nombre_paciente
+            'descripcion': caso.descripcion,
+            'nombre_paciente': caso.nombre_paciente
 
         }
         lista_casos.append(json_caso)
