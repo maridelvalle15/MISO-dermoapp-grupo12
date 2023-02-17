@@ -28,7 +28,7 @@ export class CasoListarComponent implements OnInit {
     })
 
   }
-  openDialog(id:string) {
+  openDialog(id:any) {
 
     this.dialog.open(CasoPopupComponent, {
       width: '600px',
