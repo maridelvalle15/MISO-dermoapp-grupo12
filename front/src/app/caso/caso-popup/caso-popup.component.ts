@@ -22,21 +22,32 @@ export class CasoPopupComponent implements OnInit {
 
 
   ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id')
-      console.log(this.id)
       const cookie= this.cookieService.get('id');
       if (this.id=cookie) {
         this.getCasoPopUp();
       }
+
 
   }
 
   getCasoPopUp(){
     this.casoService.getCaso(this.id).subscribe(caso => {
       this.caso = caso;
-      console.log(caso)
 
     })
+
+  }
+  postCasoPopUp(){
+  const cookie= this.cookieService.get('id');
+  this.casoService.sendCaso(this.id = cookie).subscribe((res:any)=>{
+    alert ("Caso asignado")
+    window.location.reload()
+
+
+   })
+
+
+
 
   }
   onNoClick(): void {
