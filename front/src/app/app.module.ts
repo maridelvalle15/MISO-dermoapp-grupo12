@@ -9,6 +9,7 @@ import { AppHeaderModule } from './app-header/app-header.module';
 import { CasoModule } from './caso/caso.module';
 import { MaterialModule } from './material/material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DiagnosticoModule } from './diagnostico/diagnostico.module';
 
 
 
@@ -25,7 +26,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppHeaderModule,
     CasoModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DiagnosticoModule
 
   ],
   providers: [],

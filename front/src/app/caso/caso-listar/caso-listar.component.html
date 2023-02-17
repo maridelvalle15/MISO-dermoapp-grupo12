@@ -2,7 +2,7 @@
 <br><br>
 <h5 style="text-align: center;">Casos nuevos o sin médico asignado</h5>
 <br><br>
-
+<div class="center-table">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -13,6 +13,7 @@
       <th scope="col">Detalle</th>
     </tr>
   </thead>
+  <br>
   <tbody>
     <tr *ngFor="  let caso of casos" class="listar-casos">
       <td>{{caso.fecha}}</td>
@@ -27,3 +28,4 @@
 
 </table>
 
+</div>
