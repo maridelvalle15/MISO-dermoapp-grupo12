@@ -153,3 +153,19 @@ class Logica():
                 'imagenes_extra': imagenes_array
             }
             return caso_dict
+
+    def reclamar_caso(self,caso_id, id_usuario):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+        if caso is not None:
+            caso.medico_asignado = id_usuario
+            try:
+                db.session.add(caso)
+                db.session.commit()
+                return caso
+
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)    
+                db.session.rollback()
+                return False
+        else:
+            return False
