@@ -64,3 +64,20 @@ class TestSuministroLesion:
 
         assert response.status_code==200
         assert "casos" in response.json
+
+    def test_obtener_informacion_caso(self,client,mocker,crear_caso):
+        
+        request_mock = mocker.patch("requests.get")
+        request_mock.return_value.content = b'{"id_usuario": 3, "rol": "Paciente", "especialidad": "especialidad", "tipo_piel":"", "nombre":"nombre", "ubicacion_id": "ubicacion"}\n'
+        request_mock.return_value.status_code = 200
+
+        os_mock = mocker.patch("os.environ.get")
+        os_mock.return_value.content = ''
+
+        response = client.get('/api/suministro-lesion/'+str(crear_caso.id))
+
+        assert response.status_code==200
+        assert "descripcion" in response.json
+        assert "image" in response.json
+        assert "tipo_solucion" in response.json
+        assert response.json['id'] == crear_caso.id

@@ -109,11 +109,12 @@ class Logica():
         return casos
         
     def crear_diagnostico(self,caso,diagnosticos):
-        diagnostico = Diagnostico(tipo='automatico',
+        diagnostico = Diagnostico(tipo='auto',
             descripcion=str(diagnosticos),
             caso=caso.id)
         try:
             db.session.add(diagnostico)
+            caso.tipo_solucion = "auto"
             db.session.commit()
 
         except exc.SQLAlchemyError as e:
@@ -153,3 +154,17 @@ class Logica():
                 'imagenes_extra': imagenes_array
             }
             return caso_dict
+        else:
+            False
+
+    def informacion_diagnostico(self,diagnostico_id):
+        diagnostico = Diagnostico.query.filter(Diagnostico.id==diagnostico_id).first()
+
+        if diagnostico:
+            diagnostico_dict = {
+                'caso_id' : diagnostico.caso,
+                'descripcion': diagnostico.descripcion
+            }
+            return diagnostico_dict
+        else:
+            False

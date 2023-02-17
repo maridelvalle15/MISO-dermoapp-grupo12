@@ -156,3 +156,28 @@ class DiagnosticoAutomaticoView(Resource):
 
         else:
             return {"diagnostico": diagnostico}, 200
+
+class InformacionDiagnosticoView(Resource):
+    def get(self,diagnostico_id):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+
+        if (rol == 'Paciente') and (response.status_code == 200):
+
+            logica = Logica()
+
+            diagnostico = logica.informacion_diagnostico(diagnostico_id)
+
+            if diagnostico == False:
+                return {"message":"No se encontro la informacion del diagnostico"}, 400
+
+            else:
+                return {"diagnostico": diagnostico}, 200
+
+        else:
+            return {"message":"Unauthorized"}, 401
