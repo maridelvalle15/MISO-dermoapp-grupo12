@@ -166,7 +166,6 @@ class InformacionDiagnosticoView(Resource):
 
         json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
         rol = json_response['rol']
-
         if (rol == 'Paciente') and (response.status_code == 200):
 
             logica = Logica()
@@ -179,5 +178,28 @@ class InformacionDiagnosticoView(Resource):
             else:
                 return {"diagnostico": diagnostico}, 200
 
+        else:
+            return {"message":"Unauthorized"}, 401
+           
+class ReclamarCasoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        id_usuario = json_response['id_usuario']
+
+        caso_id = request.json["caso_id"]
+
+        if (rol == 'Medico') and (response.status_code == 200):
+
+            logica = Logica()
+            caso = logica.reclamar_caso(caso_id, id_usuario)
+
+            
+            return {"message":"Caso asignado", "caso_id": caso.id}, 200
         else:
             return {"message":"Unauthorized"}, 401
