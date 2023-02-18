@@ -2,6 +2,8 @@ import os, boto3, base64
 from werkzeug.utils import secure_filename
 from flask import jsonify
 import time
+from ..models.models import Diagnostico
+
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -83,3 +85,30 @@ def construir_casos_mostrar_paciente(casos):
         lista_casos.append(json_caso)
 
     return lista_casos
+
+def construir_casos_por_reclamar(casos):
+    lista_casos = []
+    for caso in casos:
+        tiene_diagnostico = obtener_diagnostico_caso(caso.id)
+        if tiene_diagnostico != False:
+            estado_diagnostico = 'Diagnosticado'
+        else:
+            estado_diagnostico = 'Sin diagnosticar'
+        json_caso = {
+            'caso_id': caso.id,
+            'fecha': str(caso.fecha_creacion),
+            'descripcion': caso.descripcion,
+            'nombre_paciente': caso.nombre_paciente,
+            'estado': estado_diagnostico
+
+        }
+        lista_casos.append(json_caso)
+
+    return lista_casos
+
+def obtener_diagnostico_caso(caso_id):
+        diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id).first()
+        if diagnostico:
+            return diagnostico
+        
+        return False
