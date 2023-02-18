@@ -1,13 +1,8 @@
-version: '3.7'
+version: '3.1'
+
 services:
-  app:
-    build: .
-    command: sh -c "npm start"
-    ports:
-      - 4200:4200
-    working_dir: /home/node/app
-    volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
-volumes:
-  node_modules:
+    app:
+        image: 'front'
+        build: '.'
+        ports:
+            - 3000:80
