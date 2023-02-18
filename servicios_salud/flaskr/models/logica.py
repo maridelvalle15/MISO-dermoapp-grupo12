@@ -182,3 +182,7 @@ class Logica():
             return diagnostico_dict
         else:
             False
+
+    def casos_reclamados(self,id_usuario):
+        casos = Caso.query.filter(Caso.medico_asignado==id_usuario).all()
+        return casos
