@@ -9,21 +9,19 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CasoReclamadoListarComponent implements OnInit {
   token: any;
-  caso: any;
+  casos: any;
   constructor(private casoService: CasoService,private cookieService: CookieService) { }
 
   ngOnInit() {
-    //const cookie = this.cookieService.get('token_access');
-    //if ((this.token = cookie)) {
-      //this.getCasoReclamado();
-    //}
+    this.getCasoReclamado();
   }
 
   getCasoReclamado() {
-    this.casoService.getCasoReclamado(this.token).subscribe((caso) => {
-      this.caso = caso;
-    });
+    this.casoService.getCasoReclamado().subscribe(casos => {
+      this.casos = casos;
+      console.log(casos)
+      this.casos = Object.values(this.casos.casos)
+    })
 
   }
-
 }

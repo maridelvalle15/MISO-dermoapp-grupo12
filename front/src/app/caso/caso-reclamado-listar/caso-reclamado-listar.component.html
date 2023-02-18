@@ -16,12 +16,12 @@
   </thead>
   <br>
   <tbody>
-    <tr  class="listar-casos">
-      <td>test 1</td>
-      <td>test 2</td>
-      <td>test 3</td>
-      <td>test 4</td>
-      <td style="color: red;">test</td>
+    <tr *ngFor=" let caso of casos" class="listar-casos">
+      <td>{{caso.fecha}}</td>
+      <td>{{caso.caso_id}}</td>
+      <td>{{caso.descripcion}}</td>
+      <td>{{caso.nombre_paciente}}</td>
+      <td>{{caso.estado}}</td>
 
       <button>Dar Diagnóstico</button>
 
