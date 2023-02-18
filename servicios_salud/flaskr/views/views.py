@@ -158,7 +158,7 @@ class DiagnosticoAutomaticoView(Resource):
             return {"diagnostico": diagnostico}, 200
 
 class InformacionDiagnosticoView(Resource):
-    def get(self,diagnostico_id):
+    def get(self,caso_id):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
         headers = {'Authorization': request.headers.get('Authorization')}
     
@@ -170,7 +170,7 @@ class InformacionDiagnosticoView(Resource):
 
             logica = Logica()
 
-            diagnostico = logica.informacion_diagnostico(diagnostico_id)
+            diagnostico = logica.obtener_diagnostico_caso(caso_id)
 
             if diagnostico == False:
                 return {"message":"No se encontro la informacion del diagnostico"}, 400
