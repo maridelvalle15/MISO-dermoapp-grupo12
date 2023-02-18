@@ -3,7 +3,7 @@ from flask import request
 import requests, os, json
 from ..models.logica import Logica
 from .logica import procesar_imagen, generar_diagnostico_automatico
-from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente, upload_file_to_s3
+from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente, upload_file_to_s3, construir_casos_por_reclamar
 
 class SuministroLesionView(Resource):
 
@@ -182,6 +182,32 @@ class InformacionDiagnosticoView(Resource):
             return {"message":"Unauthorized"}, 401
            
 class ReclamarCasoView(Resource):
+    def get(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+       
+        try:
+            rol = json_response['rol']
+        except:
+            return {"message":"Unauthorized"}, 401
+       
+        id_usuario = json_response['id_usuario']
+
+        if (rol == 'Medico') and (response.status_code == 200):
+
+            logica = Logica()
+            casos_reclamados = logica.casos_reclamados(id_usuario)
+            casos_json = construir_casos_por_reclamar(casos_reclamados)
+
+            
+            return {"casos": casos_json}, 200
+        else:
+            return {"message":"Unauthorized"}, 401
+
     def post(self):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
         headers = {'Authorization': request.headers.get('Authorization')}
