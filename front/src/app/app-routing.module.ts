@@ -7,7 +7,7 @@ import { RegistroExitosoComponent } from './usuario/usuario-registro/registro-ex
 import { CasoListarComponent } from './caso/caso-listar/caso-listar.component';
 import { PermisoGuard } from './permiso.guard';
 import { CasoPopupComponent } from './caso/caso-popup/caso-popup.component';
-import { DiagnosticoListarComponent } from './diagnostico/diagnostico-listar/diagnostico-listar.component';
+import { CasoReclamadoListarComponent } from './caso/caso-reclamado-listar/caso-reclamado-listar.component';
 
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:'usuario-registro/registro-exitoso',component: RegistroExitosoComponent},
   {path:'caso-listar',component: CasoListarComponent,canActivate: [PermisoGuard]},
   {path:'caso-listar/:id',component: CasoPopupComponent,canActivate: [PermisoGuard]},
-  {path:'diagnostico',component: DiagnosticoListarComponent,canActivate: [PermisoGuard]}
+  {path:'diagnostico/caso-reclamado',component: CasoReclamadoListarComponent,canActivate: [PermisoGuard]}
 ];
 
 @NgModule({
