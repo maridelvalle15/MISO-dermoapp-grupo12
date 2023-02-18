@@ -171,8 +171,8 @@ class Logica():
         else:
             return False
 
-    def informacion_diagnostico(self,diagnostico_id):
-        diagnostico = Diagnostico.query.filter(Diagnostico.id==diagnostico_id).first()
+    def obtener_diagnostico_caso(self,caso_id):
+        diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id).first()
 
         if diagnostico:
             diagnostico_dict = {
