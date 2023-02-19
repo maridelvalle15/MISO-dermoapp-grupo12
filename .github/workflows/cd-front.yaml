@@ -3,7 +3,7 @@ name: cd-front
 on:
   push:
     branches:
-    - feature/cd_frontend
+    - main
 
 jobs:
   deploy:
