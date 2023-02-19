@@ -4,3 +4,8 @@ front/node_modules
 /coverage
 ./coverage
 front/coverage
+
+/dist
+/docs
+.gitignore
+*.zip

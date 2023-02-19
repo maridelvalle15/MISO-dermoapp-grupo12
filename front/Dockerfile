@@ -1,19 +1,22 @@
-#Primera Etapa
-FROM node:latest as build-step
+# Stage 1: Build
+FROM node:16-alpine AS build
 
-RUN mkdir -p /app
+WORKDIR /usr/src/app
 
-WORKDIR /app
-
-COPY package.json /app
+COPY package*.json ./
 
 RUN npm install
 
-COPY . /app
+COPY . .
 
 RUN npm run build --prod
 
-#Segunda Etapa
+# Stage 2
 FROM nginx:1.17.1-alpine
-	#Si estas utilizando otra aplicacion cambia PokeApp por el nombre de tu app
-COPY --from=build-step /app/dist/front /usr/share/nginx/html
+
+
+COPY --from=build /usr/src/app/dist/front /usr/share/nginx/html
+
+COPY --from=build /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

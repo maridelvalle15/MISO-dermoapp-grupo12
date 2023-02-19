@@ -8,10 +8,17 @@ import { UsuarioService } from '../usuario.service';
 import { DebugElement } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Usuario } from '../usuario';
+import { faker } from '@faker-js/faker';
+
+
+
 
 describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
   let component: UsuarioIngresoComponent;
   let fixture: ComponentFixture<UsuarioIngresoComponent>;
+  let debug: DebugElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -34,7 +41,26 @@ describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UsuarioIngresoComponent);
     component = fixture.componentInstance;
+
+    let testUsuario : Array<Usuario>=[];
+
+    for (let i=0; i<2; i++){
+      testUsuario[i] = new Usuario(
+        faker.datatype.number(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.datatype.number(),
+        faker.lorem.sentence(),
+
+
+      )
+    }
+
     fixture.detectChanges();
+    debug = fixture.debugElement;
+
   });
 
 

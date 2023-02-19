@@ -51,7 +51,7 @@ describe('CasoPopupComponent', () => {
 
     let testCasos : Array<Caso>=[];
 
-    for (let i=0; i<10; i++){
+    for (let i=0; i<2; i++){
       testCasos[i] = new Caso(
         faker.lorem.sentence(),
         faker.lorem.sentence(),
@@ -67,6 +67,7 @@ describe('CasoPopupComponent', () => {
 
       )
     }
+    component.caso = testCasos;
     fixture.detectChanges();
     debug = fixture.debugElement;
 
@@ -82,6 +83,14 @@ describe('CasoPopupComponent', () => {
     const fixture = TestBed.createComponent(CasoPopupComponent);
     expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Detalle del caso seleccionado');
   });
+
+  it('should have 1 <span> element', () => {
+    expect(debug.queryAll(By.css('#idCaso')).length == 1).toBeTrue();
+  });
+
+
+
+
 
 
 
