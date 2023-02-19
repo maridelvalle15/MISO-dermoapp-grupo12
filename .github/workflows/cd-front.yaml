@@ -24,12 +24,9 @@ jobs:
       with:
         node-version: 19
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build
-      run: npm run build
-
-    - name: Deploy
-      if: success()
-      run: aws s3 sync ./front/dist/front s3://dermoapp-front
+    - name: Install dependencies, build and deploy
+      run: | 
+        cd front
+        npm install
+        npm run build
+        aws s3 sync dist/front s3://dermoapp-front
