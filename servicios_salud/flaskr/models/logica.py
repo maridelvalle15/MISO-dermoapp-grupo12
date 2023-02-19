@@ -83,7 +83,7 @@ class Logica():
     def obtener_casos_disponibles(self,especialidad, ubicacion_id):
         casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
         if casos_especialidad.all():   
-            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None)
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion!='auto')
             if casos_sin_asignar.all():
                 casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
 
