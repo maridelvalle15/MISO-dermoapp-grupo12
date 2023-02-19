@@ -7,11 +7,12 @@ import { AppHeaderModule } from '../app-header/app-header.module';
 import { MaterialModule } from 'app/material/material/material.module';
 import { CasoPopupComponent } from './caso-popup/caso-popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CasoReclamadoListarComponent } from './caso-reclamado-listar/caso-reclamado-listar.component';
 
 
 
 @NgModule({
-  declarations: [CasoListarComponent, CasoPopupComponent],
+  declarations: [CasoListarComponent, CasoPopupComponent,CasoReclamadoListarComponent],
   imports: [
     CommonModule, ReactiveFormsModule, AppHeaderModule,MaterialModule,BrowserAnimationsModule
   ],

@@ -23,7 +23,6 @@ export class CasoListarComponent implements OnInit {
   getCasos(){
     this.casoService.getCasos().subscribe(casos => {
       this.casos = casos;
-      console.log(casos)
       this.casos = Object.values(this.casos.casos)
     })
 

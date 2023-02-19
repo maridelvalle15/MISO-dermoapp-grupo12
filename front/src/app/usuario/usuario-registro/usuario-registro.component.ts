@@ -41,25 +41,7 @@ export class UsuarioRegistroComponent implements OnInit {
   registrarUsuario(){
     this.usuarioService.userSignUp('MEDICO', this.usuarioForm.get('correo')?.value, this.usuarioForm.get('nombre')?.value, this.usuarioForm.get('direccion')?.value, this.usuarioForm.get('pais')?.value, this.usuarioForm.get('ciudad')?.value,this.usuarioForm.get('especialidad')?.value,this.usuarioForm.get('licencia')?.value)
     .subscribe(res => {
-      console.log(res.password)
-
-
-
       this.router.navigate([`/usuario-registro/registro-exitoso`],{queryParams:{data:this.usuarioForm.get('correo')?.value,passwordUsuario: res.password}})
-      this.showSuccess()
-    },
-    error => {
-      this.showError(`Ha ocurrido un error: ${error.message}`)
-    })
+    },)
   }
-
-  showError(error: string){
-    this.toastr.error(error, "Error")
-  }
-
-  showSuccess() {
-    this.toastr.success(`Se ha registrado exitosamente`, "Registro exitoso");
-  }
-
-
 }
