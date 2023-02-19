@@ -18,8 +18,9 @@ class FormCaseNewManager {
       {String? extraInfo}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? token = preferences.getString("token");
+
     final request = http.MultipartRequest(
-        'POST', Uri.parse('${services["salud"]}api/suministro-lesion'));
+        'POST', Uri.parse('${services["salud"]}api/suministro-lesion/'));
     request.headers.addAll({'Authorization': 'Bearer $token'});
     request.fields['tipo'] = tipolesion;
     request.fields['forma'] = formalesion;

@@ -48,7 +48,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
 
     return Scaffold(
         drawer: const MainDrawer(
-          currentSelected: 2,
+          currentSelected: 3,
         ),
         appBar: AppBar(
             title: Text(AppLocalizations.of(context).uploadExtraImage,
@@ -97,11 +97,14 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: Text(AppLocalizations.of(context).caseId,
-                                style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Color(0xFFDFDFDF),
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              AppLocalizations.of(context).caseId,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.end,
+                            ),
                           ),
                         ),
                         const VerticalDivider(width: 1),
@@ -137,7 +140,8 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                         height: 200,
                         child: caseDetail.image.isNotEmpty
                             ? Image.network(
-                                caseDetail.image,
+                                (services["bucket_caso"] ?? '') +
+                                    caseDetail.image,
                                 width: 150,
                                 height: 150,
                                 fit: BoxFit.cover,
@@ -161,8 +165,8 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                               height: 200,
                               child: imageExtra.isNotEmpty
                                   ? Image.network(
-                                      services["bucket_caso"] ??
-                                          '' + imageExtra,
+                                      (services["bucket_caso"] ?? '') +
+                                          imageExtra,
                                       width: 150,
                                       height: 150,
                                       fit: BoxFit.cover,
@@ -298,7 +302,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                       child: SizedBox(
                         height: 55.0,
                         child: ElevatedButton(
-                          key: const Key('btnAddImages'),
+                          key: const Key('btnReload'),
                           onPressed: () {
                             Navigator.push(
                                 context,

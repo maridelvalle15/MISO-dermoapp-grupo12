@@ -104,9 +104,12 @@ class CaseListScreenState extends State<CaseListScreen> {
 
   DataRow getDataRow(index, data) {
     int caseId = data.id;
+
     String diagnosticType = data.tipodiagnostico == 'auto'
         ? AppLocalizations.of(context).automatic
-        : AppLocalizations.of(context).manual;
+        : data.tipodiagnostico == 'manual'
+            ? AppLocalizations.of(context).manual
+            : '';
     return DataRow(
       cells: <DataCell>[
         DataCell(

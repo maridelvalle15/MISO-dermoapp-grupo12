@@ -105,5 +105,13 @@
   "noImage" : "We couldn't find an image",
   "extraImages" : "Extra Images",
   "reload" : "Reload",
-  "copyPassword" : "Copy password"
+  "copyPassword" : "Copy password",
+  "tryAgain" : "Please try again later",
+  "autoDiagRequested" : "Diagnostic requested",
+  "autoDiagGoLookAtIt" : "Your automatic diagnostic will be ready in a few seconds. Go get it in your Case Detail",
+  "caseDiagnosticAuto" : "Automatic Diagnostic",
+  "seeAutomaticDiagnostic" : "Check automatic diagnostic",
+  "seeManualDiagnostic" : "Check manual diagnostic",
+  "diagnostic" : "Diagnostic",
+  "certainty" : "Certainty"
 }

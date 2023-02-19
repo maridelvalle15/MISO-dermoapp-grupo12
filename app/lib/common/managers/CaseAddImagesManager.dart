@@ -13,12 +13,12 @@ class CaseAddImagesManager {
     String token = await getToken() as String;
     String imagenb64 = base64Encode(image.readAsBytesSync());
 
-    Map<String, dynamic> data = {'id_caso': id, 'imagen': imagenb64};
+    Map<String, dynamic> data = {'caso_id': id, 'image': imagenb64};
 
     var body = json.encode(data);
 
     final response = await client.put(
-        Uri.parse('${services["auth"]}api/nuevaimagen'),
+        Uri.parse('${services["salud"]}api/suministro-lesion/'),
         body: body,
         headers: {
           "Content-Type": "application/json",
