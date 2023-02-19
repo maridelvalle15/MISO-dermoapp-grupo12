@@ -21,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('CasoReclamadoListarComponent', () => {
   let component: CasoReclamadoListarComponent;
   let fixture: ComponentFixture<CasoReclamadoListarComponent>;
-
+  let debug: DebugElement;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -42,10 +42,39 @@ describe('CasoReclamadoListarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CasoReclamadoListarComponent);
     component = fixture.componentInstance;
+
+    let testCasos : Array<Caso>=[];
+
+    for (let i=0; i<10; i++){
+      testCasos[i] = new Caso(
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.datatype.number(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.datatype.number(),
+        faker.lorem.sentence(),
+        faker.datatype.number(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+        faker.lorem.sentence(),
+
+      )
+    }
     fixture.detectChanges();
+    debug = fixture.debugElement;
+
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title in a h4 tag', () => {
+    expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Casos reclamados');
+ });
+
+
+
+
 });

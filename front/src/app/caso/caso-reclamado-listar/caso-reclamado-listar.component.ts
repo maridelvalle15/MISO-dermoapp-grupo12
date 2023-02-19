@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CasoService } from '../caso.service';
-import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-caso-reclamado-listar',
@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class CasoReclamadoListarComponent implements OnInit {
   token: any;
   casos: any;
-  constructor(private casoService: CasoService,private cookieService: CookieService) { }
+  constructor(private casoService: CasoService) { }
 
   ngOnInit() {
     this.getCasoReclamado();

@@ -1,15 +1,17 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject , fakeAsync, tick,ComponentFixture } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioIngresoComponent } from './usuario-ingreso.component';
 import { By } from '@angular/platform-browser';
-import { AppComponent } from 'app/app.component';
-import { finalize } from 'rxjs';
 import { ToastrModule } from 'ngx-toastr';
-
+import { UsuarioService } from '../usuario.service';
+import { DebugElement } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
-
+  let component: UsuarioIngresoComponent;
+  let fixture: ComponentFixture<UsuarioIngresoComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -22,8 +24,17 @@ describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
       declarations: [
         UsuarioIngresoComponent
       ],
+      providers : [
+        UsuarioService
+      ]
     }).compileComponents();
 
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(UsuarioIngresoComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
 
@@ -63,6 +74,17 @@ describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
 
     expect(app.usuarioForm.invalid).toBeTrue();
   });
+
+
+
+  // it('should delete customer feed', () => {
+  //   const mySpy = spyOn<any>(UsuarioService,'userLogIn');
+
+  //   component.onLogInUsuario('emial12','WRMCjiFh');
+
+  //   expect(mySpy).toHaveBeenCalledTimes(1);
+  // });
+
 
 
 
