@@ -13,6 +13,7 @@ import { Caso } from 'app/caso/caso';
 import { faker } from '@faker-js/faker';
 import { MaterialModule } from 'app/material/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CasoService } from '../caso.service';
 
 
 
@@ -34,7 +35,10 @@ describe('CasoReclamadoListarComponent', () => {
         MaterialModule,
         BrowserAnimationsModule
       ],
-      declarations: [ CasoReclamadoListarComponent ]
+      declarations: [ CasoReclamadoListarComponent ],
+      providers : [
+        CasoService
+      ]
     })
     .compileComponents();
   }));
@@ -73,7 +77,6 @@ describe('CasoReclamadoListarComponent', () => {
   it('should render title in a h4 tag', () => {
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Casos reclamados');
  });
-
 
 
 

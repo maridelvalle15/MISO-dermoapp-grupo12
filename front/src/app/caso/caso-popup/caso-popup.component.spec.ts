@@ -13,6 +13,7 @@ import { CasoPopupComponent } from './caso-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { faker } from '@faker-js/faker';
 import { Caso } from '../caso';
+import { CasoService } from '../caso.service';
 
 
 
@@ -35,9 +36,13 @@ describe('CasoPopupComponent', () => {
         BrowserAnimationsModule,
         MatDialogModule
       ],
-      declarations: [ CasoPopupComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        CasoPopupComponent
+      ],
+      providers : [
+        CasoService
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -77,4 +82,8 @@ describe('CasoPopupComponent', () => {
     const fixture = TestBed.createComponent(CasoPopupComponent);
     expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Detalle del caso seleccionado');
   });
+
+
+
+
 });

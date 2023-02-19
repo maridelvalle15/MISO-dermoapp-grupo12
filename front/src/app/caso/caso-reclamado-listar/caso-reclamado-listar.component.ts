@@ -19,7 +19,6 @@ export class CasoReclamadoListarComponent implements OnInit {
   getCasoReclamado() {
     this.casoService.getCasoReclamado().subscribe(casos => {
       this.casos = casos;
-      console.log(casos)
       this.casos = Object.values(this.casos.casos)
     })
 
