@@ -27,6 +27,8 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
   });
 
 
+
+
   it('Debe de existir el AppComponent', () => {
     const fixture = TestBed.createComponent(UsuarioRegistroComponent);
     const app = fixture.componentInstance

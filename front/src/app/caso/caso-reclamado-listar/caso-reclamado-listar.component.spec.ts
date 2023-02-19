@@ -65,9 +65,16 @@ describe('CasoReclamadoListarComponent', () => {
 
       )
     }
+    component.casos = testCasos;
     fixture.detectChanges();
     debug = fixture.debugElement;
 
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(CasoReclamadoListarComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 
   it('should create', () => {

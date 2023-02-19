@@ -63,6 +63,12 @@ describe('CasoListarComponent', () => {
 
   });
 
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(CasoListarComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

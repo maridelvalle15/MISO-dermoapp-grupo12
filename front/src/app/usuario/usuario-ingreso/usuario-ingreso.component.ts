@@ -40,11 +40,15 @@ export class UsuarioIngresoComponent implements OnInit {
 
   onLogInUsuario(correo: string, password: string){
 
+
     this.usuarioService.userLogIn(correo, password)
     .subscribe((res: any) => {
       this.router.navigate([`../caso-listar`],{queryParams:{data:this.usuarioForm.get('correo')?.value,}})
       this.cookieService.set('token_access',res.token,1,'/')
-    },)
+    },
+    error => {
+      this.error=true
+    })
   }
 
 }
