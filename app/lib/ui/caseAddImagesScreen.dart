@@ -97,11 +97,14 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: Text(AppLocalizations.of(context).caseId,
-                                style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Color(0xFFDFDFDF),
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              AppLocalizations.of(context).caseId,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.end,
+                            ),
                           ),
                         ),
                         const VerticalDivider(width: 1),

@@ -30,8 +30,6 @@ class LoginManager {
     final loginResponseJson = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      //final processedResponse = json.decode(loginResponseJson);
-
       Map<String, dynamic> responseJson = {"email": correo};
       responseJson["token"] = loginResponseJson["token"];
       responseJson["id"] = loginResponseJson["user_id"];
