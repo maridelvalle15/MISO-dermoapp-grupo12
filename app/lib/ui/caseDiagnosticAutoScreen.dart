@@ -1,5 +1,4 @@
 import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
 import 'package:dermoapp/model/caseDiagnosticAutoModel.dart';
@@ -20,7 +19,7 @@ class CaseDiagnosticAutoScreen extends StatefulWidget {
 }
 
 class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
-  List<CaseDiagnosticAutoModel> caseDiagnostic = [];
+  List<dynamic> caseDiagnostic = [];
 
   @override
   void initState() {
@@ -160,7 +159,6 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
   }
 
   void getCaseDiagnosticAuto(int id) async {
-    print('pasa aca');
     var caseResult = await CaseDiagnosticAutoManager().getDiagnostic(id);
     setState(() {
       caseDiagnostic = caseResult;
