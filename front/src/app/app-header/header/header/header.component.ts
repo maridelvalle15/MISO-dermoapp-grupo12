@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
+    private cookieService: CookieService
   ) { }
 
   email :any;
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.router.queryParams.subscribe((params:any)=>{
-      this.email = params.data
+      const cookie = this.cookieService.get('correo');
+      this.email = cookie
       this.password = params.passwordUsuario
     })
   }

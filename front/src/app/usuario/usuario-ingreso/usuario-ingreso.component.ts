@@ -30,6 +30,7 @@ export class UsuarioIngresoComponent implements OnInit {
   error: boolean = false
 
   ngOnInit() {
+
     this.usuarioForm = this.formBuilder.group({
 
       correo: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
@@ -43,8 +44,10 @@ export class UsuarioIngresoComponent implements OnInit {
 
     this.usuarioService.userLogIn(correo, password)
     .subscribe((res: any) => {
+
       this.router.navigate([`../caso-listar`],{queryParams:{data:this.usuarioForm.get('correo')?.value,}})
       this.cookieService.set('token_access',res.token,1,'/')
+      this.cookieService.set('correo',this.usuarioForm.get('correo')?.value)
     },
     error => {
       this.error=true

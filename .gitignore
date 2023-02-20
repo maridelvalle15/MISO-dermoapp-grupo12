@@ -14,6 +14,7 @@ node_modules
 
 front/coverage
 front/.angular
+front/dist
 
 # IDEs and editors
 .idea/
@@ -51,3 +52,5 @@ Thumbs.db
 servicios_salud/variables-prod-salud.env
 */variables-prod-autenticacion.env
 variables*.env
+
+
