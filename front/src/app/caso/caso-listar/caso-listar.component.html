@@ -1,5 +1,8 @@
 <app-header></app-header>
-<div>
+<br><br>
+<h5 style="text-align: center;">Casos nuevos o sin médico asignado</h5>
+<br><br>
+<div class="center-table">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -10,13 +13,14 @@
       <th scope="col">Detalle</th>
     </tr>
   </thead>
+  <br>
   <tbody>
-    <tr *ngFor="let caso of casos">
+    <tr *ngFor="  let caso of casos" class="listar-casos">
       <td>{{caso.fecha}}</td>
       <td>{{caso.id}}</td>
-      <td>{{caso.informacion}}</td>
-      <td>{{caso.nombrepaciente}}</td>
-      <td><button>Ver detalle</button></td>
+      <td>{{caso.descripcion}}</td>
+      <td>{{caso.nombre_paciente}}</td>
+      <button (click)="openDialog(caso.id)">Ver Detalle</button>
 
     </tr>
 

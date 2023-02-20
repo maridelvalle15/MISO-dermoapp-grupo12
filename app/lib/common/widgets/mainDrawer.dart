@@ -69,7 +69,8 @@ class _MainDrawerState extends State<MainDrawer> {
                 leading: const Icon(Icons.directions_run),
                 title: Text(
                   AppLocalizations.of(context).logout,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
                   doLogout();

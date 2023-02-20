@@ -1,9 +1,9 @@
-from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol, Especialidad, UsuarioPaciente
+from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol, Especialidad, UsuarioPaciente, Ubicacion
 from ..models.logica import Logica
 from .logica import procesar_imagen
 from flask_restful import Resource
 from flask import request, jsonify
-import secrets, datetime
+import secrets, datetime, os
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 usuario_schema = UsuarioSchema()
@@ -59,6 +59,11 @@ class RegistroView(Resource):
             cedula = request_data["cedula"]
             tipo_piel = request_data["tipopiel"]
             imagen_piel = request.files.get("image", "")
+
+            usuario = self.logica.usuario_valido(email=email,cedula=cedula)
+        
+            if usuario is not None:
+                return {"message":"El usuario ya existe"}, 400
             
             if imagen_piel != "":
                 imagen_procesada = procesar_imagen(imagen_piel)
@@ -89,7 +94,7 @@ class LogInView(Resource):
     def post(self):
         
         usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
-        #db.session.commit()
+
         if usuario and usuario.verificar_password(request.json["password"]):
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
@@ -106,13 +111,19 @@ class ValidacionUsuarioView(Resource):
         rol_id = UsuarioRol.query.filter(UsuarioRol.usuario_id == id_usuario).first().rol_id
         rol = Rol.query.filter(Rol.id==rol_id).first().nombre
         nombre = Usuario.query.filter(Usuario.id == id_usuario).first().nombre
-
+        ubicacion = Usuario.query.filter(Usuario.id == id_usuario).first().ubicacion_id
+        
         if rol == 'Medico':
             especialidad_id = UsuarioMedico.query.filter(UsuarioMedico.id==id_usuario).first().especialidad_id
             especialidad = Especialidad.query.filter(Especialidad.id == especialidad_id).first().nombre
             tipo_piel = ''
         else:
             especialidad = ''
+            especialidad_id = ''
             tipo_piel = UsuarioPaciente.query.filter(UsuarioPaciente.id==id_usuario).first().tipo_piel
 
-        return {"id_usuario":id_usuario, "rol":rol, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre}, 200,{'Content-Type': 'application/json'}
+        return {"id_usuario":id_usuario, "rol":rol, "especialidad_id":especialidad_id, "especialidad":especialidad, "tipo_piel": tipo_piel, "nombre": nombre, "ubicacion_id": ubicacion}, 200,{'Content-Type': 'application/json'}
+
+class HealthCheckView(Resource):
+    def get(self):
+        return {"message": os.environ.get("DB_URI")}, 200

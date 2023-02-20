@@ -1,4 +1,7 @@
 from ..utils.helpers import upload_file_to_s3, allowed_file
+from ..models import Caso, LesionDistribucion, LesionForma, LesionNumero, LesionTipo, Diagnostico
+import json, random
+from ..models.logica import Logica
 
 def procesar_imagen(imagen):
     print("DEPURANDO")
@@ -28,4 +31,66 @@ def procesar_imagen(imagen):
     # if file extension not allowed
     else:
         print("File type not accepted,please try again.")
+        return False
+
+def generar_diagnostico_automatico(caso_id):
+    caso = Caso.query.filter(Caso.id==caso_id).first()
+    validacion = validacion_caso_diagnostico_automatico(caso)
+    if validacion:
+        tipo_id = caso.tipo_lesion
+        forma_id = caso.forma
+        numero_id = caso.numero_lesiones
+        distribucion_id = caso.distribucion
+
+        tipo_lesion = LesionTipo.query.filter(LesionTipo.id==tipo_id).first().nombre
+        forma_lesion = LesionForma.query.filter(LesionForma.id==forma_id).first().nombre
+        numero_lesion = LesionNumero.query.filter(LesionNumero.id==numero_id).first().nombre
+        distribucion_lesion = LesionDistribucion.query.filter(LesionDistribucion.id==distribucion_id).first().nombre
+
+        lesiones_json = "utils/enfermedades_sintomas.json"
+        data = json.loads(open(lesiones_json).read())
+
+        try:
+            enfermedades = data[tipo_lesion][forma_lesion][numero_lesion][distribucion_lesion]["enfermedades"]
+
+            porcentaje = round(100/len(enfermedades),2)
+            ranges = construccion_porcentajes_certitud(enfermedades,porcentaje)
+
+            # Construccion del diagnostico
+            diagnosticos = []
+            for index,enfermedad in enumerate(enfermedades):
+                porcentaje = random.randint(int(ranges[index][0]),int(ranges[index][1]))
+                
+                # El diagnostico solo se entrega si el % de certitud es mayor a 30
+                if porcentaje > 30:
+                    porcentaje_string = str(porcentaje) + "%"
+                    diagnostico_dict = {'diagnostico': enfermedad, 'certitud': porcentaje_string}
+                    diagnosticos.append(diagnostico_dict)
+
+            logica = Logica()
+            logica.crear_diagnostico(caso,diagnosticos)
+            return diagnosticos
+
+        except KeyError:
+            return False
+    else:
+        return False
+
+# Se construye diviendo en % iguales el arreglo, y luego creando rangos del 1 al 100
+def construccion_porcentajes_certitud(array,percentage):
+    ranges = []
+    for index,elem in enumerate(array):
+        if index == 0:
+            primer_percentage_range = 1
+        else:
+            primer_percentage_range = percentage*index
+        ranges.append([primer_percentage_range,percentage*(index+1)])
+
+    return ranges
+
+def validacion_caso_diagnostico_automatico(caso):
+    if caso is not None:
+        diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso.id).first()
+        return caso.medico_asignado is None and diagnostico is None
+    else:
         return False

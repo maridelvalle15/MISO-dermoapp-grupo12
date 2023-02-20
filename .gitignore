@@ -10,9 +10,11 @@
 front/node_modules
 npm-debug.log
 yarn-error.log
+node_modules
 
 front/coverage
 front/.angular
+front/dist
 
 # IDEs and editors
 .idea/
@@ -45,8 +47,10 @@ testem.log
 Thumbs.db
 *.DS_Store
 *.coverage
-.env
+*.env
 *__pycache__
-*/variables-prod-salud.env
+servicios_salud/variables-prod-salud.env
 */variables-prod-autenticacion.env
 variables*.env
+
+

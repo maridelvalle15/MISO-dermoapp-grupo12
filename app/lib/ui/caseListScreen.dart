@@ -1,6 +1,7 @@
-import 'package:dermoapp/common/functions/CaseListManager.dart';
+import 'package:dermoapp/common/managers/CaseListManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
+import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
@@ -63,7 +64,7 @@ class CaseListScreenState extends State<CaseListScreen> {
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.all(10),
                 child: FutureBuilder(
-                    future: getMyCases(),
+                    future: CaseListManager().getMyCases(),
                     builder: (context, snapshot) {
                       results = snapshot.data ?? [];
                       return FittedBox(
@@ -103,9 +104,12 @@ class CaseListScreenState extends State<CaseListScreen> {
 
   DataRow getDataRow(index, data) {
     int caseId = data.id;
+
     String diagnosticType = data.tipodiagnostico == 'auto'
         ? AppLocalizations.of(context).automatic
-        : AppLocalizations.of(context).manual;
+        : data.tipodiagnostico == 'manual'
+            ? AppLocalizations.of(context).manual
+            : '';
     return DataRow(
       cells: <DataCell>[
         DataCell(
@@ -120,7 +124,13 @@ class CaseListScreenState extends State<CaseListScreen> {
         DataCell(
           ElevatedButton(
             key: const Key('btnCaseDetails'),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CaseDetailScreen(caseId)),
+              );
+            },
             child: Text(AppLocalizations.of(context).caseDetails,
                 style: const TextStyle(
                     color: Colors.white,

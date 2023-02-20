@@ -3,6 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioRegistroComponent } from './usuario-registro.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from "@angular/router/testing";
+
+
 
 
 describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
@@ -13,7 +16,8 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
         ReactiveFormsModule,
         FormsModule,
         HttpClientTestingModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        RouterTestingModule
       ],
       declarations: [
         UsuarioRegistroComponent
@@ -21,6 +25,8 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
     }).compileComponents();
 
   });
+
+
 
 
   it('Debe de existir el AppComponent', () => {
@@ -46,7 +52,7 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
     const app = fixture.componentInstance
     fixture.detectChanges()
 
-    let tipousuario = app.usuarioForm.controls['tipousuario']
+
     let nombre = app.usuarioForm.controls['nombre']
     let pais = app.usuarioForm.controls['pais']
     let ciudad = app.usuarioForm.controls['ciudad']
@@ -56,7 +62,7 @@ describe(`(1) TEST del componente "UsuarioIngresoComponent"`, () => {
     let correo = app.usuarioForm.controls['correo']
 
 
-    tipousuario.setValue('MEDICO')
+
     nombre.setValue('Juan Oliveros')
     pais.setValue('co')
     ciudad.setValue('bog')

@@ -1,4 +1,7 @@
 from ..models import UsuarioMedico, UsuarioPaciente, db, Ubicacion, Especialidad, Rol, Usuario
+from sqlalchemy import exc
+import flaskr
+
 class Logica():
     @staticmethod
     def crear_usuario(password='',email='',nombre='',direccion='',ubicacion='',
@@ -16,8 +19,13 @@ class Logica():
                 edad=edad,cedula=cedula,tipo_piel=tipo_piel,imagen_piel=imagen_piel)    
 
         nuevo_usuario.roles.append(rol)
-        db.session.add(nuevo_usuario)
-        db.session.commit()
+        try:
+            db.session.add(nuevo_usuario)
+            db.session.commit()
+        except exc.SQLAlchemyError as e:
+            flaskr.logger.error(e)
+            db.session.rollback()
+            return {"message":"Error al crear usuario"}, 500
 
         return nuevo_usuario
 
@@ -42,7 +50,9 @@ class Logica():
         return rol
 
     @staticmethod
-    def usuario_valido(email=''):
+    def usuario_valido(email='',cedula=''):
         usuario = Usuario.query.filter(Usuario.email==email).first()
     
+        if cedula != '':
+            usuario = UsuarioPaciente.query.filter(UsuarioPaciente.cedula==cedula).first()
         return usuario

@@ -1,7 +1,8 @@
+
 from flaskr import create_app
 from flask_restful import Api
 from .models import db, Usuario
-from .views import RegistroView, LogInView, ValidacionUsuarioView
+from .views import RegistroView, LogInView, ValidacionUsuarioView, HealthCheckView
 from flask_user import UserManager
 import pytest
 from .utils.seeds import Seeds
@@ -17,6 +18,7 @@ db.create_all()
 
 seeds = Seeds()
 seeds.poblar_ubicacion('co', 'bog')
+seeds.poblar_ubicacion('vz', 'ccs')
 seeds.poblar_rol('Medico')
 seeds.poblar_rol('Paciente')
 seeds.poblar_especialidad('General')
@@ -33,6 +35,7 @@ user_manager = UserManager(app, db, Usuario)
 api.add_resource(RegistroView, '/api/registro', resource_class_kwargs={'user_manager': user_manager})
 api.add_resource(LogInView, '/api/login')
 api.add_resource(ValidacionUsuarioView, '/api/validacion-usuario')
+api.add_resource(HealthCheckView, '/api/health-check')
 
 jwt = JWTManager(app)
 

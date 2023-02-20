@@ -16,7 +16,7 @@ export class UsuarioService {
 
 
   userLogIn(email: string, password: string):Observable<any>{
-    return this.http.post<any>(`http://ec2-184-72-68-214.compute-1.amazonaws.com/api/login`, {"correo": email, "password": password });
+    return this.http.post<any>(this.backUrl + `/api/login`, {"correo": email, "password": password });
 }
 
   userSignUp(
@@ -30,7 +30,7 @@ export class UsuarioService {
     licencia:string,
 
   ): Observable<any> {
-    return this.http.post<any>('http://ec2-184-72-68-214.compute-1.amazonaws.com/api/registro', {
+    return this.http.post<any>(this.backUrl + '/api/registro', {
       "tipousuario": tipo_usuario,
       "correo": email,
       "nombre": nombre,

@@ -7,6 +7,10 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ToastrModule } from 'ngx-toastr';
 import { AppHeaderModule } from './app-header/app-header.module';
 import { CasoModule } from './caso/caso.module';
+import { MaterialModule } from './material/material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
@@ -20,6 +24,8 @@ import { CasoModule } from './caso/caso.module';
     UsuarioModule,
     AppHeaderModule,
     CasoModule,
+    MaterialModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],

@@ -14,14 +14,14 @@
      <form [formGroup]="usuarioForm">
       <label #error style="color: red;"  *ngIf="error"> Usuario o contraseña incorrectos </label>
       <input #correo formControlName="correo" type="text" placeholder="Correo" required>
-      <input #password type="password" placeholder="Contraseña" required>
+      <input #password formControlName="password" type="password" placeholder="Contraseña" required>
 
-      <button (click)="onLogInUsuario(correo.value, password.value)" type="button">Ingresar</button>
+      <button (click)="onLogInUsuario(correo.value, password.value)" type="button" [disabled]="!usuarioForm.valid">Ingresar</button>
       <button><a href="../usuario-registro/"> Registrarse </a></button>
 
 
 
-      <a><img src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2.5%" height="2.5%"></a>
+      <a><img  src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2.5%" height="2.5%"></a>
       <a><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2.5%" height="2.5%"></a>
     </form>
     </div>

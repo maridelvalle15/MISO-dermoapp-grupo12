@@ -1,10 +1,17 @@
-import 'dart:convert';
-import 'dart:io' as Io;
-import 'package:dermoapp/ui/caseDetailScreen.dart';
+import 'dart:io';
+
+import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'caseDetailScreen_test.mocks.dart';
+
+@GenerateMocks([Client])
 void main() {
   Widget makeTestableWidget({required Widget child}) {
     return MaterialApp(
@@ -12,37 +19,33 @@ void main() {
     );
   }
 
-  group('caseDetail', () {
-    testWidgets('Fields, image and additional info are displayed',
-        (WidgetTester tester) async {
-      var image = Io.File("image.png");
-      image.writeAsBytes(base64Decode(
-          'iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAMAAABIw9uxAAADAFBMVEX///8PDxEHBwkODhAQEBIFBQcTExUGBggRERMSEhQICAoa'));
+  setUpAll(() {
+    // ↓ required to avoid HTTP error 400 mocked returns
+    HttpOverrides.global = null;
+  });
+  group('caseDetailManager', () {
+    testWidgets('Displays a case', (WidgetTester tester) async {
+      final client = MockClient();
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+
+      when(
+        client.get(any),
+      ).thenAnswer((_) async => Response(
+          '{"message":"1234", {"id": 110, "dateCreated": "2022-12-31","diagnosticType": "auto"}}',
+          200));
+
+      await tester.pumpAndSettle();
 
       await tester.pumpWidget(makeTestableWidget(
           child: Localizations(
               delegates: AppLocalizations.localizationsDelegates,
               locale: const Locale('en'),
-              child: CaseDetailScreen(15,
-                  newCase: true,
-                  tipo: 'pap',
-                  forma: 'dom',
-                  cantidad: 'mul',
-                  dist: 'con',
-                  adicional: 'otra info',
-                  foto: image))));
-
-      final createdText = find.text('Your case was created!');
-      final typeText = find.text('Papule');
-      final additionalText = find.text('otra info');
-      final Finder imageField = find.byType(Image);
+              child: const CaseDetailScreen(100))));
 
       await tester.pumpAndSettle();
 
-      expect(createdText, findsOneWidget);
-      expect(typeText, findsOneWidget);
-      expect(additionalText, findsOneWidget);
-      expect(imageField, findsNWidgets(3));
+      expect(find.text('Dermoapp'), findsOneWidget);
+      expect(find.text('Extra Images'), findsOneWidget);
     });
   });
 }
