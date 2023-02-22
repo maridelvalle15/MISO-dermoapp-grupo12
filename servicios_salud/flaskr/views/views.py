@@ -253,3 +253,21 @@ class DiagnosticoMedicoView(Resource):
 
         else:
             return {"message":"Unauthorized"}, 401
+
+class DiagnosticoPacienteView(Resource):
+    auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+    headers = {'Authorization': request.headers.get('Authorization')}
+
+    response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+    json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+    rol = json_response['rol']
+    id_usuario = json_response['id_usuario']
+
+    caso_id = request.json["caso_id"]
+
+    if (rol == 'Medico') and (response.status_code == 200):
+
+        return {"message":"Diagnóstico generado"}, 200
+    else:
+        return {"message":"Unauthorized"}, 401
