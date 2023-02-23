@@ -264,10 +264,10 @@ class DiagnosticoPacienteView(Resource):
         json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
         rol = json_response['rol']
 
-        caso_id = request.json["caso_id"]
-        diagnostico = request.json["diagnostico"]
-
         if (rol == 'Medico') and (response.status_code == 200):
+
+            caso_id = request.json["caso_id"]
+            diagnostico = request.json["diagnostico"]
 
             logica = Logica()
 
