@@ -116,6 +116,7 @@ class Logica():
         try:
             db.session.add(diagnostico)
             caso.tipo_solucion = tipo
+            caso.estado = 'Diagnosticado'
             db.session.commit()
 
             return diagnostico

@@ -5,6 +5,7 @@ from .views import SuministroLesionView, CasosPacientesView, HealthCheckView, Di
 import logging
 from .utils.seeds import Seeds
 from flask_cors import CORS, cross_origin
+from flask_migrate import Migrate
 
 app = create_app('gestion_dermatologia')
 app_context = app.app_context()
@@ -14,6 +15,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 db.init_app(app)
 db.create_all()
+
+migrate = Migrate(app, db)
 
 seeds = Seeds()
 seeds.poblar_lesion_tipo('mac', 'macula')
