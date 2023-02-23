@@ -21,6 +21,7 @@ class CaseNewScreenState extends State<CaseNewScreen> {
   final TextEditingController _additionalInfoController =
       TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
   bool isDisabled = false;
   bool hasImage = false;
   String injuryTypeValue = injuryType.keys.toList().first;
@@ -31,7 +32,6 @@ class CaseNewScreenState extends State<CaseNewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     var snackBar = SnackBar(
       content: Text(AppLocalizations.of(context).submittedData),
       duration: const Duration(seconds: 2),
@@ -56,7 +56,7 @@ class CaseNewScreenState extends State<CaseNewScreen> {
             ),
           ]),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
           child: SingleChildScrollView(
@@ -422,7 +422,7 @@ class CaseNewScreenState extends State<CaseNewScreen> {
                       onPressed: isDisabled
                           ? null
                           : () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 setState(() => isDisabled = true);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
