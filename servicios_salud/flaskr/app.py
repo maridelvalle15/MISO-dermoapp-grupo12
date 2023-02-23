@@ -1,7 +1,7 @@
 from flaskr import create_app
 from flask_restful import Api
 from .models import db
-from .views import SuministroLesionView, CasosPacientesView, HealthCheckView, DiagnosticoAutomaticoView, InformacionDiagnosticoView, ReclamarCasoView
+from .views import SuministroLesionView, CasosPacientesView, HealthCheckView, DiagnosticoAutomaticoView, InformacionDiagnosticoView, ReclamarCasoView, DiagnosticoMedicoView
 import logging
 from .utils.seeds import Seeds
 from flask_cors import CORS, cross_origin
@@ -80,6 +80,7 @@ api.add_resource(HealthCheckView, '/api/health-check')
 api.add_resource(DiagnosticoAutomaticoView, '/api/diagnostico-automatico')
 api.add_resource(ReclamarCasoView, '/api/reclamar-caso')
 api.add_resource(InformacionDiagnosticoView, '/api/informacion-diagnostico/<int:caso_id>')
+api.add_resource(DiagnosticoMedicoView, '/api/diagnostico-medico')
 
 if __name__ == "__main__":
     app.run(debug=True)

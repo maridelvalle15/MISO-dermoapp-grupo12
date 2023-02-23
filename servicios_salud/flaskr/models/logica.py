@@ -83,7 +83,7 @@ class Logica():
     def obtener_casos_disponibles(self,especialidad, ubicacion_id):
         casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
         if casos_especialidad.all():   
-            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion!='auto')
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion=='medico')
             if casos_sin_asignar.all():
                 casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
 
@@ -186,3 +186,20 @@ class Logica():
     def casos_reclamados(self,id_usuario):
         casos = Caso.query.filter(Caso.medico_asignado==id_usuario).all()
         return casos
+
+    def asignar_tipo_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso and caso.tipo_solucion == '':
+            caso.tipo_solucion = 'medico'
+            try:
+                db.session.add(caso)
+                db.session.commit()
+                return caso
+
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)    
+                db.session.rollback()
+                return False
+        else:
+            return False

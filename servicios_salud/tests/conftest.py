@@ -26,13 +26,14 @@ def headers():
     return headers
 
 @pytest.fixture
-def crear_caso():
+def crear_caso(request):
     caso = Caso(
         tipo_lesion=1,
         forma=1,
         numero_lesiones=1,
         distribucion=1,
-        paciente_id=1
+        paciente_id=1,
+        tipo_solucion=request.param[0]
     )
     db.session.add(caso)
     db.session.commit()

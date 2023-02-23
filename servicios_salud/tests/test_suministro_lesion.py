@@ -65,6 +65,7 @@ class TestSuministroLesion:
         assert response.status_code==200
         assert "casos" in response.json
 
+    @pytest.mark.parametrize('crear_caso', [['']], indirect=True)
     def test_obtener_informacion_caso(self,client,mocker,crear_caso):
         
         request_mock = mocker.patch("requests.get")
