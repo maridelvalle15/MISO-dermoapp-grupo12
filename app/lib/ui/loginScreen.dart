@@ -19,6 +19,7 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
   var packageVersion = '';
 
   @override
@@ -37,7 +38,6 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -58,7 +58,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ]),
       body: Form(
-          key: _formKey,
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
             child: SingleChildScrollView(
@@ -143,7 +143,7 @@ class LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           key: const Key('btnSubmit'),
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) {
                               //SystemChannels.textInput.invokeMethod('TextInput.hide');
                               LoginManager().submitLogin(
                                   context,
