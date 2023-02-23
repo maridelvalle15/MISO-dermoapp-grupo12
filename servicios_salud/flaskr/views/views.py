@@ -155,7 +155,7 @@ class DiagnosticoAutomaticoView(Resource):
             return {"message":"No es posible realizar un diagnóstico al caso asignado"}, 400
 
         else:
-            return {"diagnostico": diagnostico}, 200
+            return {"diagnostico": diagnostico.descripcion}, 200
 
 class InformacionDiagnosticoView(Resource):
     def get(self,caso_id):
@@ -255,19 +255,28 @@ class DiagnosticoMedicoView(Resource):
             return {"message":"Unauthorized"}, 401
 
 class DiagnosticoPacienteView(Resource):
-    auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
-    headers = {'Authorization': request.headers.get('Authorization')}
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
 
-    response = requests.get(auth_url_validacion_usuario, headers=headers)
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
 
-    json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
-    rol = json_response['rol']
-    id_usuario = json_response['id_usuario']
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
 
-    caso_id = request.json["caso_id"]
+        caso_id = request.json["caso_id"]
+        diagnostico = request.json["diagnostico"]
 
-    if (rol == 'Medico') and (response.status_code == 200):
+        if (rol == 'Medico') and (response.status_code == 200):
 
-        return {"message":"Diagnóstico generado"}, 200
-    else:
-        return {"message":"Unauthorized"}, 401
+            logica = Logica()
+
+            diagnostico = logica.crear_diagnostico(caso_id,diagnostico,'medico')
+
+            if diagnostico == False:
+                return {"message":"No es posible generar el diagnóstico enviado"}, 400
+            
+            else:
+                return {"message":"Diagnóstico generado"}, 200
+        else:
+            return {"message":"Unauthorized"}, 401
