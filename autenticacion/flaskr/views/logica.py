@@ -29,3 +29,14 @@ def procesar_imagen(imagen):
     else:
         print("File type not accepted,please try again.")
         return False
+
+def mapear_tipo_piel(tipo_piel):
+    tipos_piel = {
+            "normal": "normal",
+            "dry": "seca",
+            "oily": "grasa",
+            "mixed": "mixta",
+            "sensitive": "sensible"
+        }
+    
+    return tipos_piel[tipo_piel]
