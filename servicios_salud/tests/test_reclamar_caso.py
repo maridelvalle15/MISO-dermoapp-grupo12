@@ -1,7 +1,8 @@
 from flaskr.models import *
-import json
+import json, pytest
 
 class TestReclamarCaso:
+    @pytest.mark.parametrize('crear_caso', [['']], indirect=True)
     def test_paciente_no_puede_reclamar_caso_caso(self,client,mocker,headers,crear_caso):
         
         request_mock = mocker.patch("requests.get")
@@ -20,6 +21,7 @@ class TestReclamarCaso:
         assert response.status_code==401
         assert response.json['message'] == 'Unauthorized'
 
+    @pytest.mark.parametrize('crear_caso', [['']], indirect=True)
     def test_medico_reclama_caso(self,client,mocker,headers,crear_caso):
         
         request_mock = mocker.patch("requests.get")

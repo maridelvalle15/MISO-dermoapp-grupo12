@@ -68,7 +68,7 @@ class SuministroLesionView(Resource):
 
             if (imagen_lesion != "") and (imagen_lesion is not None):
                 imagen_procesada = procesar_imagen(imagen_lesion)
-                
+
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
             else:
@@ -227,5 +227,29 @@ class ReclamarCasoView(Resource):
 
             
             return {"message":"Caso asignado", "caso_id": caso.id}, 200
+        else:
+            return {"message":"Unauthorized"}, 401
+
+class DiagnosticoMedicoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        if (rol == 'Paciente') and (response.status_code == 200):
+            caso_id = request.json["caso_id"]
+            logica = Logica()
+
+            caso = logica.asignar_tipo_caso(caso_id)
+
+            if caso == False:
+                return {"message":"No fue posible asignar el tipo de diagnostico al caso"}, 400
+
+            else:
+                return {"message": "Tipo de diagnostico medico asignado exitosamente", "caso_id": caso_id}, 200
+
         else:
             return {"message":"Unauthorized"}, 401
