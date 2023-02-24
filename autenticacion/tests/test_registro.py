@@ -95,7 +95,7 @@ class TestRegistro:
             'ciudad': ubicacion.ciudad,
             'edad': 30,
             'cedula': '1121',
-            'tipopiel': 'grasa',
+            'tipopiel': 'oily',
             'imagen_piel': ''
         }
 

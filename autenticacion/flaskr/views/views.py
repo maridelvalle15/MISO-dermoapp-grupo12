@@ -1,6 +1,6 @@
 from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol, Especialidad, UsuarioPaciente, Ubicacion
 from ..models.logica import Logica
-from .logica import procesar_imagen
+from .logica import procesar_imagen, mapear_tipo_piel
 from flask_restful import Resource
 from flask import request, jsonify
 import secrets, datetime, os
@@ -57,7 +57,7 @@ class RegistroView(Resource):
             direccion = '' # TO-DO: solucionar luego
             edad = request_data["edad"]
             cedula = request_data["cedula"]
-            tipo_piel = request_data["tipopiel"]
+            tipo_piel = mapear_tipo_piel(request_data["tipopiel"])
             imagen_piel = request.files.get("image", "")
 
             usuario = self.logica.usuario_valido(email=email,cedula=cedula)
