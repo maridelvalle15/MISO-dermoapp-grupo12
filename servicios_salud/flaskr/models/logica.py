@@ -155,7 +155,8 @@ class Logica():
                 'medico_asignado': caso.medico_asignado,
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
-                'imagenes_extra': imagenes_array
+                'imagenes_extra': imagenes_array,
+                'estado': caso.status
             }
             return caso_dict
 
