@@ -59,7 +59,7 @@ def crear_usuario_paciente(request):
     ubicacion=Ubicacion.query.first().id
     edad=30
     cedula=request.param[1]
-    tipopiel="seca"
+    tipopiel="dry"
     rol=Rol.query.filter(Rol.nombre=='Paciente').first()
 
     usuario = logica.usuario_valido(email)

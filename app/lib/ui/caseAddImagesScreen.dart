@@ -278,6 +278,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                                         isDisabled = true;
                                         hasImage = false;
                                         _pickedFile = null;
+                                        getCase(widget.id);
                                       });
                                       // ignore: use_build_context_synchronously
                                       showDialogSingleButton(
@@ -292,25 +293,6 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                                 },
                           child: Text(
                               AppLocalizations.of(context).uploadExtraImage,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 22.0)),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                      child: SizedBox(
-                        height: 55.0,
-                        child: ElevatedButton(
-                          key: const Key('btnReload'),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CaseAddImagesScreen(widget.id)));
-                          },
-                          child: Text(AppLocalizations.of(context).reload,
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 22.0)),
                         ),

@@ -41,65 +41,78 @@ class CaseListScreenState extends State<CaseListScreen> {
                     .setLocale(const Locale.fromSubtags(languageCode: 'en')),
               ),
             ]),
-        body: SingleChildScrollView(
-            child: Column(
-          children: <Widget>[
-            Container(
-                alignment: Alignment.topCenter,
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-                  child: Text("Dermoapp",
-                      style:
-                          TextStyle(fontSize: 40.0, color: Color(0xffdfdfdf))),
-                )),
-            Container(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                  child: Text(AppLocalizations.of(context).myCases,
-                      style: const TextStyle(
-                          fontSize: 16.0, color: Color(0xffdfdfdf))),
-                )),
-            SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.all(10),
-                child: FutureBuilder(
-                    future: CaseListManager().getMyCases(),
-                    builder: (context, snapshot) {
-                      results = snapshot.data ?? [];
-                      return FittedBox(
-                        child: DataTable(
-                            headingTextStyle: const TextStyle(
-                                color: Color(0xFFDFDFDF),
-                                fontWeight: FontWeight.bold),
-                            dataTextStyle:
-                                const TextStyle(color: Color(0xFFDFDFDF)),
-                            columns: <DataColumn>[
-                              DataColumn(
-                                label: Text(
-                                  AppLocalizations.of(context).id,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  AppLocalizations.of(context).caseDate,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(AppLocalizations.of(context)
-                                    .diagnosticType),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                    AppLocalizations.of(context).caseDetails),
-                              ),
-                            ],
-                            rows: List.generate(results.length,
-                                (index) => getDataRow(index, results[index]))),
-                      );
-                    })),
-          ],
-        )));
+        body: RefreshIndicator(
+            onRefresh: getCaseList,
+            child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        alignment: Alignment.topCenter,
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                          child: Text("Dermoapp",
+                              style: TextStyle(
+                                  fontSize: 40.0, color: Color(0xffdfdfdf))),
+                        )),
+                    Container(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                          child: Text(AppLocalizations.of(context).myCases,
+                              style: const TextStyle(
+                                  fontSize: 16.0, color: Color(0xffdfdfdf))),
+                        )),
+                    SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        padding: const EdgeInsets.all(10),
+                        child: FutureBuilder(
+                            future: CaseListManager().getMyCases(),
+                            builder: (context, snapshot) {
+                              results = snapshot.data ?? [];
+                              return FittedBox(
+                                child: DataTable(
+                                    headingTextStyle: const TextStyle(
+                                        color: Color(0xFFDFDFDF),
+                                        fontWeight: FontWeight.bold),
+                                    dataTextStyle: const TextStyle(
+                                        color: Color(0xFFDFDFDF)),
+                                    columns: <DataColumn>[
+                                      DataColumn(
+                                        label: Text(
+                                          AppLocalizations.of(context).id,
+                                        ),
+                                      ),
+                                      DataColumn(
+                                        label: Text(
+                                          AppLocalizations.of(context).caseDate,
+                                        ),
+                                      ),
+                                      DataColumn(
+                                        label: Text(AppLocalizations.of(context)
+                                            .diagnosticType),
+                                      ),
+                                      DataColumn(
+                                        label: Text(AppLocalizations.of(context)
+                                            .caseDetails),
+                                      ),
+                                    ],
+                                    rows: List.generate(
+                                        results.length,
+                                        (index) =>
+                                            getDataRow(index, results[index]))),
+                              );
+                            })),
+                  ],
+                ))));
+  }
+
+  Future<void> getCaseList() async {
+    List caseList = await CaseListManager().getMyCases();
+    setState(() {
+      results = caseList;
+    });
   }
 
   DataRow getDataRow(index, data) {
