@@ -1,10 +1,11 @@
 from flaskr import create_app
 from flask_restful import Api
 from .models import db
-from .views import SuministroLesionView, CasosPacientesView, HealthCheckView, DiagnosticoAutomaticoView, InformacionDiagnosticoView, ReclamarCasoView, DiagnosticoMedicoView
+from .views import SuministroLesionView, CasosPacientesView, HealthCheckView, DiagnosticoAutomaticoView, InformacionDiagnosticoView, ReclamarCasoView, DiagnosticoMedicoView, DiagnosticoPacienteView
 import logging
 from .utils.seeds import Seeds
 from flask_cors import CORS, cross_origin
+from flask_migrate import Migrate
 
 app = create_app('gestion_dermatologia')
 app_context = app.app_context()
@@ -14,6 +15,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 db.init_app(app)
 db.create_all()
+
+migrate = Migrate(app, db)
 
 seeds = Seeds()
 seeds.poblar_lesion_tipo('mac', 'macula')
@@ -81,6 +84,7 @@ api.add_resource(DiagnosticoAutomaticoView, '/api/diagnostico-automatico')
 api.add_resource(ReclamarCasoView, '/api/reclamar-caso')
 api.add_resource(InformacionDiagnosticoView, '/api/informacion-diagnostico/<int:caso_id>')
 api.add_resource(DiagnosticoMedicoView, '/api/diagnostico-medico')
+api.add_resource(DiagnosticoPacienteView, '/api/diagnostico-paciente')
 
 if __name__ == "__main__":
     app.run(debug=True)

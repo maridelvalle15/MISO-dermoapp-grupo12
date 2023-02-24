@@ -40,6 +40,7 @@ class Caso(db.Model):
     especialidad_asociada = db.Column(db.String(50), unique=False)
     fecha_creacion = db.Column(db.DateTime(timezone=True), server_default=func.now())
     ubicacion_id = db.Column(db.Integer, unique=False)
+    status = db.Column(db.String(50), unique=False, server_default='Pendiente')
 
     def nombre_lesion(self):
         return LesionTipo.query.filter(LesionTipo.id == self.tipo_lesion).first().nombre

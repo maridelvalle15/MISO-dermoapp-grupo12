@@ -108,19 +108,23 @@ class Logica():
         
         return casos
         
-    def crear_diagnostico(self,caso,diagnosticos):
-        diagnostico = Diagnostico(tipo='auto',
-            descripcion=str(diagnosticos),
+    def crear_diagnostico(self,caso_id,descripcion,tipo="auto"):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+        diagnostico = Diagnostico(tipo=tipo,
+            descripcion=str(descripcion),
             caso=caso.id)
         try:
             db.session.add(diagnostico)
-            caso.tipo_solucion = "auto"
+            caso.tipo_solucion = tipo
+            caso.status = 'Diagnosticado'
             db.session.commit()
+
+            return diagnostico
 
         except exc.SQLAlchemyError as e:
             flaskr.logger.error(e)    
             db.session.rollback()
-            return {"message":"Error al crear diagnostico"}, 500
+            return False
 
     def crear_imagen_caso(self,caso_id,imagen):
         imagen_caso = ImagenCaso(caso_id=caso_id,imagen=imagen)
