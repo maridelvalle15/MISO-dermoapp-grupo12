@@ -23,7 +23,7 @@
       <td>{{caso.nombre_paciente}}</td>
       <td>{{caso.estado}}</td>
 
-      <button (click)="openDialogDiagnostico(caso.caso_id)">Dar Diagnóstico</button>
+      <button (click)="openDialogDiagnostico(caso.caso_id)" *ngIf="caso?.estado !== 'Diagnosticado'">Dar Diagnóstico</button>
 
     </tr>
 
