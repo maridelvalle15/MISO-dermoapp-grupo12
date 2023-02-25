@@ -68,8 +68,8 @@ def generar_diagnostico_automatico(caso_id):
                     diagnosticos.append(diagnostico_dict)
 
             logica = Logica()
-            logica.crear_diagnostico(caso,diagnosticos)
-            return diagnosticos
+            diagnostico = logica.crear_diagnostico(caso.id,diagnosticos,"auto")
+            return diagnostico
 
         except KeyError:
             return False

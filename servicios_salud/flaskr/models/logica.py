@@ -83,7 +83,7 @@ class Logica():
     def obtener_casos_disponibles(self,especialidad, ubicacion_id):
         casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
         if casos_especialidad.all():   
-            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion!='auto')
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion=='medico')
             if casos_sin_asignar.all():
                 casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
 
@@ -104,23 +104,27 @@ class Logica():
 
     def obtener_casos_paciente(self,id_paciente):
         casos = Caso.query.filter(Caso.paciente_id==id_paciente)\
-            .filter(Caso.medico_asignado == None).all()
+            .all()
         
         return casos
         
-    def crear_diagnostico(self,caso,diagnosticos):
-        diagnostico = Diagnostico(tipo='auto',
-            descripcion=str(diagnosticos),
+    def crear_diagnostico(self,caso_id,descripcion,tipo="auto"):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+        diagnostico = Diagnostico(tipo=tipo,
+            descripcion=str(descripcion),
             caso=caso.id)
         try:
             db.session.add(diagnostico)
-            caso.tipo_solucion = "auto"
+            caso.tipo_solucion = tipo
+            caso.status = 'Diagnosticado'
             db.session.commit()
+
+            return diagnostico
 
         except exc.SQLAlchemyError as e:
             flaskr.logger.error(e)    
             db.session.rollback()
-            return {"message":"Error al crear diagnostico"}, 500
+            return False
 
     def crear_imagen_caso(self,caso_id,imagen):
         imagen_caso = ImagenCaso(caso_id=caso_id,imagen=imagen)
@@ -151,7 +155,8 @@ class Logica():
                 'medico_asignado': caso.medico_asignado,
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
-                'imagenes_extra': imagenes_array
+                'imagenes_extra': imagenes_array,
+                'estado': caso.status
             }
             return caso_dict
 
@@ -186,3 +191,20 @@ class Logica():
     def casos_reclamados(self,id_usuario):
         casos = Caso.query.filter(Caso.medico_asignado==id_usuario).all()
         return casos
+
+    def asignar_tipo_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso and caso.tipo_solucion == '':
+            caso.tipo_solucion = 'medico'
+            try:
+                db.session.add(caso)
+                db.session.commit()
+                return caso
+
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)    
+                db.session.rollback()
+                return False
+        else:
+            return False

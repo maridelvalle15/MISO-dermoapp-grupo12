@@ -1,8 +1,7 @@
 import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
-import 'package:dermoapp/model/caseDiagnosticAutoModel.dart';
-import 'package:dermoapp/ui/caseListScreen.dart';
+import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
@@ -149,9 +148,9 @@ class CaseDiagnosticAutoScreenState extends State<CaseDiagnosticAutoScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CaseListScreen()));
+                            builder: (context) => CaseDetailScreen(widget.id)));
                   },
-                  child: Text(AppLocalizations.of(context).backToCaseList,
+                  child: Text(AppLocalizations.of(context).backToCaseDetails,
                       style:
                           const TextStyle(color: Colors.white, fontSize: 22.0)),
                 ),

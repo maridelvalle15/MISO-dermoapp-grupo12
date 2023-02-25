@@ -43,6 +43,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _personIdController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
   bool isDisabled = false;
   bool hasImage = false;
   String countryValue = countries.keys.toList()[3];
@@ -51,7 +52,6 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     var snackBar = SnackBar(
       content: Text(AppLocalizations.of(context).submittedData),
       duration: const Duration(seconds: 2),
@@ -75,7 +75,7 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
           ]),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
           child: SingleChildScrollView(
@@ -454,7 +454,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       onPressed: isDisabled
                           ? null
                           : () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 setState(() => isDisabled = true);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
