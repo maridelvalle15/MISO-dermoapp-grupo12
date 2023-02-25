@@ -23,7 +23,7 @@
       <td>{{caso.nombre_paciente}}</td>
       <td>{{caso.estado}}</td>
 
-      <button>Dar Diagnóstico</button>
+      <button (click)="openDialogDiagnostico(caso.caso_id)">Dar Diagnóstico</button>
 
     </tr>
 

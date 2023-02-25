@@ -35,7 +35,6 @@ export class CasoListarComponent implements OnInit {
       data: id
     })
 
-    console.log(id)
     this.cookieService.set('id',id)
   }
 

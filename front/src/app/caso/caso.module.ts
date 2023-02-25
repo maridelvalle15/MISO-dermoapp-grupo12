@@ -8,11 +8,12 @@ import { MaterialModule } from 'app/material/material/material.module';
 import { CasoPopupComponent } from './caso-popup/caso-popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CasoReclamadoListarComponent } from './caso-reclamado-listar/caso-reclamado-listar.component';
+import { CasoDiagnosticoPopupComponent } from './caso-diagnostico-popup/caso-diagnostico-popup.component';
 
 
 
 @NgModule({
-  declarations: [CasoListarComponent, CasoPopupComponent,CasoReclamadoListarComponent],
+  declarations: [CasoListarComponent, CasoPopupComponent,CasoReclamadoListarComponent,CasoDiagnosticoPopupComponent],
   imports: [
     CommonModule, ReactiveFormsModule, AppHeaderModule,MaterialModule,BrowserAnimationsModule
   ],
