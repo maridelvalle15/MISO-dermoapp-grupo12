@@ -208,3 +208,24 @@ class Logica():
                 return False
         else:
             return False
+
+    def rechazar_diagnostico(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+            if diagnostico.first():
+                try:
+                    diagnostico.delete()
+                    caso.medico_asignado = None
+                    caso.status = 'Pendiente'
+                    db.session.commit()
+
+                    return True
+                except exc.SQLAlchemyError:
+                    db.session.rollback()
+                    return False
+            else:
+                return False
+        else:
+            return False

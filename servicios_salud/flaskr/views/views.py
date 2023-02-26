@@ -280,3 +280,26 @@ class DiagnosticoPacienteView(Resource):
                 return {"message":"Diagnóstico generado"}, 200
         else:
             return {"message":"Unauthorized"}, 401
+
+class RechazarDiagnosticoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        if (rol == 'Paciente') and (response.status_code == 200):
+            caso_id = request.json["caso_id"]
+            logica = Logica()
+            diagnostico_rechazado = logica.rechazar_diagnostico(caso_id)
+
+            if diagnostico_rechazado == False:
+                return {"message":"No fue posible rechazar el diagnostico"}, 400
+
+            else:
+                return {"message": "Diagnostico rechazado exitosamente", "caso_id": caso_id}, 200
+
+        else:
+            return {"message":"Unauthorized"}, 401
