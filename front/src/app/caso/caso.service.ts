@@ -45,13 +45,22 @@ sendCaso(id: any):Observable<any>{
   return this.http.post<any>(this.backUrl + `/api/reclamar-caso`, {'caso_id': id}, {headers: headers });
 }
 
-getCasoReclamado(): Observable<Caso[]>{
+getCasoReclamado(): Observable<Caso>{
   const cookie= this.cookieService.get('token_access');
   const headers = new HttpHeaders({
 
     'Authorization': `Bearer ${cookie}`
   })
-  return this.http.get<Caso[]>(`${this.backUrl}/api/reclamar-caso`, {headers: headers})
+  return this.http.get<Caso>(`${this.backUrl}/api/reclamar-caso`, {headers: headers})
+}
+
+sendDiagnostico(id: any,diagnostico:any):Observable<any>{
+  const cookie= this.cookieService.get('token_access');
+  const headers = new HttpHeaders({
+
+    'Authorization': `Bearer ${cookie}`
+  })
+  return this.http.post<any>(this.backUrl + `/api/diagnostico-paciente`, {'caso_id': id,'diagnostico':diagnostico}, {headers: headers });
 }
 
 }
