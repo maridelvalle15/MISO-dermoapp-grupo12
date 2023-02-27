@@ -6,6 +6,16 @@ button{
   border-color: white;
   text-align: center;
 }
+a{
+  border-radius: 20px;
+  padding: 0.5em;
+  background-color: #1e3f52;
+  color: white;
+  border-color: white;
+  text-align: center;
+  color: white;
+}
+
 
 .center-button {
   display: flex;
