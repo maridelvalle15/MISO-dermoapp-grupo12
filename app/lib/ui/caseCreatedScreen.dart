@@ -327,6 +327,8 @@ class CaseCreatedScreenState extends State<CaseCreatedScreen> {
                 height: 55.0,
                 child: ElevatedButton(
                   key: const Key('btnDiagnosticManual'),
+                  style: ElevatedButton.styleFrom(
+                      disabledBackgroundColor: Colors.grey),
                   onPressed: isDisabled
                       ? null
                       : () async {
