@@ -1,4 +1,5 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, ImagenCaso
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
+    ImagenCaso, Consulta
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -228,4 +229,31 @@ class Logica():
             else:
                 return False
         else:
+            return False
+
+    def asignar_tipo_consulta(self,caso_id,tipo_consulta):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            consulta = Consulta.query.filter(Consulta.caso==caso_id)
+
+            if consulta:
+                # El caso ya tiene un tipo de consulta asignada
+                return False
+            else:
+                nueva_consulta = Consulta(
+                    tipo=tipo_consulta,
+                    caso=caso_id
+                )
+
+                try:
+                    db.session.add(nueva_consulta)
+                    db.session.commit()
+
+                    return nueva_consulta
+                except exc.SQLAlchemyError:
+                    db.session.rollback()
+                    return False
+        else:
+            # El id del caso es invalido
             return False

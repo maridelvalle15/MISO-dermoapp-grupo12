@@ -62,6 +62,11 @@ class Diagnostico(db.Model):
     descripcion = db.Column(db.Text)
     caso = db.Column(db.Integer, db.ForeignKey('caso.id'))
 
+class Consulta(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tipo = db.Column(db.String(20), unique=False)
+    caso = db.Column(db.Integer, db.ForeignKey('caso.id'))
+
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:
          model = LesionTipo
