@@ -42,9 +42,9 @@ class FormRegisterManager {
     }
     http.StreamedResponse response = await client.send(request);
     var received = await http.Response.fromStream(response);
-    final responseJson = json.decode(received.body);
 
     if (response.statusCode == 200) {
+      final responseJson = json.decode(received.body);
       var password = responseJson["password"];
       if (!Platform.environment.containsKey('FLUTTER_TEST')) {
         // ignore: use_build_context_synchronously
@@ -57,13 +57,16 @@ class FormRegisterManager {
       }
       return true;
     } else {
+      String message = "";
+      if (response.statusCode == 500) {
+        message = "Oops 500";
+      } else {
+        message = json.decode(received.body)["message"];
+      }
       if (!Platform.environment.containsKey('FLUTTER_TEST')) {
         // ignore: use_build_context_synchronously
-        showDialogSingleButton(
-            context,
-            AppLocalizations.of(context).thereIsAnError,
-            responseJson["message"],
-            "OK");
+        showDialogSingleButton(context,
+            AppLocalizations.of(context).thereIsAnError, message, "OK");
       }
       return false;
     }

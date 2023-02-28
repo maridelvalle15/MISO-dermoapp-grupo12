@@ -120,7 +120,7 @@ class CaseListScreenState extends State<CaseListScreen> {
 
     String diagnosticType = data.tipodiagnostico == 'auto'
         ? AppLocalizations.of(context).automatic
-        : data.tipodiagnostico == 'manual'
+        : data.tipodiagnostico == 'medico'
             ? AppLocalizations.of(context).manual
             : '';
     return DataRow(
