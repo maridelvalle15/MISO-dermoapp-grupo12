@@ -1,5 +1,6 @@
 import 'package:dermoapp/common/managers/CaseDetailManager.dart';
 import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
@@ -208,12 +209,33 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       height: 55.0,
                       child: ElevatedButton(
                         key: const Key('btnDiagnosticManual'),
-                        onPressed: () {
-                          /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
-                        },
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .askDiagnosticManual(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .manualDiagRequestedTitle,
+                                      AppLocalizations.of(context)
+                                          .manualDiagRequestedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
                         child: Text(
                             AppLocalizations.of(context).diagnosticManual,
                             style: const TextStyle(
