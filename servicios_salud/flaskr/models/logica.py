@@ -11,8 +11,12 @@ class Logica():
 
     def obtener_especialidad_caso(self,tipo_lesion,tipo_piel):
         especialidad = MatchEspecialidades.query.filter(MatchEspecialidades.tipo_lesion==tipo_lesion)\
-            .filter(MatchEspecialidades.tipo_piel==tipo_piel).first().especialidad
-        return especialidad
+            .filter(MatchEspecialidades.tipo_piel==tipo_piel).first()
+        if especialidad is None:
+            match_especialidad = 'General'
+        else:
+            match_especialidad = especialidad.especialidad
+        return match_especialidad
 
     def crear_caso(self,objetos_lesion, adicional,imagen_lesion,id_usuario,tipo_piel,nombre,ubicacion_id):
         descripcion = construir_descripcion_caso(objetos_lesion, adicional)
