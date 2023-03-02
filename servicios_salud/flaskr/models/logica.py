@@ -1,5 +1,5 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
-    ImagenCaso, Consulta
+    ImagenCaso
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -31,8 +31,7 @@ class Logica():
         try:
             db.session.add(nuevo_caso)
             db.session.commit()
-        except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
+        except exc.SQLAlchemyError as e:    
             db.session.rollback()
             return {"message":"Error al crear caso"}, 500
 
@@ -123,7 +122,6 @@ class Logica():
             return diagnostico
 
         except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
             db.session.rollback()
             return False
 
@@ -170,8 +168,7 @@ class Logica():
                 db.session.commit()
                 return caso
 
-            except exc.SQLAlchemyError as e:
-                flaskr.logger.error(e)    
+            except exc.SQLAlchemyError as e:    
                 db.session.rollback()
                 return False
         else:
@@ -235,22 +232,15 @@ class Logica():
         caso = Caso.query.filter(Caso.id==caso_id).first()
 
         if caso:
-            consulta = Consulta.query.filter(Consulta.caso==caso_id)
-
-            if consulta:
+            if caso.tipo_consulta != '':
                 # El caso ya tiene un tipo de consulta asignada
                 return False
             else:
-                nueva_consulta = Consulta(
-                    tipo=tipo_consulta,
-                    caso=caso_id
-                )
-
                 try:
-                    db.session.add(nueva_consulta)
+                    caso.tipo_consulta = tipo_consulta
                     db.session.commit()
 
-                    return nueva_consulta
+                    return caso
                 except exc.SQLAlchemyError:
                     db.session.rollback()
                     return False
