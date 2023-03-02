@@ -58,5 +58,17 @@ void main() {
 
       expect(result, null);
     });
+
+    test('reject a diagnostic and return true if ok', () async {
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+      final caseDiagnosticManualManager = CaseDiagnosticManualManager();
+      caseDiagnosticManualManager.client = MockClient((request) async {
+        return Response("ok", 200);
+      });
+
+      const id = 110;
+      bool result = await caseDiagnosticManualManager.refuseTreatment(id);
+      expect(result, true);
+    });
   });
 }

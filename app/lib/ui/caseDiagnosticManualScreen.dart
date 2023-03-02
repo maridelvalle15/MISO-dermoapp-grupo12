@@ -22,7 +22,7 @@ class CaseDiagnosticManualScreen extends StatefulWidget {
 class CaseDiagnosticManualScreenState
     extends State<CaseDiagnosticManualScreen> {
   String? caseDiagnostic;
-  bool isDisabled = false;
+  bool isDisabled = true;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class CaseDiagnosticManualScreenState
           currentSelected: 2,
         ),
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).caseDetail,
+            title: Text(AppLocalizations.of(context).diagnosticManual,
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
               IconButton(
@@ -71,7 +71,7 @@ class CaseDiagnosticManualScreenState
                     alignment: Alignment.topCenter,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                      child: Text(AppLocalizations.of(context).caseText,
+                      child: Text(AppLocalizations.of(context).doctorDiagnostic,
                           style: const TextStyle(
                               fontSize: 16.0, color: Color(0xffdfdfdf))),
                     )),
@@ -126,13 +126,9 @@ class CaseDiagnosticManualScreenState
                     height: 55.0,
                     child: ElevatedButton(
                       key: const Key('btnAccept'),
-                      onPressed: () {
-                        /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CaseDiagnosticAutoScreen(widget.id)));*/
-                      },
+                      style: ElevatedButton.styleFrom(
+                          disabledBackgroundColor: Colors.grey),
+                      onPressed: isDisabled ? null : () {},
                       child: Text(AppLocalizations.of(context).acceptTreatment,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 22.0)),
@@ -145,13 +141,33 @@ class CaseDiagnosticManualScreenState
                     height: 55.0,
                     child: ElevatedButton(
                       key: const Key('btnReject'),
-                      onPressed: () {
-                        /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CaseDiagnosticAutoScreen(widget.id)));*/
-                      },
+                      style: ElevatedButton.styleFrom(
+                          disabledBackgroundColor: Colors.grey),
+                      onPressed: isDisabled
+                          ? null
+                          : () async {
+                              setState(() => isDisabled = true);
+                              bool result = await CaseDiagnosticManualManager()
+                                  .refuseTreatment(widget.id);
+                              if (result == true) {
+                                // ignore: use_build_context_synchronously
+                                showDialogSingleButton(
+                                    context,
+                                    AppLocalizations.of(context)
+                                        .manualTreatmentRejectedTitle,
+                                    AppLocalizations.of(context)
+                                        .manualTreatmentRejectedText,
+                                    "OK");
+                              } else {
+                                // ignore: use_build_context_synchronously
+                                showDialogSingleButton(
+                                    context,
+                                    AppLocalizations.of(context).thereIsAnError,
+                                    AppLocalizations.of(context).tryAgain,
+                                    "OK");
+                                setState(() => isDisabled = false);
+                              }
+                            },
                       child: Text(AppLocalizations.of(context).rejectTreatment,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 22.0)),
@@ -186,6 +202,7 @@ class CaseDiagnosticManualScreenState
     var caseResult = await CaseDiagnosticManualManager().getDiagnostic(id);
     setState(() {
       caseDiagnostic = caseResult;
+      isDisabled = caseDiagnostic == null;
     });
   }
 

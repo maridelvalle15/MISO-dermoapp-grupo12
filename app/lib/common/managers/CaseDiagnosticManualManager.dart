@@ -57,6 +57,24 @@ class CaseDiagnosticManualManager {
   }
 
   Future<bool> refuseTreatment(int id) async {
-    return false;
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {'caso_id': id};
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/rechazar-diagnostico'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
