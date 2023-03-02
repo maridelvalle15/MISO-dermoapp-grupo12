@@ -318,15 +318,18 @@ class TipoConsultaView(Resource):
                 caso_id = request.json["caso_id"]
                 tipo_consulta = request.json["tipo_consulta"]
 
-                logica = Logica()
-                nueva_consulta = logica.asignar_tipo_consulta(caso_id,tipo_consulta)
+                if tipo_consulta == 'Presencial' or tipo_consulta=='Telemedicina':
 
-                if nueva_consulta == False:
-                    return {"message":"No fue posible asignar el tipo de consulta"}, 400
+                    logica = Logica()
+                    nueva_consulta = logica.asignar_tipo_consulta(caso_id,tipo_consulta)
 
+                    if nueva_consulta == False:
+                        return {"message":"No fue posible asignar el tipo de consulta"}, 400
+
+                    else:
+                        return {"message": "Tipo de consulta asignado exitosamente", "caso_id": caso_id, "consulta": nueva_consulta.id}, 200
                 else:
-                    return {"message": "Tipo de consulta asignado exitosamente", "caso_id": caso_id, "consulta": nueva_consulta.id}, 200
-
+                    return {"message": "Tipo de consulta no valida. Opciones validas: Presencial - Telemedicina"}, 400
             else:
                 return {"message":"Unauthorized"}, 401
 
