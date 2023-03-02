@@ -32,5 +32,31 @@ void main() {
       bool result = await caseDiagnosticManualManager.askDiagnosticManual(id);
       expect(result, false);
     });
+
+    test('get doctor diagnostic', () async {
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+      final caseDiagnosticManualManager = CaseDiagnosticManualManager();
+      caseDiagnosticManualManager.client = MockClient((request) async {
+        return Response('{"diagnostico": {"descripcion": "va bien"}}', 200);
+      });
+
+      const id = 110;
+      String? result = await caseDiagnosticManualManager.getDiagnostic(id);
+
+      expect(result, "va bien");
+    });
+
+    test('get null if there is no diagnostic', () async {
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+      final caseDiagnosticManualManager = CaseDiagnosticManualManager();
+      caseDiagnosticManualManager.client = MockClient((request) async {
+        return Response('{"diagnostico": null}', 200);
+      });
+
+      const id = 110;
+      String? result = await caseDiagnosticManualManager.getDiagnostic(id);
+
+      expect(result, null);
+    });
   });
 }

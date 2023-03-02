@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dermoapp/common/helpers/getToken.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/model/caseDiagnosticManualModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 
 class CaseDiagnosticManualManager {
@@ -58,10 +55,6 @@ class CaseDiagnosticManualManager {
       return null;
     }
   }
-
-  /*Future<bool> acceptTreatment(int id) async {
-    return false;
-  }*/
 
   Future<bool> refuseTreatment(int id) async {
     return false;
