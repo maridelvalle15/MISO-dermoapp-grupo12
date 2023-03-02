@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class CasoReclamadoListarComponent implements OnInit {
   token: any;
   casos: any;
+  id: any;
   constructor(private casoService: CasoService,public dialog:MatDialog,private cookieService: CookieService) { }
 
   ngOnInit() {
@@ -39,6 +40,15 @@ export class CasoReclamadoListarComponent implements OnInit {
 
     this.cookieService.set('id',id)
 
+  }
+
+  postLiberarCaso(id:any) {
+
+    const cookie = this.cookieService.get('id');
+    this.casoService.liberarCaso((this.id = cookie)).subscribe((res: any) => {
+      alert('Caso Liberado');
+      window.location.reload();
+    });
   }
 
 
