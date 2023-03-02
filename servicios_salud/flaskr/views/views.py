@@ -318,7 +318,7 @@ class LiberarCasoView(Resource):
                 caso_id = request.json["caso_id"]
 
                 logica = Logica()
-                #caso_liberado = logica.liberar_caso(caso_id)
+                caso_liberado = logica.liberar_caso(caso_id)
 
                 if caso_liberado == False:
                     return {"message":"No fue posible liberar el caso"}, 400

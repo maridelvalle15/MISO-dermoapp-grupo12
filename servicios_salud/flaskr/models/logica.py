@@ -87,7 +87,8 @@ class Logica():
     def obtener_casos_disponibles(self,especialidad, ubicacion_id):
         casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
         if casos_especialidad.all():   
-            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion=='medico')
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion=='medico')\
+                .filter(Caso.status=='Pendiente')
             if casos_sin_asignar.all():
                 casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
 
@@ -232,4 +233,26 @@ class Logica():
             else:
                 return False
         else:
+            return False
+
+    def liberar_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+
+            if diagnostico.first():
+                diagnostico.delete()
+
+            try:
+                caso.medico_asignado = None
+                caso.status = 'Pendiente'
+                db.session.commit()
+
+                return True
+            except exc.SQLAlchemyError:
+                db.session.rollback()
+                return False
+        else:
+            # El caso no existe
             return False
