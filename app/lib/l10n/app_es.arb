@@ -115,5 +115,8 @@
   "diagnostic" : "Diagnóstico",
   "certainty" : "Certitud",
   "manualDiagRequestedTitle" : "Diagnóstico de un médico",
-  "manualDiagRequestedText" : "A médico certificado revisará su caso y le enviará un diagnóstico."
+  "manualDiagRequestedText" : "A médico certificado revisará su caso y le enviará un diagnóstico.",
+  "acceptTreatment" : "Tomar tratamiento",
+  "rejectTreatment" : "Rechazar",
+  "noManualDiagnosticYet" : "El médico asignado no ha dado un diagnóstico.\n\nPor favor revise más tarde..."
 }

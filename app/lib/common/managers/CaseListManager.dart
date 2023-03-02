@@ -17,7 +17,7 @@ class CaseListManager {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 

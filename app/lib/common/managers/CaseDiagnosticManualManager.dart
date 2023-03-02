@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dermoapp/common/helpers/getToken.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/model/caseDiagnosticManualModel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +33,7 @@ class CaseDiagnosticManualManager {
     }
   }
 
-  /*Future<List> getDiagnostic(int id) async {
+  Future<String?> getDiagnostic(int id) async {
     String token = await getToken() as String;
 
     final response = await client.get(
@@ -45,26 +46,24 @@ class CaseDiagnosticManualManager {
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 
-      List diagnostics = [];
-      if (responseJson["diagnostico"]["descripcion"].length <= 2) {
-        diagnostics = [
-          {"diagnostico": "Indeterminado", "certitud": "100%"}
-        ];
-      } else {
-        String diagnosticStr =
-            responseJson["diagnostico"]["descripcion"].replaceAll("'", "\"");
-        diagnostics = json.decode(diagnosticStr);
+      var diagnosticResult = responseJson["diagnostico"] ?? "unset";
+
+      if (diagnosticResult == "unset") {
+        return null;
       }
+      String diagnosticStr = responseJson["diagnostico"]["descripcion"];
 
-      List<dynamic> diagnostic = [];
-      diagnostic = diagnostics
-          .map<CaseDiagnosticAutoModel>(
-              (json) => CaseDiagnosticAutoModel.fromJson(json))
-          .toList();
-
-      return diagnostic;
+      return diagnosticStr;
     } else {
-      return [];
+      return null;
     }
+  }
+
+  /*Future<bool> acceptTreatment(int id) async {
+    return false;
   }*/
+
+  Future<bool> refuseTreatment(int id) async {
+    return false;
+  }
 }
