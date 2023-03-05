@@ -1,4 +1,5 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, ImagenCaso
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
+    ImagenCaso
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -34,8 +35,7 @@ class Logica():
         try:
             db.session.add(nuevo_caso)
             db.session.commit()
-        except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
+        except exc.SQLAlchemyError as e:    
             db.session.rollback()
             return {"message":"Error al crear caso"}, 500
 
@@ -127,7 +127,6 @@ class Logica():
             return diagnostico
 
         except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
             db.session.rollback()
             return False
 
@@ -174,8 +173,7 @@ class Logica():
                 db.session.commit()
                 return caso
 
-            except exc.SQLAlchemyError as e:
-                flaskr.logger.error(e)    
+            except exc.SQLAlchemyError as e:    
                 db.session.rollback()
                 return False
         else:
@@ -255,4 +253,24 @@ class Logica():
                 return False
         else:
             # El caso no existe
+            return False
+
+    def asignar_tipo_consulta(self,caso_id,tipo_consulta):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            if caso.tipo_consulta != '':
+                # El caso ya tiene un tipo de consulta asignada
+                return False
+            else:
+                try:
+                    caso.tipo_consulta = tipo_consulta
+                    db.session.commit()
+
+                    return caso
+                except exc.SQLAlchemyError:
+                    db.session.rollback()
+                    return False
+        else:
+            # El id del caso es invalido
             return False
