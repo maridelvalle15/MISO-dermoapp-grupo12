@@ -304,6 +304,35 @@ class RechazarDiagnosticoView(Resource):
         else:
             return {"message":"Unauthorized"}, 401
 
+class LiberarCasoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+
+            if rol == 'Medico':
+                caso_id = request.json["caso_id"]
+
+                logica = Logica()
+                caso_liberado = logica.liberar_caso(caso_id)
+
+                if caso_liberado == False:
+                    return {"message":"No fue posible liberar el caso"}, 400
+
+                else:
+                    return {"message": "Caso liberado exitosamente", "caso_id": caso_id}, 200
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
 class TipoConsultaView(Resource):
     def post(self):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
