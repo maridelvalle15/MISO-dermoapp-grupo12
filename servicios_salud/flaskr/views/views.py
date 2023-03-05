@@ -303,3 +303,38 @@ class RechazarDiagnosticoView(Resource):
 
         else:
             return {"message":"Unauthorized"}, 401
+
+class TipoConsultaView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+                caso_id = request.json["caso_id"]
+                tipo_consulta = request.json["tipo_consulta"]
+
+                if tipo_consulta == 'Presencial' or tipo_consulta=='Telemedicina':
+
+                    logica = Logica()
+                    nueva_consulta = logica.asignar_tipo_consulta(caso_id,tipo_consulta)
+
+                    if nueva_consulta == False:
+                        return {"message":"No fue posible asignar el tipo de consulta"}, 400
+
+                    else:
+                        return {"message": "Tipo de consulta asignado exitosamente", "caso_id": caso_id, "consulta": nueva_consulta.id}, 200
+                else:
+                    return {"message": "Tipo de consulta no valida. Opciones validas: Presencial - Telemedicina"}, 400
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
