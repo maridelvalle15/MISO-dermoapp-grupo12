@@ -4,7 +4,7 @@ class CaseModel {
   final String image;
   final String? tipo_solucion;
   final String nombre_paciente;
-  final String? medico_asignado;
+  final int? medico_asignado;
   final String tipo_piel;
   final String fecha;
   final List imagenes_extra;
