@@ -27,7 +27,7 @@ class CaseDetailScreen extends StatefulWidget {
 }
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail = CaseModel(0, '', '', '', '', '', '', '', List.empty());
+  CaseModel caseDetail = CaseModel(0, '', '', '', '', 0, '', '', List.empty());
   bool isDisabled = false;
 
   @override
