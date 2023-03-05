@@ -1,5 +1,6 @@
 import 'package:dermoapp/common/managers/CaseDetailManager.dart';
 import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
@@ -7,6 +8,7 @@ import 'package:dermoapp/main.dart';
 import 'package:dermoapp/model/caseModel.dart';
 import 'package:dermoapp/ui/caseAddImagesScreen.dart';
 import 'package:dermoapp/ui/caseDiagnosticAutoScreen.dart';
+import 'package:dermoapp/ui/caseDiagnosticManualScreen.dart';
 import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -208,12 +210,35 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       height: 55.0,
                       child: ElevatedButton(
                         key: const Key('btnDiagnosticManual'),
-                        onPressed: () {
-                          /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));*/
-                        },
+                        style: ElevatedButton.styleFrom(
+                            disabledBackgroundColor: Colors.grey),
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .askDiagnosticManual(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .manualDiagRequestedTitle,
+                                      AppLocalizations.of(context)
+                                          .manualDiagRequestedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
                         child: Text(
                             AppLocalizations.of(context).diagnosticManual,
                             style: const TextStyle(
@@ -237,6 +262,27 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                         },
                         child: Text(
                             AppLocalizations.of(context).seeAutomaticDiagnostic,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22.0)),
+                      ),
+                    ),
+                  ),
+                if (caseDetail.tipo_solucion == 'medico')
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                    child: SizedBox(
+                      height: 55.0,
+                      child: ElevatedButton(
+                        key: const Key('btnDiagManualDetails'),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CaseDiagnosticManualScreen(widget.id)));
+                        },
+                        child: Text(
+                            AppLocalizations.of(context).seeManualDiagnostic,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 22.0)),
                       ),

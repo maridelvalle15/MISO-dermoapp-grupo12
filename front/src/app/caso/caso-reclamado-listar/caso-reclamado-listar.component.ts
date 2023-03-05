@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CasoService } from '../caso.service';
-
+import { CasoDiagnosticoPopupComponent } from '../caso-diagnostico-popup/caso-diagnostico-popup.component';
+import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-caso-reclamado-listar',
@@ -10,7 +12,7 @@ import { CasoService } from '../caso.service';
 export class CasoReclamadoListarComponent implements OnInit {
   token: any;
   casos: any;
-  constructor(private casoService: CasoService) { }
+  constructor(private casoService: CasoService,public dialog:MatDialog,private cookieService: CookieService) { }
 
   ngOnInit() {
     this.getCasoReclamado();
@@ -20,7 +22,25 @@ export class CasoReclamadoListarComponent implements OnInit {
     this.casoService.getCasoReclamado().subscribe(casos => {
       this.casos = casos;
       this.casos = Object.values(this.casos.casos)
+
+
     })
 
   }
+  openDialogDiagnostico(id:any) {
+
+    this.dialog.open(CasoDiagnosticoPopupComponent, {
+      width: '600px',
+      height: '700px',
+      data: id
+    })
+
+
+
+    this.cookieService.set('id',id)
+
+  }
+
+
+
 }

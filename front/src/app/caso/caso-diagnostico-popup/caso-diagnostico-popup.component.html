@@ -1,0 +1,37 @@
+<br>
+<h4 style="text-align: center;">Detalle del caso seleccionado</h4> <br>
+
+<div>
+<form [formGroup]="diagnosticoForm" (ngSubmit)="postDiagnosticoPopUp()">
+  <table *ngIf="caso != undefined" style="width:100%">
+  <tr>
+    <th><span id="idCaso" class="bolded">Caso ID: </span> </th>
+    <td>{{caso.id}}</td>
+  </tr>
+  <br>
+
+  <br>
+  <tr>
+    <th><span class="bolded">Descripción: </span></th>
+    <td>{{caso.descripcion}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Foto: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + caso.image}}" width="50%" height="50%"> </td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">Diagnóstico: </span></th>
+    <td><textarea formControlName="diagnostico" name="" id="" cols="30" rows="5" ></textarea></td>
+  </tr>
+</table>
+<div class="center-button">
+  <button id="submit" type="submit" [disabled]="!diagnosticoForm.valid" >Enviar Diagnóstico </button>
+
+  <a style="color: white;" (click)="onNoClick()">Regresar</a>
+</div>
+</form>
+</div>
+
+

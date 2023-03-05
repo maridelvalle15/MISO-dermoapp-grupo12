@@ -46,7 +46,7 @@ void main() {
         return bodyStream.bytesToString().then((bodyList) {
           var controller = StreamController<List<int>>(sync: true);
           Future.sync(() {
-            controller.add('{"password":"1234"}'.codeUnits);
+            controller.add('{"message":"error"}'.codeUnits);
             controller.close();
           });
           return http.StreamedResponse(controller.stream, 400);
