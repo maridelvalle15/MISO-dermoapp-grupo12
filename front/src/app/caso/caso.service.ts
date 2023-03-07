@@ -63,4 +63,13 @@ sendDiagnostico(id: any,diagnostico:any):Observable<any>{
   return this.http.post<any>(this.backUrl + `/api/diagnostico-paciente`, {'caso_id': id,'diagnostico':diagnostico}, {headers: headers });
 }
 
+liberarCaso(id: any):Observable<any>{
+  const cookie= this.cookieService.get('token_access');
+  const headers = new HttpHeaders({
+
+    'Authorization': `Bearer ${cookie}`
+  })
+  return this.http.post<any>(this.backUrl + `/api/liberar-caso`, {'caso_id': id}, {headers: headers });
+}
+
 }
