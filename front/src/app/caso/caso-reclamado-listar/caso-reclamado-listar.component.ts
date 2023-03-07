@@ -43,10 +43,8 @@ export class CasoReclamadoListarComponent implements OnInit {
   }
 
   postLiberarCaso(id:any) {
-
-    //const cookie = this.cookieService.get('id');
     this.casoService.liberarCaso((this.id = id)).subscribe((res: any) => {
-      alert('Caso '+ id +'liberado');
+      alert('Caso '+ id +' liberado');
       window.location.reload();
     });
   }
