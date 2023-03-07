@@ -15,13 +15,13 @@
       <label #error style="color: red;"  *ngIf="error"> Usuario o contraseña incorrectos </label>
       <input #correo formControlName="correo" type="text" placeholder="Correo" required>
       <input #password formControlName="password" type="password" placeholder="Contraseña" required>
-
+      &nbsp;
       <button (click)="onLogInUsuario(correo.value, password.value)" type="button" [disabled]="!usuarioForm.valid">Ingresar</button>
+      &nbsp;
       <button><a href="../usuario-registro/"> Registrarse </a></button>
-
-
-
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a><img  src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2.5%" height="2.5%"></a>
+      &nbsp;
       <a><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2.5%" height="2.5%"></a>
     </form>
     </div>
@@ -30,16 +30,15 @@
 </header>
 
 <body>
-  <div class="imagen-home" style="text-align: center;">
+  <div class="imagen-home" style="text-align: center; padding-top: 1%;">
     <img src="https://thumbs.dreamstime.com/b/dermat%C3%B3logo-de-la-telemedicina-que-mira-las-u%C3%B1as-90046996.jpg"
       alt="Imagen portada">
   </div>
-  <p>Lorem aipsum dolor sit amet consectetur adipiscing elit massa imperdiet integer aliquet porttitor, ultricies rutrum
-    porta id non per ornare elementum suspendisse in aenean, lobortis tempus purus eleifend enim gravida justo proin ut
-    feugiat montes. Faucibus primis lectus habitant arcu est elementum ullamcorper eros mi habitasse, aliquet fermentum
-    sed bibendum montes enim imperdiet quam nullam augue donec, purus litora vulputate orci sodales in eleifend
-    sollicitudin luctus. Ac parturient eros fames auctor vel gravida dui elementum, sociis est dis odio etiam arcu duis
-    penatibus id, litora vestibulum urna ut dapibus imperdiet lectus.</p>
+  <br>
+
+  <p style="padding: 3%;">Somos un servicio de salud digital realizado por especialistas, a través de herramientas tecnológicas y de comunicaciones que permite establecer un acto médico, como aplicativos o plataformas que permiten la transferencia de texto y fotos.
+    En el caso de DermoApp, estos recursos son aprovechados para diagnosticar, tratar y prevenir optimizando los servicios de atención en salud Dermatológica y facilitando el acceso para cualquier paciente sin importar donde se encuentre.
+  </p>
 </body>
 
 </html>
