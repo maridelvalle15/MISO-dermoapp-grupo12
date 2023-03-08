@@ -90,7 +90,7 @@ api.add_resource(DiagnosticoPacienteView, '/api/diagnostico-paciente')
 api.add_resource(RechazarDiagnosticoView, '/api/rechazar-diagnostico')
 api.add_resource(TipoConsultaView, '/api/tipo-consulta')
 api.add_resource(LiberarCasoView, '/api/liberar-caso')
-api.add_resource(SolicitarTratamientoView, '/api/solicitar_tratamiento')
+api.add_resource(SolicitarTratamientoView, '/api/solicitar-tratamiento')
 
 if __name__ == "__main__":
     app.run(debug=True)

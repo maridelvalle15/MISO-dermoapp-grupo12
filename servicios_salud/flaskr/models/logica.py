@@ -281,7 +281,7 @@ class Logica():
         if caso:
             diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
 
-            if diagnostico.first():
+            if diagnostico.first() is None:
                 return False
 
             try:
