@@ -1,5 +1,5 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
-    ImagenCaso
+    ImagenCaso, CitaMedica
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
 import flaskr
@@ -265,6 +265,30 @@ class Logica():
             try:
                 caso.medico_asignado = None
                 caso.status = 'Pendiente'
+                db.session.commit()
+
+                return True
+            except exc.SQLAlchemyError:
+                db.session.rollback()
+                return False
+        else:
+            # El caso no existe
+            return False
+
+    def crear_cita(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+
+            if diagnostico.first():
+                return False
+
+            try:
+                cita = CitaMedica(
+                    medico_id=caso.medico_asignado
+                )
+                db.session.add(cita)
                 db.session.commit()
 
                 return True

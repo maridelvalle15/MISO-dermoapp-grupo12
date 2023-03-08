@@ -68,7 +68,6 @@ class CitaMedica(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fecha = db.Column(db.DateTime(timezone=True), server_default=func.now())
     medico_id = db.Column(db.Integer, unique=False)
-    medico_nombre = db.Column(db.String(50), unique=False)
     estado = status = db.Column(db.String(50), unique=False, server_default='Pendiente por asignar')
 
 class LesionTipoSchema(SQLAlchemyAutoSchema):
