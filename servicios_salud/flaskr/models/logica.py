@@ -161,7 +161,8 @@ class Logica():
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
                 'imagenes_extra': imagenes_array,
-                'estado': caso.status
+                'estado': caso.status,
+                'cita_id': caso.cita_medica
             }
             return caso_dict
 
