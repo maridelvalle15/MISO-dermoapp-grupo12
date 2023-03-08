@@ -1,8 +1,9 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
-    ImagenCaso
+    ImagenCaso, CitaMedica
 from ..utils.helpers import construir_descripcion_caso
 from sqlalchemy import exc
-import flaskr
+from datetime import timedelta
+
 
 class Logica():
 
@@ -160,7 +161,8 @@ class Logica():
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
                 'imagenes_extra': imagenes_array,
-                'estado': caso.status
+                'estado': caso.status,
+                'cita_id': caso.cita_medica
             }
             return caso_dict
 
@@ -274,3 +276,43 @@ class Logica():
         else:
             # El caso no existe
             return False
+
+    def crear_cita(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+
+            if diagnostico.first() is None:
+                return False
+
+            try:
+                cita = CitaMedica(
+                    medico_id=caso.medico_asignado
+                )
+                db.session.add(cita)
+                db.session.commit()
+                caso.cita_medica = cita.id
+                db.session.commit()
+                return cita
+            except exc.SQLAlchemyError:
+               db.session.rollback()
+               return False
+        else:
+            # El caso no existe
+            return False
+
+    def obtener_cita(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso and caso.cita_medica:
+            cita = CitaMedica.query.filter(CitaMedica.id==caso.cita_medica).first()
+            informacion_cita = {
+                'fecha': str(cita.fecha - timedelta(hours=5)),
+                'status': cita.status
+            }
+
+            return informacion_cita
+        else:
+            return False
+            

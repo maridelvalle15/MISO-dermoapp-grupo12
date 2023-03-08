@@ -367,3 +367,61 @@ class LiberarCasoView(Resource):
 
         else:
             return {"message":"Bad Request"}, 400
+
+class SolicitarTratamientoView(Resource):
+    def get(self,caso_id):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+
+                logica = Logica()
+                cita = logica.obtener_cita(caso_id)
+
+                if cita == False:
+                    return {"message":"No se encontro una cita para el caso"}, 400
+
+                else:
+                    return {"cita": cita, "caso_id": caso_id}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+                caso_id = request.json["caso_id"]
+
+                logica = Logica()
+                cita = logica.crear_cita(caso_id)
+
+                if cita == False:
+                    return {"message":"No pudo completarse la solicitud de tratamiento"}, 400
+
+                else:
+                    return {"message": "Tratamiento solicitado", "caso_id": caso_id}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
