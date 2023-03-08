@@ -27,7 +27,8 @@ class CaseDetailScreen extends StatefulWidget {
 }
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail = CaseModel(0, '', '', '', '', 0, '', '', List.empty());
+  CaseModel caseDetail =
+      CaseModel(0, '', '', '', '', 0, '', '', List.empty(), 0);
   bool isDisabled = false;
 
   @override
@@ -279,7 +280,8 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CaseDiagnosticManualScreen(widget.id)));
+                                      CaseDiagnosticManualScreen(widget.id,
+                                          citaMedica: caseDetail.cita_medica)));
                         },
                         child: Text(
                             AppLocalizations.of(context).seeManualDiagnostic,

@@ -25,7 +25,8 @@ class CaseAddImagesScreen extends StatefulWidget {
 }
 
 class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
-  CaseModel caseDetail = CaseModel(0, '', '', '', '', 0, '', '', List.empty());
+  CaseModel caseDetail =
+      CaseModel(0, '', '', '', '', 0, '', '', List.empty(), 0);
 
   bool isDisabled = true;
   bool hasImage = false;

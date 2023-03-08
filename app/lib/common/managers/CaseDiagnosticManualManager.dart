@@ -56,6 +56,28 @@ class CaseDiagnosticManualManager {
     }
   }
 
+  Future<bool> requestTreatment(int id) async {
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {'caso_id': id};
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/solicitar-cita'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> refuseTreatment(int id) async {
     String token = await getToken() as String;
 

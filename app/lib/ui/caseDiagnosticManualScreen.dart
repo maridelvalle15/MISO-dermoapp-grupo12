@@ -9,9 +9,10 @@ import 'package:country_icons/country_icons.dart';
 import 'package:get/utils.dart';
 
 class CaseDiagnosticManualScreen extends StatefulWidget {
-  const CaseDiagnosticManualScreen(this.id, {super.key});
+  CaseDiagnosticManualScreen(this.id, {super.key, citaMedica});
 
   final int id;
+  int citaMedica = 0;
 
   @override
   State<StatefulWidget> createState() {
@@ -120,60 +121,92 @@ class CaseDiagnosticManualScreenState
                       style: const TextStyle(
                           fontSize: 18.0, color: Color(0xFFDFDFDF))),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                  child: SizedBox(
-                    height: 55.0,
-                    child: ElevatedButton(
-                      key: const Key('btnAccept'),
-                      style: ElevatedButton.styleFrom(
-                          disabledBackgroundColor: Colors.grey),
-                      onPressed: isDisabled ? null : () {},
-                      child: Text(AppLocalizations.of(context).acceptTreatment,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 22.0)),
+                if (widget.citaMedica == 0)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                    child: SizedBox(
+                      height: 55.0,
+                      child: ElevatedButton(
+                        key: const Key('btnAccept'),
+                        style: ElevatedButton.styleFrom(
+                            disabledBackgroundColor: Colors.grey),
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .requestTreatment(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .appointmentRequestedTitle,
+                                      AppLocalizations.of(context)
+                                          .appointmentRequestedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
+                        child: Text(
+                            AppLocalizations.of(context).acceptTreatment,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22.0)),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                  child: SizedBox(
-                    height: 55.0,
-                    child: ElevatedButton(
-                      key: const Key('btnReject'),
-                      style: ElevatedButton.styleFrom(
-                          disabledBackgroundColor: Colors.grey),
-                      onPressed: isDisabled
-                          ? null
-                          : () async {
-                              setState(() => isDisabled = true);
-                              bool result = await CaseDiagnosticManualManager()
-                                  .refuseTreatment(widget.id);
-                              if (result == true) {
-                                // ignore: use_build_context_synchronously
-                                showDialogSingleButton(
-                                    context,
-                                    AppLocalizations.of(context)
-                                        .manualTreatmentRejectedTitle,
-                                    AppLocalizations.of(context)
-                                        .manualTreatmentRejectedText,
-                                    "OK");
-                              } else {
-                                // ignore: use_build_context_synchronously
-                                showDialogSingleButton(
-                                    context,
-                                    AppLocalizations.of(context).thereIsAnError,
-                                    AppLocalizations.of(context).tryAgain,
-                                    "OK");
-                                setState(() => isDisabled = false);
-                              }
-                            },
-                      child: Text(AppLocalizations.of(context).rejectTreatment,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 22.0)),
+                if (widget.citaMedica == 0)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                    child: SizedBox(
+                      height: 55.0,
+                      child: ElevatedButton(
+                        key: const Key('btnReject'),
+                        style: ElevatedButton.styleFrom(
+                            disabledBackgroundColor: Colors.grey),
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .refuseTreatment(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .manualTreatmentRejectedTitle,
+                                      AppLocalizations.of(context)
+                                          .manualTreatmentRejectedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
+                        child: Text(
+                            AppLocalizations.of(context).rejectTreatment,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22.0)),
+                      ),
                     ),
                   ),
-                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
                   child: SizedBox(

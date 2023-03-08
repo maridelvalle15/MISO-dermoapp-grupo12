@@ -8,6 +8,7 @@ class CaseModel {
   final String tipo_piel;
   final String fecha;
   final List imagenes_extra;
+  final int? cita_medica;
 
   CaseModel(
       this.id,
@@ -18,7 +19,8 @@ class CaseModel {
       this.medico_asignado,
       this.tipo_piel,
       this.fecha,
-      this.imagenes_extra);
+      this.imagenes_extra,
+      this.cita_medica);
 
   CaseModel.fromJson(Map<dynamic, dynamic> json)
       : id = json['id'],
@@ -29,5 +31,6 @@ class CaseModel {
         medico_asignado = json['medico_asignado'],
         tipo_piel = json['tipo_piel'],
         fecha = json['fecha'],
-        imagenes_extra = json['imagenes_extra'];
+        imagenes_extra = json['imagenes_extra'],
+        cita_medica = json['cita_medica'];
 }
