@@ -12,6 +12,8 @@
       <th scope="col">Paciente</th>
       <th scope="col">Estado</th>
       <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <br>
@@ -25,6 +27,7 @@
 
       <td><button (click)="openDialogDiagnostico(caso.caso_id)" *ngIf="caso?.estado !== 'Diagnosticado'">Dar Diagnóstico</button></td>
       <td><button (click)="postLiberarCaso(caso.caso_id)">Liberar caso</button></td>
+      <td><button (click)="openDialogDetalle(caso.caso_id)">Detalle caso</button></td>
 
     </tr>
 

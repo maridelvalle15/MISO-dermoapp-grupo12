@@ -3,6 +3,7 @@ import { CasoService } from '../caso.service';
 import { CasoDiagnosticoPopupComponent } from '../caso-diagnostico-popup/caso-diagnostico-popup.component';
 import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { CasoReclamadoDetallePopupComponent } from '../caso-reclamado-detalle-popup/caso-reclamado-detalle-popup.component';
 
 @Component({
   selector: 'app-caso-reclamado-listar',
@@ -47,6 +48,17 @@ export class CasoReclamadoListarComponent implements OnInit {
       alert('Caso '+ id +' liberado');
       window.location.reload();
     });
+  }
+
+  openDialogDetalle(id:any) {
+
+    this.dialog.open(CasoReclamadoDetallePopupComponent, {
+      width: '600px',
+      height: '700px',
+      data: id
+    })
+    this.cookieService.set('id',id)
+
   }
 
 
