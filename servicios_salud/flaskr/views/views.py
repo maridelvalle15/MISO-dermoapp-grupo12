@@ -369,7 +369,7 @@ class LiberarCasoView(Resource):
             return {"message":"Bad Request"}, 400
 
 class SolicitarTratamientoView(Resource):
-    def get(self):
+    def get(self,caso_id):
         auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
         headers = {'Authorization': request.headers.get('Authorization')}
     
@@ -379,7 +379,6 @@ class SolicitarTratamientoView(Resource):
             json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
             rol = json_response['rol']
             if rol == 'Paciente':
-                caso_id = request.json["caso_id"]
 
                 logica = Logica()
                 cita = logica.obtener_cita(caso_id)
