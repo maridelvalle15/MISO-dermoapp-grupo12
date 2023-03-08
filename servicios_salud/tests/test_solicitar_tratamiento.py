@@ -9,7 +9,7 @@ class TestSolicitarTratamiento():
         os_mock.return_value.content = ''
         request_mock.return_value.status_code = 401
 
-        response = client.post('/api/solicitar-tratamiento')
+        response = client.post('/api/solicitar-cita')
 
         assert response.status_code==401
         assert response.json['message'] == 'Unauthorized'
@@ -38,7 +38,7 @@ class TestSolicitarTratamiento():
             'caso_id': caso.id
         }
 
-        response = client.post('/api/solicitar-tratamiento',data=json.dumps(data),headers=headers)
+        response = client.post('/api/solicitar-cita',data=json.dumps(data),headers=headers)
 
         assert response.status_code==200
         assert response.json['message'] == 'Tratamiento solicitado'
@@ -59,7 +59,7 @@ class TestSolicitarTratamiento():
             'caso_id': caso.id
         }
 
-        response = client.post('/api/solicitar-tratamiento',data=json.dumps(data),headers=headers)
+        response = client.post('/api/solicitar-cita',data=json.dumps(data),headers=headers)
 
         assert response.status_code==400
         assert response.json['message'] == 'No pudo completarse la solicitud de tratamiento'
