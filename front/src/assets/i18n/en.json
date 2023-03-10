@@ -4,5 +4,22 @@
   "INGRESAR":"Login",
   "REGISTRARSE":"Sign Up",
   "MENSAJE_ERROR":"Username or password incorrect "
+},
+"MENU":{
+  "INICIO":"Home",
+  "CASOS":"Cases",
+  "DIAGNOSTICOS":"Diagnostics",
+  "AGENDA":"Calendar ",
+  "HOLA":"Hello Dr. "
+},
+
+"CASO-LISTAR":{
+  "TITULO":"New cases or no assigned doctor",
+  "FECHA":"Date",
+  "CASO_ID":"Caso ID",
+  "DESCRIPCION":"Description",
+  "PACIENTE":"Patient",
+  "DETALLE":"Detail"
 }
+
 }

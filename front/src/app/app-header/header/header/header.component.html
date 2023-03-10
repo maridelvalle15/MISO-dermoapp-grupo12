@@ -1,12 +1,12 @@
 <nav>
     <ul>
       <li><a id="titulo" href="/"><h2>DermoApp</h2></a></li>
-      <li><a href="/caso-listar">Inicio</a></li>
-      <li><a href="/caso-listar">Casos</a></li>
-      <li><a href="/diagnostico/caso-reclamado">Diagnósticos</a></li>
-      <li><a >Agenda</a></li>
-      <li><a ><h4>Hola Dr. {{email}}</h4></a></li>
-      <a><img src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2%" height="2%"></a>
-      <a><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2%" height="2%"></a>
+      <li><a href="/caso-listar">{{'MENU.INICIO' | translate}}</a></li>
+      <li><a href="/caso-listar">{{'MENU.CASOS' | translate}}</a></li>
+      <li><a href="/diagnostico/caso-reclamado">{{'MENU.DIAGNOSTICOS' | translate}}</a></li>
+      <li><a >{{'MENU.AGENDA' | translate}}</a></li>
+      <li><a ><h4>{{'MENU.HOLA' | translate}} {{email}}</h4></a></li>
+      <a (click)="translateLanguageTo('es')"><img src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2%" height="2%"></a>
+      <a (click)="translateLanguageTo('en')"><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2%" height="2%"></a>
     </ul>
   </nav>

@@ -4,7 +4,25 @@
   "INGRESAR":"Ingresar",
   "REGISTRARSE":"Registrarse",
   "MENSAJE_ERROR":"Usuario o contraseña incorrecto "
+},
+"MENU":{
+  "INICIO":"Inicio",
+  "CASOS":"Casos",
+  "DIAGNOSTICOS":"Diagnósticos",
+  "AGENDA":"Agenda",
+  "HOLA":"Hola Dr. "
+},
+
+"CASO-LISTAR":{
+  "TITULO":"Casos nuevos o sin médico asignado",
+  "FECHA":"Fecha",
+  "CASO_ID":"Caso ID",
+  "DESCRIPCION":"Descripción",
+  "PACIENTE":"Paciente",
+  "DETALLE":"Detalle"
 }
+
+
 }
 
 

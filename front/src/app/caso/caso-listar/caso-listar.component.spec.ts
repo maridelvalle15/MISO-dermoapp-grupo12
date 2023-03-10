@@ -13,6 +13,7 @@ import { Caso } from '../caso';
 import { faker } from '@faker-js/faker';
 import { MaterialModule } from 'app/material/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CasoListarComponent', () => {
   let component: CasoListarComponent;
@@ -29,7 +30,8 @@ describe('CasoListarComponent', () => {
         RouterTestingModule,
         AppHeaderModule,
         MaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        TranslateModule.forRoot()
       ],
       declarations: [ CasoListarComponent ]
     })
@@ -78,11 +80,11 @@ describe('CasoListarComponent', () => {
   });
 
   it('should render title in a h4 tag', () => {
-    expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Hola Dr.');
+    expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('MENU.HOLA ');
  });
 
  it('should render text in a h5 tag', () => {
-  expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Casos nuevos o sin médico asignado');
+  expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('CASO-LISTAR.TITULO');
 });
 
 });

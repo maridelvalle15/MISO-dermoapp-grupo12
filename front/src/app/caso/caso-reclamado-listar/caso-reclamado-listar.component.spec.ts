@@ -14,8 +14,7 @@ import { faker } from '@faker-js/faker';
 import { MaterialModule } from 'app/material/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CasoService } from '../caso.service';
-
-
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -33,7 +32,8 @@ describe('CasoReclamadoListarComponent', () => {
         RouterTestingModule,
         AppHeaderModule,
         MaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        TranslateModule.forRoot()
       ],
       declarations: [ CasoReclamadoListarComponent ],
       providers : [
