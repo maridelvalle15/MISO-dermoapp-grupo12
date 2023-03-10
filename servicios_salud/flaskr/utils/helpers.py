@@ -94,7 +94,7 @@ def construir_casos_por_reclamar(casos):
         tiene_diagnostico = obtener_diagnostico_caso(caso.id)
         if tiene_diagnostico != False:
             estado_diagnostico = 'Diagnosticado'
-            diagnostico = estado_diagnostico.descripcion
+            diagnostico = tiene_diagnostico.descripcion
         else:
             estado_diagnostico = 'Sin diagnosticar'
             diagnostico = ''
