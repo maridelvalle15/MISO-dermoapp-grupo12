@@ -1,6 +1,6 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
     ImagenCaso, CitaMedica
-from ..utils.helpers import construir_descripcion_caso
+from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso
 from sqlalchemy import exc
 from datetime import timedelta
 
@@ -151,6 +151,22 @@ class Logica():
         for imagen in imagenes:
             imagenes_array.append(imagen.imagen)
         if caso:
+
+            if caso.descripcion:
+                info_adicional = caso.descripcion.split(':')[-1]
+            else:
+                info_adicional = ''
+            tipo_lesion = LesionTipo.query.filter(LesionTipo.id==caso.tipo_lesion).first().nombre
+            forma = LesionForma.query.filter(LesionForma.id==caso.forma).first().nombre
+            numero_lesiones = LesionNumero.query.filter(LesionNumero.id==caso.numero_lesiones).first().nombre
+            distribucion = LesionDistribucion.query.filter(LesionDistribucion.id==caso.distribucion).first().nombre
+
+            tiene_diagnostico = obtener_diagnostico_caso(caso.id)
+            if tiene_diagnostico != False:
+                diagnostico = tiene_diagnostico.descripcion
+            else:
+                diagnostico = ''
+
             caso_dict = {
                 'id': caso.id,
                 'descripcion': caso.descripcion,
@@ -162,7 +178,14 @@ class Logica():
                 'fecha': str(caso.fecha_creacion),
                 'imagenes_extra': imagenes_array,
                 'estado': caso.status,
-                'cita_id': caso.cita_medica
+                'cita_id': caso.cita_medica,
+                'tipo_lesion': tipo_lesion,
+                'forma': forma,
+                'numero_lesiones': numero_lesiones,
+                'distribucion': distribucion,
+                'info_adicional': info_adicional,
+                'diagnostico': diagnostico,
+                'tipo_consulta': caso.tipo_consulta
             }
             return caso_dict
 
