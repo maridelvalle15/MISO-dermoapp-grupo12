@@ -2,7 +2,7 @@ import os, boto3, base64
 from werkzeug.utils import secure_filename
 from flask import jsonify
 import time
-from ..models.models import Diagnostico
+from ..models.models import Diagnostico, LesionTipo, LesionForma, LesionNumero, LesionDistribucion
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -99,19 +99,23 @@ def construir_casos_por_reclamar(casos):
             estado_diagnostico = 'Sin diagnosticar'
             diagnostico = ''
         if caso.descripcion:
-            info_adicional: caso.descripcion.split(':')[-1]
+            info_adicional = caso.descripcion.split(':')[-1]
         else:
             info_adicional = ''
+        tipo_lesion = LesionTipo.query.filter(LesionTipo.id==caso.tipo_lesion).first().nombre
+        forma = LesionForma.query.filter(LesionForma.id==caso.forma).first().nombre
+        numero_lesiones = LesionNumero.query.filter(LesionNumero.id==caso.numero_lesiones).first().nombre
+        distribucion = LesionDistribucion.query.filter(LesionDistribucion.id==caso.distribucion).first().nombre
         json_caso = {
             'caso_id': caso.id,
             'fecha': str(caso.fecha_creacion),
             'descripcion': caso.descripcion,
             'nombre_paciente': caso.nombre_paciente,
             'estado': estado_diagnostico,
-            'tipo_lesion': caso.tipo_lesion,
-            'forma': caso.forma,
-            'numero_lesiones': caso.numero_lesiones,
-            'distribucion': caso.distribucion,
+            'tipo_lesion': tipo_lesion,
+            'forma': forma,
+            'numero_lesiones': numero_lesiones,
+            'distribucion': distribucion,
             'info_adicional': info_adicional,
             'diagnostico': diagnostico
 
