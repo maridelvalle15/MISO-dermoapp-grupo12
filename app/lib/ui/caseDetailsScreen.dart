@@ -166,14 +166,15 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                             fit: BoxFit.cover,
                           )
                         : Text(AppLocalizations.of(context).noImage)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: Text(AppLocalizations.of(context).extraImages,
-                      style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                          fontWeight: FontWeight.bold)),
-                ),
+                if (caseDetail.imagenes_extra.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: Text(AppLocalizations.of(context).extraImages,
+                        style: const TextStyle(
+                            fontSize: 18.0,
+                            color: Color(0xFFDFDFDF),
+                            fontWeight: FontWeight.bold)),
+                  ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

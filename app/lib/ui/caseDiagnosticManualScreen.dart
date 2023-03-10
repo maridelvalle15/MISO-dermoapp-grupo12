@@ -2,6 +2,7 @@ import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
 import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
 import 'package:dermoapp/common/widgets/mainDrawer.dart';
 import 'package:dermoapp/main.dart';
+import 'package:dermoapp/model/appointmentModel.dart';
 import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +23,8 @@ class CaseDiagnosticManualScreenState
     extends State<CaseDiagnosticManualScreen> {
   String? caseDiagnostic;
   bool isDisabled = true;
+  bool hasAppointment = false;
+  AppointmentModel caseAppointment = AppointmentModel('', '');
 
   @override
   void initState() {
@@ -119,6 +122,66 @@ class CaseDiagnosticManualScreenState
                       style: const TextStyle(
                           fontSize: 18.0, color: Color(0xFFDFDFDF))),
                 ),
+                if (hasAppointment)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).appointmentStatus,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(caseAppointment.estado,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (hasAppointment)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).appointmentDate,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(caseAppointment.fecha,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
                 if (widget.citaMedica == 0)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
@@ -234,6 +297,17 @@ class CaseDiagnosticManualScreenState
     setState(() {
       caseDiagnostic = caseResult;
       isDisabled = caseDiagnostic == null;
+    });
+
+    if (caseDiagnostic != null) getCaseAppointment(id);
+  }
+
+  void getCaseAppointment(int id) async {
+    var caseAppointmentResult =
+        await CaseDiagnosticManualManager().getAppointmentDetails(id);
+    setState(() {
+      caseAppointment = caseAppointmentResult;
+      hasAppointment = caseAppointmentResult.estado.length > 1;
     });
   }
 

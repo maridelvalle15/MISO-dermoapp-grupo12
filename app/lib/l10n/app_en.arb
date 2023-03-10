@@ -125,5 +125,7 @@
   "appointmentRequestedTitle" : "Doctor's appointment requested",
   "appointmentRequestedText" : "You appointment has been requested. You can find the information about the status in the Details of your Case",
   "treatmentLeft": "Treatment:",
-  "requested": "Requested"
+  "requested": "Requested",
+  "appointmentStatus": "Appointment Status",
+  "appointmentDate": "Date"
 }
