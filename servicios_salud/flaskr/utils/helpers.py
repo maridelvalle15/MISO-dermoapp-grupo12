@@ -98,6 +98,10 @@ def construir_casos_por_reclamar(casos):
         else:
             estado_diagnostico = 'Sin diagnosticar'
             diagnostico = ''
+        if caso.descripcion:
+            info_adicional: caso.descripcion.split(':')[-1]
+        else:
+            info_adicional = ''
         json_caso = {
             'caso_id': caso.id,
             'fecha': str(caso.fecha_creacion),
@@ -108,7 +112,7 @@ def construir_casos_por_reclamar(casos):
             'forma': caso.forma,
             'numero_lesiones': caso.numero_lesiones,
             'distribucion': caso.distribucion,
-            'info_adicional': caso.descripcion.split(':')[-1],
+            'info_adicional': info_adicional,
             'diagnostico': diagnostico
 
         }
