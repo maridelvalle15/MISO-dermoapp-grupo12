@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CasoDiagnosticoPopupComponent } from './caso-diagnostico-popup.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -16,11 +15,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { faker } from '@faker-js/faker';
 import { Caso } from '../caso';
 import { CasoService } from '../caso.service';
+
+import { CasoReclamadoDetallePopupComponent } from './caso-reclamado-detalle-popup.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-describe('CasoDiagnosticoPopupComponent', () => {
-  let component: CasoDiagnosticoPopupComponent;
-  let fixture: ComponentFixture<CasoDiagnosticoPopupComponent>;
+
+describe('CasoReclamadoDetallePopupComponent', () => {
+  let component: CasoReclamadoDetallePopupComponent;
+  let fixture: ComponentFixture<CasoReclamadoDetallePopupComponent>;
   let debug: DebugElement;
 
   beforeEach(async(() => {
@@ -38,7 +40,7 @@ describe('CasoDiagnosticoPopupComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        CasoDiagnosticoPopupComponent
+        CasoReclamadoDetallePopupComponent
       ],
       providers : [
         CasoService
@@ -47,7 +49,7 @@ describe('CasoDiagnosticoPopupComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CasoDiagnosticoPopupComponent);
+    fixture = TestBed.createComponent(CasoReclamadoDetallePopupComponent);
     component = fixture.componentInstance;
 
     let testCasos : Array<Caso>=[];
@@ -75,8 +77,10 @@ describe('CasoDiagnosticoPopupComponent', () => {
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(CasoDiagnosticoPopupComponent);
+    const fixture = TestBed.createComponent(CasoReclamadoDetallePopupComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 });
+
+

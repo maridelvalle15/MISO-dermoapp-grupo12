@@ -1,0 +1,65 @@
+<br>
+<h4 style="text-align: center;">{{'DIAGNOSTICO-POPUP-DETALLE.TITULO' | translate}}</h4> <br>
+
+<div>
+<table *ngIf="caso != undefined" style="width:100%">
+  <tr>
+    <th><span id="idCaso" class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.CASO_ID' | translate}}: </span> </th>
+    <td>{{caso.id}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.PACIENTE' | translate}}: </span></th>
+    <td>{{caso.nombre_paciente}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.INFORMACION_ADICIONAL' | translate}}: </span></th>
+    <td>{{caso.info_adicional}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.DIAGNOSTICO' | translate}}: </span></th>
+    <td>{{caso.diagnostico}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.TIPO_LESION' | translate}}: </span></th>
+    <td>{{caso.tipo_lesion}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.FORMA' | translate}}: </span></th>
+    <td>{{caso.forma}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.NUMERO_LESIONES' | translate}}: </span></th>
+    <td>{{caso.numero_lesiones}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.DISTRIBUCION' | translate}}: </span></th>
+    <td>{{caso.distribucion}}</td>
+  </tr>
+  <br>
+
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.FOTO' | translate}}: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + caso.image}}" width="30%" height="30%"> </td>
+  </tr>
+  <br>
+
+</table>
+<span *ngFor="let imagenes_adicionales of caso.imagenes_extra | keyvalue">
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP-DETALLE.FOTO_ADICIONAL' | translate}}: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + imagenes_adicionales.value}}" width="30%" height="30%"> </td>
+    <br>
+  </tr>
+</span>
+</div>
+<div class="center-button">
+
+  <button (click)="onNoClick()">{{'DIAGNOSTICO-POPUP-DETALLE.BTN_REGRESAR' | translate}}</button>
+</div>

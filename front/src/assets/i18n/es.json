@@ -1,0 +1,79 @@
+{
+  "HOME":{
+  "TEXTO_CUERPO":"Somos un servicio de salud digital realizado por especialistas, a través de herramientas tecnológicas y de comunicaciones que permite establecer un acto médico, como aplicativos o plataformas que permiten la transferencia de texto y fotos. En el caso de DermoApp, estos recursos son aprovechados para diagnosticar, tratar y prevenir optimizando los servicios de atención en salud Dermatológica y facilitando el acceso para cualquier paciente sin importar donde se encuentre.",
+  "INGRESAR":"Ingresar",
+  "REGISTRARSE":"Registrarse",
+  "MENSAJE_ERROR":"Usuario o contraseña incorrecto "
+},
+"MENU":{
+  "INICIO":"Inicio",
+  "CASOS":"Casos",
+  "DIAGNOSTICOS":"Diagnósticos",
+  "AGENDA":"Agenda",
+  "HOLA":"Hola Dr. "
+},
+
+"CASO-LISTAR":{
+  "TITULO":"Casos nuevos o sin médico asignado",
+  "FECHA":"Fecha",
+  "CASO_ID":"Caso ID",
+  "DESCRIPCION":"Descripción",
+  "PACIENTE":"Paciente",
+  "DETALLE":"Detalle",
+  "BTN_DETALLE":"Ver detalle"
+},
+
+"RECLAMADOS":{
+  "TITULO":"Casos reclamados",
+  "FECHA":"Fecha",
+  "CASO_ID":"Caso ID",
+  "DESCRIPCION":"Descripción",
+  "PACIENTE":"Paciente",
+  "ESTADO":"Estado",
+  "BTN_DIAGNOSTICO":"Dar Diagnóstico",
+  "BTN_LIBERAR":"Liberar caso",
+  "BTN_DETALLE":"Detalle caso"
+},
+
+"CASO-POPUP":{
+  "TITULO":"Detalle del caso seleccionado",
+  "CASO_ID":"Caso ID",
+  "PACIENTE":"Paciente",
+  "INFORMACION_ADICIONAL":"Info Adicional",
+  "FOTO":"Foto",
+  "BTN_REGRESAR":"Regresar",
+  "BTN_RECLAMAR":"Reclamar"
+},
+
+"DIAGNOSTICO-POPUP":{
+  "TITULO":"Detalle del caso seleccionado",
+  "CASO_ID":"Caso ID",
+  "INFORMACION_ADICIONAL":"Info Adicional",
+  "FOTO":"Foto",
+  "DIAGNOSTICO":"Diagnóstico",
+  "BTN_REGRESAR":"Regresar",
+  "BTN_ENVIAR":"Enviar Diagnóstico"
+},
+
+"DIAGNOSTICO-POPUP-DETALLE":{
+  "TITULO":"Detalle del caso seleccionado",
+  "CASO_ID":"Caso ID",
+  "PACIENTE":"Paciente",
+  "INFORMACION_ADICIONAL":"Info Adicional",
+  "DIAGNOSTICO":"Diagnóstico",
+  "TIPO_LESION":"Tipo de Lesión",
+  "FORMA":"Forma",
+  "NUMERO_LESIONES":"Número de Lesiones",
+  "DISTRIBUCION":"Distribución",
+  "FOTO":"Foto",
+  "FOTO_ADICIONAL":"Foto Adicional",
+  "BTN_REGRESAR":"Regresar"
+}
+
+
+
+}
+
+
+
+
