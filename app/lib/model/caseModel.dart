@@ -32,5 +32,5 @@ class CaseModel {
         tipo_piel = json['tipo_piel'],
         fecha = json['fecha'],
         imagenes_extra = json['imagenes_extra'],
-        cita_medica = json['cita_medica'];
+        cita_medica = json['cita_id'];
 }

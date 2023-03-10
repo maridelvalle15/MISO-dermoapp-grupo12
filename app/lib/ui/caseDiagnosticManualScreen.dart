@@ -6,13 +6,11 @@ import 'package:dermoapp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
-import 'package:get/utils.dart';
 
 class CaseDiagnosticManualScreen extends StatefulWidget {
-  CaseDiagnosticManualScreen(this.id, {super.key, citaMedica});
-
+  CaseDiagnosticManualScreen(this.id, this.citaMedica, {super.key});
   final int id;
-  int citaMedica = 0;
+  int citaMedica;
 
   @override
   State<StatefulWidget> createState() {

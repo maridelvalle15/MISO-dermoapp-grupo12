@@ -123,5 +123,7 @@
   "manualTreatmentRejectedText" : "El tratamiento fue rechazado, pronto le asignaremos otro médico para que revise su caso.",
   "doctorDiagnostic" : "Diagnóstico de un médico",
   "appointmentRequestedTitle" : "Cita solicitada",
-  "appointmentRequestedText" : "Su cita con el médico asignado ha sido solicitada, encontrará la información respectiva en el detalle de su caso"
+  "appointmentRequestedText" : "Su cita con el médico asignado ha sido solicitada, encontrará la información respectiva en el detalle de su caso",
+  "treatmentLeft": "Tratamiento:",
+  "requested": "Solicitado"
 }

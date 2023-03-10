@@ -13,7 +13,6 @@ import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
-import 'package:http/http.dart';
 
 class CaseDetailScreen extends StatefulWidget {
   const CaseDetailScreen(this.id, {super.key});
@@ -125,6 +124,36 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       style: const TextStyle(
                           fontSize: 18.0, color: Color(0xFFDFDFDF))),
                 ),
+                if (caseDetail.cita_medica != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).treatmentLeft,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(AppLocalizations.of(context).requested,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
                 Container(
                     alignment: Alignment.center,
                     width: double.infinity,
@@ -281,7 +310,7 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       CaseDiagnosticManualScreen(widget.id,
-                                          citaMedica: caseDetail.cita_medica)));
+                                          caseDetail.cita_medica ?? 0)));
                         },
                         child: Text(
                             AppLocalizations.of(context).seeManualDiagnostic,

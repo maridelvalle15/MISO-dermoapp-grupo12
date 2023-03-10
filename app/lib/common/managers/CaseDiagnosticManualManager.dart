@@ -70,7 +70,7 @@ class CaseDiagnosticManualManager {
           "Content-Type": "application/json",
           "authorization": 'Bearer $token'
         });
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       return true;
     } else {
