@@ -425,3 +425,54 @@ class SolicitarTratamientoView(Resource):
 
         else:
             return {"message":"Bad Request"}, 400
+
+class DetallePacienteView(Resource):
+    def get(self, caso_id):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+
+            if rol == 'Medico':
+
+                logica = Logica()
+                paciente = logica.obtener_paciente_caso(caso_id)
+
+                if paciente is False:
+                    return {"message":"Bad Request"}, 400
+                else:
+                    auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/informacion-paciente/' + str(paciente)
+                    headers = {'Authorization': request.headers.get('Authorization')}
+
+                    response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+                    if response.status_code == 200:
+                        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+                        print(json_response, flush=True)
+                        tipo_piel = json_response['tipo_piel']
+                        edad = json_response['edad']
+                        cedula = json_response['cedula']
+                        ciudad = json_response['ciudad']
+                        nombre = json_response['nombre']
+
+                        return {
+                            "tipo_piel": tipo_piel,
+                            "edad": edad,
+                            "cedula": cedula,
+                            "ciudad": ciudad,
+                            "nombre": nombre
+                        }
+                    else:
+                        return {"message":"Bad Request"}, 400
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400

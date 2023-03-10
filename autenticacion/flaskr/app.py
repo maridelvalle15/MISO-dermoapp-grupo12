@@ -2,7 +2,7 @@
 from flaskr import create_app
 from flask_restful import Api
 from .models import db, Usuario
-from .views import RegistroView, LogInView, ValidacionUsuarioView, HealthCheckView
+from .views import RegistroView, LogInView, ValidacionUsuarioView, HealthCheckView, InformacionPacienteView
 from flask_user import UserManager
 import pytest
 from .utils.seeds import Seeds
@@ -36,6 +36,7 @@ api.add_resource(RegistroView, '/api/registro', resource_class_kwargs={'user_man
 api.add_resource(LogInView, '/api/login')
 api.add_resource(ValidacionUsuarioView, '/api/validacion-usuario')
 api.add_resource(HealthCheckView, '/api/health-check')
+api.add_resource(InformacionPacienteView, '/api/informacion-paciente/<int:paciente_id>')
 
 jwt = JWTManager(app)
 

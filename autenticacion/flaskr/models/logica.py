@@ -56,3 +56,10 @@ class Logica():
         if cedula != '':
             usuario = UsuarioPaciente.query.filter(UsuarioPaciente.cedula==cedula).first()
         return usuario
+
+    @staticmethod
+    def obtener_informacion_paciente(paciente_id):
+        print(paciente_id, flush=True)
+        paciente = UsuarioPaciente.query.filter(UsuarioPaciente.id==paciente_id).first()
+
+        return paciente
