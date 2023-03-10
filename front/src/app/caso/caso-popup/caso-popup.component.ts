@@ -36,7 +36,7 @@ export class CasoPopupComponent implements OnInit {
   postCasoPopUp() {
     const cookie = this.cookieService.get('id');
     this.casoService.sendCaso((this.id = cookie)).subscribe((res: any) => {
-      alert('Caso asignado');
+      alert('Caso asignado / Assigned Case');
       window.location.reload();
     });
   }

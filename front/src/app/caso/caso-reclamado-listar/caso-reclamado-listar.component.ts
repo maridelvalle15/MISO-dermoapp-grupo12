@@ -45,7 +45,7 @@ export class CasoReclamadoListarComponent implements OnInit {
 
   postLiberarCaso(id:any) {
     this.casoService.liberarCaso((this.id = id)).subscribe((res: any) => {
-      alert('Caso '+ id +' liberado');
+      alert('Caso '+ id +' liberado' + '/' + 'Case '+ id +' dropped' );
       window.location.reload();
     });
   }

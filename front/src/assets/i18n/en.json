@@ -16,10 +16,59 @@
 "CASO-LISTAR":{
   "TITULO":"New cases or no assigned doctor",
   "FECHA":"Date",
-  "CASO_ID":"Caso ID",
+  "CASO_ID":"Case ID",
   "DESCRIPCION":"Description",
   "PACIENTE":"Patient",
-  "DETALLE":"Detail"
+  "DETALLE":"Detail",
+  "BTN_DETALLE":"Detail"
+},
+
+"RECLAMADOS":{
+  "TITULO":"Claimed cases",
+  "FECHA":"Date",
+  "CASO_ID":"Case ID",
+  "DESCRIPCION":"Description",
+  "PACIENTE":"Patient",
+  "ESTADO":"Status",
+  "BTN_DIAGNOSTICO":"Give Diagnosis",
+  "BTN_LIBERAR":"Drop case",
+  "BTN_DETALLE":"Case detail"
+},
+
+"CASO-POPUP":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "PACIENTE":"Patient",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "FOTO":"Photo",
+  "BTN_REGRESAR":"Back",
+  "BTN_RECLAMAR":"Claim"
+},
+
+"DIAGNOSTICO-POPUP":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "FOTO":"Photo",
+  "DIAGNOSTICO":"Diagnosis",
+  "BTN_REGRESAR":"Back",
+  "BTN_ENVIAR":"Send Diagnosis"
+},
+
+"DIAGNOSTICO-POPUP-DETALLE":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "PACIENTE":"Patient",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "DIAGNOSTICO":"Diagnosis",
+  "TIPO_LESION":"Type of Lesion",
+  "FORMA":"Shape",
+  "NUMERO_LESIONES":"Number of Lesions",
+  "DISTRIBUCION":"Distribution",
+  "FOTO":"Photo",
+  "FOTO_ADICIONAL":"Aditional Photo",
+  "BTN_REGRESAR":"Back"
 }
+
 
 }

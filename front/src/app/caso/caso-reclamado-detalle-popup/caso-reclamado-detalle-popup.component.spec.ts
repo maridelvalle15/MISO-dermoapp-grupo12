@@ -17,6 +17,8 @@ import { Caso } from '../caso';
 import { CasoService } from '../caso.service';
 
 import { CasoReclamadoDetallePopupComponent } from './caso-reclamado-detalle-popup.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 describe('CasoReclamadoDetallePopupComponent', () => {
   let component: CasoReclamadoDetallePopupComponent;
@@ -34,7 +36,8 @@ describe('CasoReclamadoDetallePopupComponent', () => {
         AppHeaderModule,
         MaterialModule,
         BrowserAnimationsModule,
-        MatDialogModule
+        MatDialogModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         CasoReclamadoDetallePopupComponent

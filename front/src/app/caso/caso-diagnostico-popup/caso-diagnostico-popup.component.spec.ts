@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { faker } from '@faker-js/faker';
 import { Caso } from '../caso';
 import { CasoService } from '../caso.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CasoDiagnosticoPopupComponent', () => {
   let component: CasoDiagnosticoPopupComponent;
@@ -33,7 +34,8 @@ describe('CasoDiagnosticoPopupComponent', () => {
         AppHeaderModule,
         MaterialModule,
         BrowserAnimationsModule,
-        MatDialogModule
+        MatDialogModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         CasoDiagnosticoPopupComponent
