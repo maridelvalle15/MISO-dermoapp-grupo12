@@ -13,7 +13,6 @@ import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
-import 'package:http/http.dart';
 
 class CaseDetailScreen extends StatefulWidget {
   const CaseDetailScreen(this.id, {super.key});
@@ -27,7 +26,8 @@ class CaseDetailScreen extends StatefulWidget {
 }
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail = CaseModel(0, '', '', '', '', 0, '', '', List.empty());
+  CaseModel caseDetail =
+      CaseModel(0, '', '', '', '', 0, '', '', List.empty(), 0);
   bool isDisabled = false;
 
   @override
@@ -124,6 +124,36 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       style: const TextStyle(
                           fontSize: 18.0, color: Color(0xFFDFDFDF))),
                 ),
+                if (caseDetail.cita_medica != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).treatmentLeft,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(AppLocalizations.of(context).requested,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
                 Container(
                     alignment: Alignment.center,
                     width: double.infinity,
@@ -136,14 +166,15 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                             fit: BoxFit.cover,
                           )
                         : Text(AppLocalizations.of(context).noImage)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: Text(AppLocalizations.of(context).extraImages,
-                      style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFDFDFDF),
-                          fontWeight: FontWeight.bold)),
-                ),
+                if (caseDetail.imagenes_extra.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: Text(AppLocalizations.of(context).extraImages,
+                        style: const TextStyle(
+                            fontSize: 18.0,
+                            color: Color(0xFFDFDFDF),
+                            fontWeight: FontWeight.bold)),
+                  ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -279,7 +310,8 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CaseDiagnosticManualScreen(widget.id)));
+                                      CaseDiagnosticManualScreen(widget.id,
+                                          caseDetail.cita_medica ?? 0)));
                         },
                         child: Text(
                             AppLocalizations.of(context).seeManualDiagnostic,

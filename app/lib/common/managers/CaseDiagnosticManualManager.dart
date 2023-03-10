@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dermoapp/common/helpers/getToken.dart';
 import 'package:dermoapp/common/values/servicesLocations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
+
+import '../../model/appointmentModel.dart';
 
 class CaseDiagnosticManualManager {
   http.Client client = http.Client();
@@ -56,6 +59,28 @@ class CaseDiagnosticManualManager {
     }
   }
 
+  Future<bool> requestTreatment(int id) async {
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {'caso_id': id};
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/solicitar-cita'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> refuseTreatment(int id) async {
     String token = await getToken() as String;
 
@@ -75,6 +100,27 @@ class CaseDiagnosticManualManager {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<AppointmentModel> getAppointmentDetails(int id) async {
+    String token = await getToken() as String;
+    final response = await client.get(
+      Uri.parse('${services["salud"]}api/solicitar-cita/$id'),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+
+      AppointmentModel caseAppointment =
+          AppointmentModel.fromJson(responseJson["cita"]);
+
+      return caseAppointment;
+    } else {
+      return AppointmentModel('', '');
     }
   }
 }
