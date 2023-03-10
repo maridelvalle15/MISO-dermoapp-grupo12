@@ -94,14 +94,22 @@ def construir_casos_por_reclamar(casos):
         tiene_diagnostico = obtener_diagnostico_caso(caso.id)
         if tiene_diagnostico != False:
             estado_diagnostico = 'Diagnosticado'
+            diagnostico = estado_diagnostico.descripcion
         else:
             estado_diagnostico = 'Sin diagnosticar'
+            diagnostico = ''
         json_caso = {
             'caso_id': caso.id,
             'fecha': str(caso.fecha_creacion),
             'descripcion': caso.descripcion,
             'nombre_paciente': caso.nombre_paciente,
-            'estado': estado_diagnostico
+            'estado': estado_diagnostico,
+            'tipo_lesion': caso.tipo_lesion,
+            'forma': caso.forma,
+            'numero_lesiones': caso.numero_lesiones,
+            'distribucion': caso.distribucion,
+            'info_adicional': caso.descripcion.split(':')[-1],
+            'diagnostico': diagnostico
 
         }
         lista_casos.append(json_caso)
