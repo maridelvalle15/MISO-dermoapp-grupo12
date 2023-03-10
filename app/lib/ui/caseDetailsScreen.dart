@@ -27,7 +27,7 @@ class CaseDetailScreen extends StatefulWidget {
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
   CaseModel caseDetail =
-      CaseModel(0, '', '', '', '', 0, '', '', List.empty(), 0);
+      CaseModel(0, '', '', null, '', null, '', '', List.empty(), null, '');
   bool isDisabled = false;
 
   @override
@@ -146,6 +146,36 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(AppLocalizations.of(context).requested,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (caseDetail.tipo_consulta.length > 1)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).appointmentTechnology,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(caseDetail.tipo_consulta,
                               style: const TextStyle(
                                   fontSize: 18.0,
                                   color: Color(0xFFDFDFDF),
@@ -310,8 +340,12 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CaseDiagnosticManualScreen(widget.id,
-                                          caseDetail.cita_medica ?? 0)));
+                                      CaseDiagnosticManualScreen(
+                                          widget.id,
+                                          caseDetail.cita_medica ?? 0,
+                                          caseDetail.tipo_consulta.length > 1
+                                              ? caseDetail.tipo_consulta
+                                              : '')));
                         },
                         child: Text(
                             AppLocalizations.of(context).seeManualDiagnostic,

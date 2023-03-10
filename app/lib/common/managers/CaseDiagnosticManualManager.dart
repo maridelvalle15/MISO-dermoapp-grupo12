@@ -123,4 +123,51 @@ class CaseDiagnosticManualManager {
       return AppointmentModel('', '');
     }
   }
+
+  Future<bool> requestOnSiteAppointment(int id) async {
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {'caso_id': id, 'tipo_consulta': 'Presencial'};
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/tipo-consulta'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> requestOnlineAppointment(int id) async {
+    String token = await getToken() as String;
+
+    Map<String, dynamic> data = {
+      'caso_id': id,
+      'tipo_consulta': 'Telemedicina'
+    };
+
+    var body = json.encode(data);
+
+    final response = await client.post(
+        Uri.parse('${services["salud"]}api/tipo-consulta'),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": 'Bearer $token'
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
