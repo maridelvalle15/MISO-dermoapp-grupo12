@@ -45,7 +45,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Dermoapp'), findsOneWidget);
-      expect(find.text('Extra Images'), findsOneWidget);
+      expect(find.text('Description'), findsOneWidget);
     });
   });
 }
