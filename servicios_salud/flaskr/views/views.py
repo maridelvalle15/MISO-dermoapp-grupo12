@@ -458,13 +458,15 @@ class DetallePacienteView(Resource):
                         cedula = json_response['cedula']
                         ciudad = json_response['ciudad']
                         nombre = json_response['nombre']
+                        direccion = json_response['direccion']
 
                         return {
                             "tipo_piel": tipo_piel,
                             "edad": edad,
                             "cedula": cedula,
                             "ciudad": ciudad,
-                            "nombre": nombre
+                            "nombre": nombre,
+                            "direccion": direccion
                         }
                     else:
                         return {"message":"Bad Request"}, 400

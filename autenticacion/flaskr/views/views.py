@@ -139,7 +139,7 @@ class InformacionPacienteView(Resource):
             ciudad = Ubicacion.query.filter(Ubicacion.id==paciente.ubicacion_id).first().ciudad
             print(paciente.nombre, flush=True)
             return {"id_paciente":paciente.id,"tipo_piel": paciente.tipo_piel, "edad": paciente.edad,\
-                "cedula": paciente.cedula, "ciudad": ciudad, "nombre": paciente.nombre
+                "cedula": paciente.cedula, "ciudad": ciudad, "nombre": paciente.nombre, "direccion": paciente.direccion
                 }, 200,{'Content-Type': 'application/json'}
 
         else:
