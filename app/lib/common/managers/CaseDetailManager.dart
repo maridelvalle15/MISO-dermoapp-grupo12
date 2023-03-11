@@ -25,7 +25,8 @@ class CaseDetailManager {
 
       return caseDetail;
     } else {
-      return CaseModel(0, '', '', '', '', 0, '', '', List.empty(), 0);
+      return CaseModel(
+          0, '', '', null, '', null, '', '', List.empty(), null, '');
     }
   }
 }
