@@ -1,0 +1,37 @@
+<br>
+<h4 style="text-align: center;">{{'DETALLE-PACIENTE.TITULO' | translate}}</h4> <br>
+
+<div>
+<table *ngIf="caso != undefined" style="width:100%">
+  <tr>
+    <th><span class="bolded">{{'DETALLE-PACIENTE.NOMBRE' | translate}}: </span> </th>
+    <td>{{caso.nombre}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DETALLE-PACIENTE.EDAD' | translate}}: </span></th>
+    <td>{{caso.edad}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DETALLE-PACIENTE.CEDULA' | translate}}: </span></th>
+    <td>{{caso.cedula}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DETALLE-PACIENTE.CIUDAD' | translate}}: </span></th>
+    <td>{{caso.ciudad}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DETALLE-PACIENTE.TIPO_PIEL' | translate}}: </span></th>
+    <td>{{caso.tipo_piel}}</td>
+  </tr>
+</table>
+</div>
+
+
+<div class="center-button">
+
+  <button (click)="onNoClick()">{{'DETALLE-PACIENTE.BTN_REGRESAR' | translate}}</button>
+</div>

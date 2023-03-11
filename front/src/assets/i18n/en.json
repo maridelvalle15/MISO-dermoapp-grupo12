@@ -32,7 +32,8 @@
   "ESTADO":"Status",
   "BTN_DIAGNOSTICO":"Give Diagnosis",
   "BTN_LIBERAR":"Drop case",
-  "BTN_DETALLE":"Case detail"
+  "BTN_DETALLE":"Case detail",
+  "BTN_DETALLE_PACIENTE":"Patient Detail"
 },
 
 "CASO-POPUP":{
@@ -68,7 +69,19 @@
   "FOTO":"Photo",
   "FOTO_ADICIONAL":"Aditional Photo",
   "BTN_REGRESAR":"Back"
+},
+
+"DETALLE-PACIENTE":{
+  "TITULO":"Patient detail of case selected",
+  "NOMBRE":"Name",
+  "EDAD":"Age",
+  "CEDULA":"Identification Number",
+  "CIUDAD":"City",
+  "DIRECCION":"Address",
+  "TIPO_PIEL":"Type of Skin",
+  "BTN_REGRESAR":"Back"
 }
+
 
 
 }
