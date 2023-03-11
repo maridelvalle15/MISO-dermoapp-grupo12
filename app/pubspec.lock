@@ -295,14 +295,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  full_coverage:
-    dependency: "direct dev"
-    description:
-      name: full_coverage
-      sha256: fc970e4c0d8f00cead862098db173edb795357584b03283120ede703761a251a
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   get:
     dependency: "direct main"
     description:
