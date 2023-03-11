@@ -4,6 +4,7 @@ import { CasoDiagnosticoPopupComponent } from '../caso-diagnostico-popup/caso-di
 import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { CasoReclamadoDetallePopupComponent } from '../caso-reclamado-detalle-popup/caso-reclamado-detalle-popup.component';
+import { CasoPacienteDetallePopupComponent } from '../caso-paciente-detalle-popup/caso-paciente-detalle-popup.component';
 
 @Component({
   selector: 'app-caso-reclamado-listar',
@@ -58,7 +59,16 @@ export class CasoReclamadoListarComponent implements OnInit {
       data: id
     })
     this.cookieService.set('id',id)
+  }
 
+  openDialogDetallePaciente(id:any) {
+
+    this.dialog.open(CasoPacienteDetallePopupComponent, {
+      width: '600px',
+      height: '700px',
+      data: id
+    })
+    this.cookieService.set('id',id)
   }
 
 

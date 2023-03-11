@@ -28,6 +28,7 @@
       <td><button (click)="openDialogDiagnostico(caso.caso_id)" *ngIf="caso?.estado !== 'Diagnosticado'">{{'RECLAMADOS.BTN_DIAGNOSTICO' | translate}}</button></td>
       <td><button (click)="postLiberarCaso(caso.caso_id)">{{'RECLAMADOS.BTN_LIBERAR' | translate}}</button></td>
       <td><button (click)="openDialogDetalle(caso.caso_id)">{{'RECLAMADOS.BTN_DETALLE' | translate}}</button></td>
+      <td><button (click)="openDialogDetallePaciente(caso.caso_id)">{{'RECLAMADOS.BTN_DETALLE_PACIENTE' | translate}}</button></td>
 
     </tr>
 

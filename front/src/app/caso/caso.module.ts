@@ -11,11 +11,12 @@ import { CasoReclamadoListarComponent } from './caso-reclamado-listar/caso-recla
 import { CasoDiagnosticoPopupComponent } from './caso-diagnostico-popup/caso-diagnostico-popup.component';
 import { CasoReclamadoDetallePopupComponent } from './caso-reclamado-detalle-popup/caso-reclamado-detalle-popup.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CasoPacienteDetallePopupComponent } from './caso-paciente-detalle-popup/caso-paciente-detalle-popup.component';
 
 
 
 @NgModule({
-  declarations: [CasoListarComponent, CasoPopupComponent,CasoReclamadoListarComponent,CasoDiagnosticoPopupComponent,CasoReclamadoDetallePopupComponent],
+  declarations: [CasoListarComponent, CasoPopupComponent,CasoReclamadoListarComponent,CasoDiagnosticoPopupComponent,CasoReclamadoDetallePopupComponent,CasoPacienteDetallePopupComponent],
   imports: [
     CommonModule, ReactiveFormsModule, AppHeaderModule,MaterialModule,BrowserAnimationsModule,TranslateModule
   ],

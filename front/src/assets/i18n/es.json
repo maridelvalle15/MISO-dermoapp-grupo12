@@ -32,7 +32,8 @@
   "ESTADO":"Estado",
   "BTN_DIAGNOSTICO":"Dar Diagnóstico",
   "BTN_LIBERAR":"Liberar caso",
-  "BTN_DETALLE":"Detalle caso"
+  "BTN_DETALLE":"Detalle caso",
+  "BTN_DETALLE_PACIENTE":"Detalle paciente"
 },
 
 "CASO-POPUP":{
@@ -68,7 +69,19 @@
   "FOTO":"Foto",
   "FOTO_ADICIONAL":"Foto Adicional",
   "BTN_REGRESAR":"Regresar"
+},
+
+"DETALLE-PACIENTE":{
+  "TITULO":"Detalle paciente del caso seleccionado",
+  "NOMBRE":"Nombre",
+  "EDAD":"Edad",
+  "CEDULA":"Cédula",
+  "CIUDAD":"Ciudad",
+  "DIRECCION":"Dirección",
+  "TIPO_PIEL":"Tipo de Piel",
+  "BTN_REGRESAR":"Regresar"
 }
+
 
 
 
