@@ -127,3 +127,20 @@ class ValidacionUsuarioView(Resource):
 class HealthCheckView(Resource):
     def get(self):
         return {"message": os.environ.get("DB_URI")}, 200
+
+class InformacionPacienteView(Resource):
+
+    @jwt_required()
+    def get(self, paciente_id):
+        logica = Logica()
+        paciente = logica.obtener_informacion_paciente(paciente_id)
+
+        if paciente:
+            ciudad = Ubicacion.query.filter(Ubicacion.id==paciente.ubicacion_id).first().ciudad
+            print(paciente.nombre, flush=True)
+            return {"id_paciente":paciente.id,"tipo_piel": paciente.tipo_piel, "edad": paciente.edad,\
+                "cedula": paciente.cedula, "ciudad": ciudad, "nombre": paciente.nombre
+                }, 200,{'Content-Type': 'application/json'}
+
+        else:
+            return {"message":"Bad Request"}, 400
