@@ -30,3 +30,4 @@ class TestDetallePaciente():
         assert "cedula" in response.json
         assert "ciudad" in response.json
         assert "nombre" in response.json
+        assert "direccion" in response.json
