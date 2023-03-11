@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CasoService } from '../caso.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-caso-popup',
-  templateUrl: './caso-popup.component.html',
-  styleUrls: ['./caso-popup.component.css'],
+  selector: 'app-caso-paciente-detalle-popup',
+  templateUrl: './caso-paciente-detalle-popup.component.html',
+  styleUrls: ['./caso-paciente-detalle-popup.component.css']
 })
-export class CasoPopupComponent implements OnInit {
+export class CasoPacienteDetallePopupComponent implements OnInit {
   caso: any;
   id: any;
-
 
   constructor(
     private casoService: CasoService,
@@ -21,28 +20,22 @@ export class CasoPopupComponent implements OnInit {
     private cookieService: CookieService
   ) {}
 
-  ngOnInit() {
+   ngOnInit() {
     const cookie = this.cookieService.get('id');
     if ((this.id = cookie)) {
-      this.getCasoPopUp();
+      this.getPacientePopUp();
     }
   }
 
-  getCasoPopUp() {
-    this.casoService.getCaso(this.id).subscribe((caso) => {
+  getPacientePopUp() {
+    this.casoService.getPaciente(this.id).subscribe((caso) => {
       this.caso = caso;
-    });
-  }
-  postCasoPopUp() {
-    const cookie = this.cookieService.get('id');
-    this.casoService.sendCaso((this.id = cookie)).subscribe((res: any) => {
-      alert('Caso asignado / Assigned Case');
-      window.location.reload();
     });
   }
   onNoClick(): void {
     this.dialog.closeAll();
   }
+
 
 
 }

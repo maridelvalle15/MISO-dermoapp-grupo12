@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {  FormGroup } from '@angular/forms';
 import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
-
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -19,13 +19,20 @@ export class UsuarioIngresoComponent implements OnInit {
   helper = new JwtHelperService();
   usuarioForm !: FormGroup;
 
+
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
     private cookieService: CookieService,
     private formBuilder: FormBuilder,
+    public translate: TranslateService
 
-  ) { }
+  ) {
+
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('es');
+
+  }
 
   error: boolean = false
 
@@ -38,6 +45,13 @@ export class UsuarioIngresoComponent implements OnInit {
 
     })
   }
+
+  //Switch language
+  translateLanguageTo(lang: string) {
+    this.translate.use(lang);
+  }
+
+
 
   onLogInUsuario(correo: string, password: string){
 

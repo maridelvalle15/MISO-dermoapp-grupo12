@@ -1,25 +1,38 @@
 nav {
-  background-color:#1e3f52 ;
-  color: white;
-}
-
-a .navbar-brand{
-  color: white;
-}
-
-
-div .nav-link {
-  color: white;
+  background: #1e3f52;
+  width: 100%;
+  z-index: 100;
+  padding: 8px;
 
 }
-div .navbar-nav {
-  padding-top: 1%;
-  position: absolute;
-  right: 300px;
+
+
+
+nav ul {
+  list-style: none;
 }
 
-link{
-  position: absolute;
-  top: 50px;
-  right: 150px;
+nav ul li {
+  float: left;
+  font-size: 20px;
+}
+
+#titulo {
+  padding-right: 800px;
+}
+
+
+nav ul li a {
+  display: block;
+  padding: 10px;
+  color: #fff;
+}
+
+nav ul li:hover {
+  background: rgb(214, 214, 214);
+}
+
+img{
+  padding-top: 10px;
+  padding-right: 1px;
 }

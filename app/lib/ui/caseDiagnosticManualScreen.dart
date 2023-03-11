@@ -9,9 +9,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 
 class CaseDiagnosticManualScreen extends StatefulWidget {
-  CaseDiagnosticManualScreen(this.id, this.citaMedica, {super.key});
+  CaseDiagnosticManualScreen(this.id, this.citaMedica, this.tipoConsulta,
+      {super.key});
   final int id;
   int citaMedica;
+  String tipoConsulta;
 
   @override
   State<StatefulWidget> createState() {
@@ -182,6 +184,36 @@ class CaseDiagnosticManualScreenState
                       ),
                     ],
                   ),
+                if (hasAppointment && widget.tipoConsulta.length > 1)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).appointmentTechnology,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(widget.tipoConsulta,
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  color: Color(0xFFDFDFDF),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
                 if (widget.citaMedica == 0)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
@@ -263,6 +295,92 @@ class CaseDiagnosticManualScreenState
                               },
                         child: Text(
                             AppLocalizations.of(context).rejectTreatment,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22.0)),
+                      ),
+                    ),
+                  ),
+                if (hasAppointment && widget.tipoConsulta.length < 2)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                    child: SizedBox(
+                      height: 55.0,
+                      child: ElevatedButton(
+                        key: const Key('btnAppointmentOnSite'),
+                        style: ElevatedButton.styleFrom(
+                            disabledBackgroundColor: Colors.grey),
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .requestOnSiteAppointment(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .onSiteAppointmentRequestedTitle,
+                                      AppLocalizations.of(context)
+                                          .onSiteAppointmentRequestedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
+                        child: Text(
+                            AppLocalizations.of(context).onSiteAppointment,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22.0)),
+                      ),
+                    ),
+                  ),
+                if (hasAppointment && widget.tipoConsulta.length < 2)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                    child: SizedBox(
+                      height: 55.0,
+                      child: ElevatedButton(
+                        key: const Key('btnAppointmentOnline'),
+                        style: ElevatedButton.styleFrom(
+                            disabledBackgroundColor: Colors.grey),
+                        onPressed: isDisabled
+                            ? null
+                            : () async {
+                                setState(() => isDisabled = true);
+                                bool result =
+                                    await CaseDiagnosticManualManager()
+                                        .requestOnlineAppointment(widget.id);
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .onlineAppointmentRequestedTitle,
+                                      AppLocalizations.of(context)
+                                          .onlineAppointmentRequestedText,
+                                      "OK");
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  showDialogSingleButton(
+                                      context,
+                                      AppLocalizations.of(context)
+                                          .thereIsAnError,
+                                      AppLocalizations.of(context).tryAgain,
+                                      "OK");
+                                  setState(() => isDisabled = false);
+                                }
+                              },
+                        child: Text(
+                            AppLocalizations.of(context).onlineAppointment,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 22.0)),
                       ),

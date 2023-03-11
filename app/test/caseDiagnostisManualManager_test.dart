@@ -82,5 +82,31 @@ void main() {
       bool result = await caseDiagnosticManualManager.requestTreatment(id);
       expect(result, true);
     });
+
+    test('ask for an onsite appointment and return true if ok', () async {
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+      final caseDiagnosticManualManager = CaseDiagnosticManualManager();
+      caseDiagnosticManualManager.client = MockClient((request) async {
+        return Response("ok", 200);
+      });
+
+      const id = 110;
+      bool result =
+          await caseDiagnosticManualManager.requestOnSiteAppointment(id);
+      expect(result, true);
+    });
+
+    test('ask for an online appointment and return true if ok', () async {
+      SharedPreferences.setMockInitialValues({"token": "abc123def456"});
+      final caseDiagnosticManualManager = CaseDiagnosticManualManager();
+      caseDiagnosticManualManager.client = MockClient((request) async {
+        return Response("ok", 200);
+      });
+
+      const id = 110;
+      bool result =
+          await caseDiagnosticManualManager.requestOnlineAppointment(id);
+      expect(result, true);
+    });
   });
 }

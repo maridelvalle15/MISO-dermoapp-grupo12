@@ -124,8 +124,15 @@
   "doctorDiagnostic" : "Diagnóstico de un médico",
   "appointmentRequestedTitle" : "Cita solicitada",
   "appointmentRequestedText" : "Su cita con el médico asignado ha sido solicitada, encontrará la información respectiva en el detalle de su caso",
-  "treatmentLeft": "Tratamiento:",
+  "treatmentLeft": "Tratamiento",
   "requested": "Solicitado",
   "appointmentStatus": "Estado de la cita",
-  "appointmentDate": "Fecha"
+  "appointmentDate": "Fecha",
+  "onSiteAppointment": "Cita presencial",
+  "onSiteAppointmentRequestedTitle": "Cita presencial solicitada",
+  "onSiteAppointmentRequestedText": "Hemos enviado su preferencia de cita presencial al médico",
+  "onlineAppointment": "Cita telemedicina",
+  "onlineAppointmentRequestedTitle": "Cita de telemedicina solicitada",
+  "onlineAppointmentRequestedText": "Hemos enviado su preferencia de cita de telemedicina al médico",
+  "appointmentTechnology": "Tipo de consulta"
 }

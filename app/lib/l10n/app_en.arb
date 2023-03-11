@@ -124,8 +124,15 @@
   "doctorDiagnostic" : "Diagnostic by a doctor",
   "appointmentRequestedTitle" : "Doctor's appointment requested",
   "appointmentRequestedText" : "You appointment has been requested. You can find the information about the status in the Details of your Case",
-  "treatmentLeft": "Treatment:",
+  "treatmentLeft": "Treatment",
   "requested": "Requested",
   "appointmentStatus": "Appointment Status",
-  "appointmentDate": "Date"
+  "appointmentDate": "Date",
+  "onSiteAppointment": "On-site appointment",
+  "onSiteAppointmentRequestedTitle": "On-site appointment requested",
+  "onSiteAppointmentRequestedText": "Your request for on-site appointment has been sent to the Doctor.",
+  "onlineAppointment": "On-line appointment",
+  "onlineAppointmentRequestedTitle": "On-line appointment requested",
+  "onlineAppointmentRequestedText": "Your request for on-line appointment has been sent to the Doctor",
+  "appointmentTechnology": "Appointment type"
 }

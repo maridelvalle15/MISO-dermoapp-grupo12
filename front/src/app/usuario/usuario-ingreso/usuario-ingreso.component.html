@@ -12,17 +12,17 @@
     <h1>DermoApp</h1>
     <div class="header-input" style="text-align: right;">
      <form [formGroup]="usuarioForm">
-      <label #error style="color: red;"  *ngIf="error"> Usuario o contraseña incorrectos </label>
+      <label #error style="color: red;"  *ngIf="error"> {{'HOME.MENSAJE_ERROR' | translate}} </label>
       <input #correo formControlName="correo" type="text" placeholder="Correo" required>
       <input #password formControlName="password" type="password" placeholder="Contraseña" required>
       &nbsp;
-      <button (click)="onLogInUsuario(correo.value, password.value)" type="button" [disabled]="!usuarioForm.valid">Ingresar</button>
+      <button (click)="onLogInUsuario(correo.value, password.value)" type="button" [disabled]="!usuarioForm.valid">{{'HOME.INGRESAR' | translate}}</button>
       &nbsp;
-      <button><a href="../usuario-registro/"> Registrarse </a></button>
+      <button><a href="../usuario-registro/"> {{'HOME.REGISTRARSE' | translate}} </a></button>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a><img  src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2.5%" height="2.5%"></a>
+      <a (click)="translateLanguageTo('es')"><img  src="https://cdn-icons-png.flaticon.com/512/323/323365.png" alt="español" width="2.5%" height="2.5%"></a>
       &nbsp;
-      <a><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2.5%" height="2.5%"></a>
+      <a (click)="translateLanguageTo('en')"><img src="https://cleandye.com/wp-content/uploads/2020/01/English-icon.png" alt="ingles" width="2.5%" height="2.5%"></a>
     </form>
     </div>
 
@@ -36,9 +36,7 @@
   </div>
   <br>
 
-  <p style="padding: 3%;">Somos un servicio de salud digital realizado por especialistas, a través de herramientas tecnológicas y de comunicaciones que permite establecer un acto médico, como aplicativos o plataformas que permiten la transferencia de texto y fotos.
-    En el caso de DermoApp, estos recursos son aprovechados para diagnosticar, tratar y prevenir optimizando los servicios de atención en salud Dermatológica y facilitando el acceso para cualquier paciente sin importar donde se encuentre.
-  </p>
+  <p style="padding: 3%;">{{'HOME.TEXTO_CUERPO' | translate}}</p>
 </body>
 
 </html>

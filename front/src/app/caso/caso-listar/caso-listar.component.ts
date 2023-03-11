@@ -4,6 +4,7 @@ import { MatDialog ,MatDialogRef} from '@angular/material/dialog';
 import { CasoPopupComponent } from '../caso-popup/caso-popup.component';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-caso-listar',
   templateUrl: './caso-listar.component.html',
@@ -12,7 +13,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class CasoListarComponent implements OnInit {
   caso: any ;
   casos: any;
-  constructor(private casoService: CasoService, public dialog:MatDialog,private cookieService: CookieService,) {}
+  constructor(private casoService: CasoService, public dialog:MatDialog,private cookieService: CookieService)
+  {
+
+  }
 
 
   ngOnInit() {
@@ -37,5 +41,8 @@ export class CasoListarComponent implements OnInit {
 
     this.cookieService.set('id',id)
   }
+
+
+
 
 }

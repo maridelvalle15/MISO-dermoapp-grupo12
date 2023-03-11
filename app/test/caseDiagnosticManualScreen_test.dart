@@ -40,7 +40,7 @@ void main() {
           child: Localizations(
               delegates: AppLocalizations.localizationsDelegates,
               locale: const Locale('en'),
-              child: CaseDiagnosticManualScreen(100, 0))));
+              child: CaseDiagnosticManualScreen(100, 0, ''))));
 
       await tester.pumpAndSettle();
 

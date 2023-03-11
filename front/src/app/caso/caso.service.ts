@@ -72,4 +72,15 @@ liberarCaso(id: any):Observable<any>{
   return this.http.post<any>(this.backUrl + `/api/liberar-caso`, {'caso_id': id}, {headers: headers });
 }
 
+
+getPaciente(id:any): Observable<Caso>{
+  const cookie= this.cookieService.get('token_access');
+  const headers = new HttpHeaders({
+
+    'Authorization': `Bearer ${cookie}`
+  })
+  return this.http.get<Caso>(`${this.backUrl}/api/detalle-paciente/`+id, {headers: headers})
+}
+
+
 }

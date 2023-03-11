@@ -10,6 +10,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Usuario } from '../usuario';
 import { faker } from '@faker-js/faker';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -26,13 +27,16 @@ describe(`TEST del componente "UsuarioIngresoComponent"`, () => {
         FormsModule,
         HttpClientTestingModule,
         ToastrModule.forRoot(),
+        TranslateModule.forRoot()
 
       ],
       declarations: [
         UsuarioIngresoComponent
       ],
       providers : [
-        UsuarioService
+        UsuarioService,
+
+
       ]
     }).compileComponents();
 
