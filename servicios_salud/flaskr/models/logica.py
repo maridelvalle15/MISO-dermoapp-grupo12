@@ -339,3 +339,10 @@ class Logica():
         else:
             return False
             
+    def obtener_paciente_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            return caso.paciente_id
+        else:
+            return False
