@@ -25,8 +25,8 @@ class CaseAddImagesScreen extends StatefulWidget {
 }
 
 class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
-  CaseModel caseDetail =
-      CaseModel(0, '', '', null, '', null, '', '', List.empty(), null, '');
+  CaseModel caseDetail = CaseModel(
+      0, '', '', null, '', null, '', '', List.empty(), null, '', '', '');
 
   bool isDisabled = true;
   bool hasImage = false;
@@ -300,7 +300,7 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 20.0),
                       child: SizedBox(
                         height: 55.0,
                         child: ElevatedButton(
