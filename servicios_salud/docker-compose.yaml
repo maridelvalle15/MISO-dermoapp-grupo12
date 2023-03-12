@@ -11,6 +11,8 @@ services:
     ports:
       - 8001:8001
     restart: always
+    depends_on:
+      - redis
   nginx:
     container_name: nginx
     restart: always
@@ -19,3 +21,20 @@ services:
       - "80:80"
     depends_on:
       - pyapp-salud
+  celery_worker:
+    container_name: celery_worker
+    restart: always
+    build: .
+    volumes:
+      - .:/app
+    command: celery -A flaskr.services.celery_app worker --loglevel=INFO
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - pyapp-salud
+      - redis
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
