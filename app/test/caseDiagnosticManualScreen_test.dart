@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dermoapp/ui/caseDiagnosticManualScreen.dart';
+import 'package:DermoApp/ui/caseDiagnosticManualScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';

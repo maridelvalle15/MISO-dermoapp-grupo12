@@ -1,5 +1,5 @@
-import 'package:dermoapp/common/managers/FormLoginManager.dart';
-import 'package:dermoapp/model/userModel.dart';
+import 'package:DermoApp/common/managers/FormLoginManager.dart';
+import 'package:DermoApp/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
@@ -23,7 +23,8 @@ void main() {
       final loginManager = LoginManager();
 
       loginManager.client = MockClient((request) async {
-        return Response('{"token":"1234", "user_id":150}', 200);
+        return Response(
+            '{"token":"1234", "user_id":150, "codigo_pais": "co"}', 200);
       });
       mockContext = MockBuildContext();
 

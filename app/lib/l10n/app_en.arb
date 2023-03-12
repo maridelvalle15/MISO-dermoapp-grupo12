@@ -141,5 +141,6 @@
   "caseCreationDate": "Case created",
   "diagnosticTypeUndefined": "Undefined",
   "noDiagnosticYet": "No Diagnostic yet",
-  "noDoctorAssigned": "No Doctor assigned"
+  "noDoctorAssigned": "No Doctor assigned",
+  "currentUser": "Logged-in User"
 }

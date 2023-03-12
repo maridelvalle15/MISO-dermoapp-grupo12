@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dermoapp/common/managers/FormRegisterManager.dart';
-import 'package:dermoapp/main.dart';
+import 'package:DermoApp/common/managers/FormRegisterManager.dart';
+import 'package:DermoApp/main.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -245,10 +245,6 @@ class RegisterScreenState extends State<RegisterScreen> {
                                   Text(AppLocalizations.of(context).argentina),
                             ),
                             DropdownMenuItem<String>(
-                              value: 'br',
-                              child: Text(AppLocalizations.of(context).brazil),
-                            ),
-                            DropdownMenuItem<String>(
                               value: 'ca',
                               child: Text(AppLocalizations.of(context).canada),
                             ),
@@ -256,26 +252,6 @@ class RegisterScreenState extends State<RegisterScreen> {
                               value: 'co',
                               child:
                                   Text(AppLocalizations.of(context).colombia),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'fr',
-                              child: Text(AppLocalizations.of(context).france),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'de',
-                              child: Text(AppLocalizations.of(context).germany),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'mx',
-                              child: Text(AppLocalizations.of(context).mexico),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'es',
-                              child: Text(AppLocalizations.of(context).spain),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'us',
-                              child: Text(AppLocalizations.of(context).usa),
                             ),
                             DropdownMenuItem<String>(
                               value: 've',

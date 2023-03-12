@@ -141,5 +141,6 @@
   "caseCreationDate": "Fecha creación caso",
   "diagnosticTypeUndefined": "Sin definir",
   "noDiagnosticYet": "Sin diagnóstico por el momento",
-  "noDoctorAssigned": "Sin médico asignado"
+  "noDoctorAssigned": "Sin médico asignado",
+  "currentUser": "Usuario que inició sesión"
 }

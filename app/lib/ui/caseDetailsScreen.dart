@@ -1,21 +1,22 @@
 import 'dart:convert';
 
-import 'package:dermoapp/common/managers/CaseDetailManager.dart';
-import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
-import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
-import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/common/widgets/mainDrawer.dart';
-import 'package:dermoapp/main.dart';
-import 'package:dermoapp/model/caseModel.dart';
-import 'package:dermoapp/ui/caseAddImagesScreen.dart';
-import 'package:dermoapp/ui/caseDiagnosticAutoScreen.dart';
-import 'package:dermoapp/ui/caseDiagnosticManualScreen.dart';
-import 'package:dermoapp/ui/caseListScreen.dart';
+import 'package:DermoApp/common/managers/CaseDetailManager.dart';
+import 'package:DermoApp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:DermoApp/common/managers/CaseDiagnosticManualManager.dart';
+import 'package:DermoApp/common/ui/showSingleDialogButton.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/common/widgets/mainDrawer.dart';
+import 'package:DermoApp/main.dart';
+import 'package:DermoApp/model/caseModel.dart';
+import 'package:DermoApp/ui/caseAddImagesScreen.dart';
+import 'package:DermoApp/ui/caseDiagnosticAutoScreen.dart';
+import 'package:DermoApp/ui/caseDiagnosticManualScreen.dart';
+import 'package:DermoApp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
 import 'package:get/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CaseDetailScreen extends StatefulWidget {
   const CaseDetailScreen(this.id, {super.key});
@@ -33,12 +34,15 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
       0, '', '', null, '', null, '', '', List.empty(), null, '', '', '');
   bool isDisabled = false;
   List diagnosticAuto = [];
+  String flagEs = 'es';
+  String flagEn = 'us';
 
   @override
   void initState() {
     super.initState();
 
     getCase(widget.id);
+    getMyFlags();
   }
 
   @override
@@ -52,13 +56,13 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
               IconButton(
-                icon: Image.asset('icons/flags/png/es.png',
+                icon: Image.asset('icons/flags/png/$flagEs.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'es')),
               ),
               IconButton(
-                icon: Image.asset('icons/flags/png/us.png',
+                icon: Image.asset('icons/flags/png/$flagEn.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'en')),
@@ -558,5 +562,14 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
         ),
       ],
     );
+  }
+
+  Future<void> getMyFlags() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      flagEs = prefs.getString('es_flag') ?? 'es';
+      flagEn = prefs.getString('en_flag') ?? 'us';
+    });
   }
 }

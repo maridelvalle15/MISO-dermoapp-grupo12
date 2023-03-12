@@ -1,10 +1,11 @@
-import 'package:dermoapp/common/managers/CaseListManager.dart';
-import 'package:dermoapp/common/widgets/mainDrawer.dart';
-import 'package:dermoapp/main.dart';
-import 'package:dermoapp/ui/caseDetailsScreen.dart';
+import 'package:DermoApp/common/managers/CaseListManager.dart';
+import 'package:DermoApp/common/widgets/mainDrawer.dart';
+import 'package:DermoApp/main.dart';
+import 'package:DermoApp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CaseListScreen extends StatefulWidget {
   const CaseListScreen({super.key});
@@ -17,6 +18,15 @@ class CaseListScreen extends StatefulWidget {
 
 class CaseListScreenState extends State<CaseListScreen> {
   List results = [];
+  String flagEs = 'es';
+  String flagEn = 'us';
+
+  @override
+  void initState() {
+    super.initState();
+
+    getMyFlags();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +39,13 @@ class CaseListScreenState extends State<CaseListScreen> {
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
               IconButton(
-                icon: Image.asset('icons/flags/png/es.png',
+                icon: Image.asset('icons/flags/png/$flagEs.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'es')),
               ),
               IconButton(
-                icon: Image.asset('icons/flags/png/us.png',
+                icon: Image.asset('icons/flags/png/$flagEn.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'en')),
@@ -154,5 +164,14 @@ class CaseListScreenState extends State<CaseListScreen> {
         ),
       ],
     );
+  }
+
+  Future<void> getMyFlags() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      flagEs = prefs.getString('es_flag') ?? 'es';
+      flagEn = prefs.getString('en_flag') ?? 'us';
+    });
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/auth/doLogout.dart';
+import 'package:DermoApp/common/auth/doLogout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
