@@ -489,3 +489,33 @@ class DetallePacienteView(Resource):
 
         else:
             return {"message":"Bad Request"}, 400
+
+class AgendaMedicoView(Resource):
+    def get(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Medico':
+
+                id_medico = json_response['id_usuario']
+                logica = Logica()
+                agenda = logica.obtener_agenda_medico(id_medico)
+
+                if agenda == False:
+                    return {"message":"No se pudo cargar la agenda"}, 400
+
+                else:
+                    return {"agenda": agenda}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400

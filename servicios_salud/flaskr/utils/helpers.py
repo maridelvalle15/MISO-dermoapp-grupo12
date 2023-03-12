@@ -2,7 +2,7 @@ import os, boto3, base64
 from werkzeug.utils import secure_filename
 from flask import jsonify
 import time
-from ..models.models import Diagnostico
+from ..models.models import Diagnostico, Caso
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -115,3 +115,18 @@ def obtener_diagnostico_caso(caso_id):
             return diagnostico
         
         return False
+
+def construir_agenda_medico(agenda):
+    lista_citas = []
+    for cita in agenda:
+        caso = Caso.query.filter(Caso.cita_medica==cita.id).first()
+        if caso:
+            paciente = caso.nombre_paciente
+        else:
+            paciente = '<Error al cargar paciente>'
+        json_cita = {
+            'fecha': str(cita.fecha.date()) + ' 09:00',
+            'paciente': paciente
+        }
+        lista_citas.append(json_cita)
+    return lista_citas
