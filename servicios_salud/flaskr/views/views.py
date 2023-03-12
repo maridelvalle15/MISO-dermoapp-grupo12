@@ -32,7 +32,7 @@ class SuministroLesionView(Resource):
 
                 logica = Logica()
 
-                caso = logica.obtener_informacion_caso(caso_id)
+                caso = logica.obtener_informacion_caso(caso_id, headers)
                 
                 return caso, 200
             else:
