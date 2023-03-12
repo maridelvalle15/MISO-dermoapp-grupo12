@@ -12,10 +12,7 @@ import { environment, environment2 } from 'environments/environment';
 })
 export class CasoService {
   backUrl = environment2.servidor;
-
 constructor(private http: HttpClient,private cookieService: CookieService) {
-
-
 }
 
 getCasos(): Observable<Caso[]>{
@@ -80,6 +77,15 @@ getPaciente(id:any): Observable<Caso>{
     'Authorization': `Bearer ${cookie}`
   })
   return this.http.get<Caso>(`${this.backUrl}/api/detalle-paciente/`+id, {headers: headers})
+}
+
+getAgenda(): Observable<Caso[]>{
+  const cookie= this.cookieService.get('token_access');
+  const headers = new HttpHeaders({
+
+    'Authorization': `Bearer ${cookie}`
+  })
+  return this.http.get<Caso[]>(`${this.backUrl}/api/agenda-medico`, {headers: headers})
 }
 
 
