@@ -19,7 +19,7 @@ void main() {
       final caseDetailManager = CaseDetailManager();
       caseDetailManager.client = MockClient((request) async {
         return Response(
-            '{"id": 100, "descripcion": "bla", "image": "Sample_abc.jpg", "nombre_paciente": "pedro perez", "tipo_piel": "normal", "fecha": "2023-01-01 00:00:00", "imagenes_extra": [], "tipo_consulta": ""}',
+            '{"id": 100, "descripcion": "bla", "image": "Sample_abc.jpg", "nombre_paciente": "pedro perez", "tipo_piel": "normal", "fecha": "2023-01-01 00:00:00", "imagenes_extra": [], "tipo_consulta": "", "diagnostico": "", "nombre_medico_asignado": ""}',
             200);
       });
 

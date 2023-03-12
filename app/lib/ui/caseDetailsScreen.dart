@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dermoapp/common/managers/CaseDetailManager.dart';
 import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
 import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
@@ -13,6 +15,7 @@ import 'package:dermoapp/ui/caseListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
+import 'package:get/utils.dart';
 
 class CaseDetailScreen extends StatefulWidget {
   const CaseDetailScreen(this.id, {super.key});
@@ -26,9 +29,10 @@ class CaseDetailScreen extends StatefulWidget {
 }
 
 class CaseDetailScreenState extends State<CaseDetailScreen> {
-  CaseModel caseDetail =
-      CaseModel(0, '', '', null, '', null, '', '', List.empty(), null, '');
+  CaseModel caseDetail = CaseModel(
+      0, '', '', null, '', null, '', '', List.empty(), null, '', '', '');
   bool isDisabled = false;
+  List diagnosticAuto = [];
 
   @override
   void initState() {
@@ -103,9 +107,7 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                         padding: const EdgeInsets.all(15),
                         child: Text(widget.id.toString(),
                             style: const TextStyle(
-                                fontSize: 18.0,
-                                color: Color(0xFFDFDFDF),
-                                fontWeight: FontWeight.bold)),
+                                fontSize: 18.0, color: Color(0xFFDFDFDF))),
                       ),
                     ),
                   ],
@@ -123,6 +125,159 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                   child: Text(caseDetail.descripcion,
                       style: const TextStyle(
                           fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                          AppLocalizations.of(context).diagnosticTypeTitle,
+                          style: const TextStyle(
+                              fontSize: 18.0,
+                              color: Color(0xFFDFDFDF),
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ),
+                    const VerticalDivider(width: 1),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                            caseDetail.tipo_solucion == ''
+                                ? AppLocalizations.of(context)
+                                    .diagnosticTypeUndefined
+                                : (caseDetail.tipo_solucion == 'auto'
+                                    ? AppLocalizations.of(context).automatic
+                                    : AppLocalizations.of(context).manual),
+                            style: const TextStyle(
+                                fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                      ),
+                    ),
+                  ],
+                ),
+                if (caseDetail.tipo_solucion == '' ||
+                    caseDetail.tipo_solucion == 'medico')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).diagnosticReceived,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                              caseDetail.diagnostico.length > 1
+                                  ? caseDetail.diagnostico
+                                  : AppLocalizations.of(context)
+                                      .noDiagnosticYet,
+                              style: const TextStyle(
+                                  fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (caseDetail.tipo_solucion == 'auto')
+                  SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      padding: const EdgeInsets.all(10),
+                      child: FittedBox(
+                        child: DataTable(
+                            headingTextStyle: const TextStyle(
+                                color: Color(0xFFDFDFDF),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                            dataTextStyle: const TextStyle(
+                                color: Color(0xFFDFDFDF), fontSize: 18),
+                            columns: <DataColumn>[
+                              DataColumn(
+                                label: Text(
+                                  AppLocalizations.of(context).diagnostic,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                    AppLocalizations.of(context).certainty),
+                              ),
+                            ],
+                            rows: List.generate(
+                                diagnosticAuto.length,
+                                (index) =>
+                                    getDataRow(index, diagnosticAuto[index]))),
+                      )),
+                if (caseDetail.tipo_solucion == 'medico')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context).doctorAssigned,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFDFDFDF),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(width: 1),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            caseDetail.nombre_medico.length > 1
+                                ? caseDetail.nombre_medico
+                                : AppLocalizations.of(context).noDoctorAssigned,
+                            style: const TextStyle(
+                                fontSize: 18.0, color: Color(0xFFDFDFDF)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                          AppLocalizations.of(context).caseCreationDate,
+                          style: const TextStyle(
+                              fontSize: 18.0,
+                              color: Color(0xFFDFDFDF),
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ),
+                    const VerticalDivider(width: 1),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(caseDetail.fecha,
+                            style: const TextStyle(
+                                fontSize: 18.0, color: Color(0xFFDFDFDF))),
+                      ),
+                    ),
+                  ],
                 ),
                 if (caseDetail.cita_medica != null)
                   Row(
@@ -307,27 +462,6 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                       ),
                     ),
                   ),
-                if (caseDetail.tipo_solucion == 'auto')
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child: SizedBox(
-                      height: 55.0,
-                      child: ElevatedButton(
-                        key: const Key('btnDiagAutoDetails'),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CaseDiagnosticAutoScreen(widget.id)));
-                        },
-                        child: Text(
-                            AppLocalizations.of(context).seeAutomaticDiagnostic,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 22.0)),
-                      ),
-                    ),
-                  ),
                 if (caseDetail.tipo_solucion == 'medico')
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
@@ -374,7 +508,7 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 20.0),
                   child: SizedBox(
                     height: 55.0,
                     child: ElevatedButton(
@@ -400,9 +534,29 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
     setState(() {
       caseDetail = caseResult;
     });
+
+    if (caseResult.tipo_solucion == 'auto') formatAutoDiagnostic(caseResult);
   }
 
   Future<void> refreshDetail() async {
     getCase(widget.id);
+  }
+
+  void formatAutoDiagnostic(caseDetail) {
+    String diagnosticStr = caseDetail.diagnostico.replaceAll("'", "\"");
+    diagnosticAuto = json.decode(diagnosticStr);
+  }
+
+  DataRow getDataRow(index, data) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Text(data["diagnostico"]),
+        ),
+        DataCell(
+          Text(data["certitud"]),
+        ),
+      ],
+    );
   }
 }
