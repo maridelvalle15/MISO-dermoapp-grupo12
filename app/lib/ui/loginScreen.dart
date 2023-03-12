@@ -1,7 +1,7 @@
-import 'package:dermoapp/common/managers/FormLoginManager.dart';
-import 'package:dermoapp/ui/registerScreen.dart';
+import 'package:DermoApp/common/managers/FormLoginManager.dart';
+import 'package:DermoApp/ui/registerScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:dermoapp/main.dart';
+import 'package:DermoApp/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

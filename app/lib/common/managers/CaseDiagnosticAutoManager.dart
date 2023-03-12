@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dermoapp/common/helpers/getToken.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/model/caseDiagnosticAutoModel.dart';
+import 'package:DermoApp/common/helpers/getToken.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/model/caseDiagnosticAutoModel.dart';
 import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 

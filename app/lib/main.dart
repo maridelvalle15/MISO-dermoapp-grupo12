@@ -1,11 +1,11 @@
-import 'package:dermoapp/ui/caseListScreen.dart';
-import 'package:dermoapp/ui/caseNewScreen.dart';
-import 'package:dermoapp/ui/homeScreen.dart';
+import 'package:DermoApp/ui/caseListScreen.dart';
+import 'package:DermoApp/ui/caseNewScreen.dart';
+import 'package:DermoApp/ui/homeScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:dermoapp/ui/registerScreen.dart';
-import 'package:dermoapp/ui/loginScreen.dart';
-import 'package:dermoapp/ui/splashScreen.dart';
-import 'package:dermoapp/ui/termsScreen.dart';
+import 'package:DermoApp/ui/registerScreen.dart';
+import 'package:DermoApp/ui/loginScreen.dart';
+import 'package:DermoApp/ui/splashScreen.dart';
+import 'package:DermoApp/ui/termsScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

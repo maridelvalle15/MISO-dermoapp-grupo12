@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dermoapp/common/auth/saveLoginInfo.dart';
-import 'package:dermoapp/common/helpers/goToAnotherPage.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/model/userModel.dart';
-import 'package:dermoapp/ui/homeScreen.dart';
+import 'package:DermoApp/common/auth/saveLoginInfo.dart';
+import 'package:DermoApp/common/helpers/goToAnotherPage.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/model/userModel.dart';
+import 'package:DermoApp/ui/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,7 +1,7 @@
-import 'package:dermoapp/common/managers/CaseDiagnosticAutoManager.dart';
-import 'package:dermoapp/common/widgets/mainDrawer.dart';
-import 'package:dermoapp/main.dart';
-import 'package:dermoapp/ui/caseDetailsScreen.dart';
+import 'package:DermoApp/common/managers/CaseDiagnosticAutoManager.dart';
+import 'package:DermoApp/common/widgets/mainDrawer.dart';
+import 'package:DermoApp/main.dart';
+import 'package:DermoApp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';

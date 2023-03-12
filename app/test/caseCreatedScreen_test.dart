@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io' as Io;
-import 'package:dermoapp/ui/caseCreatedScreen.dart';
+import 'package:DermoApp/ui/caseCreatedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

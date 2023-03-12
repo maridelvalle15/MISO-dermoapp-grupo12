@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:dermoapp/common/managers/FormCaseNewManager.dart';
-import 'package:dermoapp/common/values/injuries.dart';
-import 'package:dermoapp/common/widgets/mainDrawer.dart';
-import 'package:dermoapp/main.dart';
+import 'package:DermoApp/common/managers/FormCaseNewManager.dart';
+import 'package:DermoApp/common/values/injuries.dart';
+import 'package:DermoApp/common/widgets/mainDrawer.dart';
+import 'package:DermoApp/main.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
