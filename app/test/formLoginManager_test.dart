@@ -23,7 +23,8 @@ void main() {
       final loginManager = LoginManager();
 
       loginManager.client = MockClient((request) async {
-        return Response('{"token":"1234", "user_id":150}', 200);
+        return Response(
+            '{"token":"1234", "user_id":150, "codigo_pais": "co"}', 200);
       });
       mockContext = MockBuildContext();
 
