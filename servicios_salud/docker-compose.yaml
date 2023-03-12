@@ -22,6 +22,7 @@ services:
     depends_on:
       - pyapp-salud
   celery_worker:
+    env_file: variables-prod-salud.env
     container_name: celery_worker
     restart: always
     build: .
