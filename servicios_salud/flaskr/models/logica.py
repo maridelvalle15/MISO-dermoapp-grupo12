@@ -1,6 +1,6 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
     ImagenCaso, CitaMedica
-from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso
+from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso, construir_agenda_medico
 from sqlalchemy import exc,desc
 from datetime import timedelta
 import requests, os, json
@@ -386,3 +386,10 @@ class Logica():
             return json_response['nombre']
         else:
             return ''
+
+    def obtener_agenda_medico(self,id_medico):
+        citas_medico = CitaMedica.query.filter(CitaMedica.medico_id==id_medico).all()
+
+        agenda = construir_agenda_medico(citas_medico)
+
+        return agenda
