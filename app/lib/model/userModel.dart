@@ -10,7 +10,7 @@ class UserModel {
       : token = json['token'],
         email = json['email'],
         id = json['id'],
-        country = json['codigo_pais'];
+        country = json['country'];
 
   Map<String, dynamic> toJson() => {'token': token, 'email': email, 'id': id};
 }

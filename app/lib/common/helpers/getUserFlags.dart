@@ -1,14 +1,16 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
-Future<Map<String, String>> getUserFlags() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
+Map<String, String> getUserFlags(countryCode) {
   Map<String, String> flags = {"es": "es", "en": "us"};
 
-  String userCountry = preferences.getString('country') ?? '';
-
+  String? userCountryLanguage;
   // get language for user country
+  if (countryCode != '') {
+    userCountryLanguage = countriesLangs[countryCode];
+  }
 
   // if found, set country for that language
+  if (userCountryLanguage != null) {
+    flags[userCountryLanguage] = countryCode;
+  }
 
   return flags;
 }
