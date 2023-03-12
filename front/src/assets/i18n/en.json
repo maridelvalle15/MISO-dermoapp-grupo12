@@ -80,6 +80,11 @@
   "DIRECCION":"Address",
   "TIPO_PIEL":"Type of Skin",
   "BTN_REGRESAR":"Back"
+},
+"AGENDA":{
+  "TITULO":"My Calendar",
+  "FECHA":"Date hour",
+  "PACIENTE": "Patient"
 }
 
 

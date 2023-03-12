@@ -80,6 +80,12 @@
   "DIRECCION":"Dirección",
   "TIPO_PIEL":"Tipo de Piel",
   "BTN_REGRESAR":"Regresar"
+},
+
+"AGENDA":{
+  "TITULO":"Mi Agenda",
+  "FECHA":"Fecha hora",
+  "PACIENTE": "Paciente"
 }
 
 
