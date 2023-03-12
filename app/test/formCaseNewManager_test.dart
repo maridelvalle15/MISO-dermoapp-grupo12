@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as Io;
 
-import 'package:dermoapp/common/managers/FormCaseNewManager.dart';
+import 'package:DermoApp/common/managers/FormCaseNewManager.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';

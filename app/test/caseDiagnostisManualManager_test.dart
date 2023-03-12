@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/managers/CaseDiagnosticManualManager.dart';
+import 'package:DermoApp/common/managers/CaseDiagnosticManualManager.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';

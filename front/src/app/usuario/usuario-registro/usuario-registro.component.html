@@ -14,7 +14,9 @@
   <div id="form">
     <h1 style="text-align: center;">DermoApp</h1>
     <h4 style="text-align: center;">Formulario de registro para médicos dermatólogos</h4>
+
     <form [formGroup]="usuarioForm" (ngSubmit)="registrarUsuario()">
+      <label #error style="color: red; text-align: center;"  *ngIf="error"> Algo anda mal. Revisar los valores ingresados </label>
 
       <label for="nombre">Nombre Completo *: </label> <br>
       <input type="text" formControlName="nombre" novalidate><br>
@@ -28,6 +30,7 @@
       <label for="pais">País *: </label> <br>
       <select formControlName="pais" required>
         <option value="co" selected>Colombia</option>
+        <option value="ve" selected>Venezuela</option>
       </select>
       <br>
       <div  *ngIf="
@@ -40,6 +43,7 @@
       <label for="ciudad">Ciudad *</label> <br>
       <select formControlName="ciudad" required>
         <option value="bog" selected>Bogota</option>
+        <option value="ccs" selected>Caracas</option>
       </select>
       <br>
       <div  *ngIf="

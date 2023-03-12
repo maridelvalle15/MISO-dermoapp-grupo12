@@ -1,5 +1,5 @@
 <br>
-<h4 style="text-align: center;">{{'DIAGNOSTICO-POPUP.TITLE' | translate}}</h4> <br>
+<h4 style="text-align: center;">{{'DIAGNOSTICO-POPUP.TITULO' | translate}}</h4> <br>
 
 <div>
 <form [formGroup]="diagnosticoForm" (ngSubmit)="postDiagnosticoPopUp()">
@@ -27,7 +27,7 @@
   </tr>
 </table>
 <div class="center-button">
-  <button id="submit" type="submit" [disabled]="!diagnosticoForm.valid" >{{'DIAGNOSTICO-POPUP.BTN_ENVIAR' | translate}} </button>
+  <button id="submit" type="submit">{{'DIAGNOSTICO-POPUP.BTN_ENVIAR' | translate}} </button>
 
   <a style="color: white;" (click)="onNoClick()">{{'DIAGNOSTICO-POPUP.BTN_REGRESAR' | translate}}</a>
 </div>

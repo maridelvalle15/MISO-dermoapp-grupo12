@@ -134,5 +134,13 @@
   "onlineAppointment": "On-line appointment",
   "onlineAppointmentRequestedTitle": "On-line appointment requested",
   "onlineAppointmentRequestedText": "Your request for on-line appointment has been sent to the Doctor",
-  "appointmentTechnology": "Appointment type"
+  "appointmentTechnology": "Appointment type",
+  "diagnosticTypeTitle": "Diagnostic Type",
+  "diagnosticReceived": "Diagnostic",
+  "doctorAssigned": "Doctor in charge",
+  "caseCreationDate": "Case created",
+  "diagnosticTypeUndefined": "Undefined",
+  "noDiagnosticYet": "No Diagnostic yet",
+  "noDoctorAssigned": "No Doctor assigned",
+  "currentUser": "Logged-in User"
 }

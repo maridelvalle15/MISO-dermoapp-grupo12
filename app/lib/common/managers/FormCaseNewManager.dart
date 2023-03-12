@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/ui/caseCreatedScreen.dart';
+import 'package:DermoApp/common/ui/showSingleDialogButton.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/ui/caseCreatedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';

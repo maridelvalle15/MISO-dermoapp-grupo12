@@ -1,6 +1,6 @@
-import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/ui/registerOkScreen.dart';
+import 'package:DermoApp/common/ui/showSingleDialogButton.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/ui/registerOkScreen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

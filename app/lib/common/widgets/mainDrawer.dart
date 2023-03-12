@@ -1,4 +1,4 @@
-import 'package:dermoapp/common/auth/doLogout.dart';
+import 'package:DermoApp/common/auth/doLogout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -51,6 +51,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 selected: widget.currentSelected == 2,
               ),
               ListTile(
+                key: const Key('btnMenuCaseList'),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.enhanced_encryption),
                 title: Text(
@@ -65,6 +66,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 selected: widget.currentSelected == 3,
               ),
               ListTile(
+                key: const Key('btnMenuLogout'),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
                 leading: const Icon(Icons.directions_run),
                 title: Text(
