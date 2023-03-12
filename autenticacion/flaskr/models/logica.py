@@ -59,7 +59,12 @@ class Logica():
 
     @staticmethod
     def obtener_informacion_paciente(paciente_id):
-        print(paciente_id, flush=True)
         paciente = UsuarioPaciente.query.filter(UsuarioPaciente.id==paciente_id).first()
 
         return paciente
+
+    @staticmethod
+    def obtener_informacion_usuario(usuario_id):
+        usuario = Usuario.query.filter(Usuario.id==usuario_id).first()
+
+        return usuario

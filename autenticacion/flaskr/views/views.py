@@ -144,3 +144,16 @@ class InformacionPacienteView(Resource):
 
         else:
             return {"message":"Bad Request"}, 400
+
+class InformacionUsuarioView(Resource):
+
+    @jwt_required()
+    def get(self, usuario_id):
+        logica = Logica()
+        usuario = logica.obtener_informacion_usuario(usuario_id)
+
+        if usuario:
+            return {"id":usuario.id,"nombre": usuario.nombre}, 200,{'Content-Type': 'application/json'}
+
+        else:
+            return {"message":"Bad Request"}, 400

@@ -2,8 +2,8 @@ from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDist
     ImagenCaso, CitaMedica
 from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso
 from sqlalchemy import exc,desc
-from datetime import timedelta, datetime
-
+from datetime import timedelta
+import requests, os, json
 
 class Logica():
 
@@ -144,7 +144,7 @@ class Logica():
 
         return imagen_caso
 
-    def obtener_informacion_caso(self,caso_id):
+    def obtener_informacion_caso(self,caso_id, headers):
         caso = Caso.query.filter(Caso.id==caso_id).first()
         imagenes_array = []
         imagenes = ImagenCaso.query.filter(ImagenCaso.caso_id==caso_id).all()
@@ -167,6 +167,8 @@ class Logica():
             else:
                 diagnostico = ''
 
+            nombre_medico = self.obtener_nombre_medico(caso.medico_asignado, headers)
+
             caso_dict = {
                 'id': caso.id,
                 'descripcion': caso.descripcion,
@@ -174,6 +176,7 @@ class Logica():
                 'tipo_solucion': caso.tipo_solucion,
                 'nombre_paciente': caso.nombre_paciente,
                 'medico_asignado': caso.medico_asignado,
+                'nombre_medico_asignado': nombre_medico,
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
                 'imagenes_extra': imagenes_array,
@@ -371,3 +374,15 @@ class Logica():
                 return False
         else:
             return False
+
+    def obtener_nombre_medico(self,id_medico, headers):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/informacion-usuario/' + str(id_medico)
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response = json.loads(response.content.decode('utf8').replace("'", '"'))
+            
+            return json_response['nombre']
+        else:
+            return ''
