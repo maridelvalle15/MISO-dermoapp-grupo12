@@ -12,6 +12,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:country_icons/country_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CaseAddImagesScreen extends StatefulWidget {
   const CaseAddImagesScreen(this.id, {super.key});
@@ -31,12 +32,15 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
   bool isDisabled = true;
   bool hasImage = false;
   File? _pickedFile;
+  String flagEs = 'es';
+  String flagEn = 'us';
 
   @override
   void initState() {
     super.initState();
 
     getCase(widget.id);
+    getMyFlags();
   }
 
   @override
@@ -56,13 +60,13 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
                 style: const TextStyle(fontSize: 14)),
             actions: <Widget>[
               IconButton(
-                icon: Image.asset('icons/flags/png/es.png',
+                icon: Image.asset('icons/flags/png/$flagEs.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'es')),
               ),
               IconButton(
-                icon: Image.asset('icons/flags/png/us.png',
+                icon: Image.asset('icons/flags/png/$flagEn.png',
                     package: 'country_icons'),
                 onPressed: () => DermoApp.of(context)!
                     .setLocale(const Locale.fromSubtags(languageCode: 'en')),
@@ -327,6 +331,15 @@ class CaseAddImagesScreenState extends State<CaseAddImagesScreen> {
     var caseResult = await CaseDetailManager().getCase(id);
     setState(() {
       caseDetail = caseResult;
+    });
+  }
+
+  Future<void> getMyFlags() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      flagEs = prefs.getString('es_flag') ?? 'es';
+      flagEn = prefs.getString('en_flag') ?? 'us';
     });
   }
 }

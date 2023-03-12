@@ -7,6 +7,7 @@ import 'package:DermoApp/main.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CaseNewScreen extends StatefulWidget {
   const CaseNewScreen({super.key});
@@ -29,6 +30,15 @@ class CaseNewScreenState extends State<CaseNewScreen> {
   String injuryQtyValue = injuryQty.keys.toList().first;
   String injuryDistValue = injuryDist.keys.toList().first;
   File? _pickedFile;
+  String flagEs = 'es';
+  String flagEn = 'us';
+
+  @override
+  void initState() {
+    super.initState();
+
+    getMyFlags();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +53,13 @@ class CaseNewScreenState extends State<CaseNewScreen> {
               style: const TextStyle(fontSize: 14)),
           actions: <Widget>[
             IconButton(
-              icon: Image.asset('icons/flags/png/es.png',
+              icon: Image.asset('icons/flags/png/$flagEs.png',
                   package: 'country_icons'),
               onPressed: () => DermoApp.of(context)!
                   .setLocale(const Locale.fromSubtags(languageCode: 'es')),
             ),
             IconButton(
-              icon: Image.asset('icons/flags/png/us.png',
+              icon: Image.asset('icons/flags/png/$flagEn.png',
                   package: 'country_icons'),
               onPressed: () => DermoApp.of(context)!
                   .setLocale(const Locale.fromSubtags(languageCode: 'en')),
@@ -468,5 +478,14 @@ class CaseNewScreenState extends State<CaseNewScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> getMyFlags() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      flagEs = prefs.getString('es_flag') ?? 'es';
+      flagEn = prefs.getString('en_flag') ?? 'us';
+    });
   }
 }
