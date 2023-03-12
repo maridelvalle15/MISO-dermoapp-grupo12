@@ -33,7 +33,7 @@
 ## Consideraciones aplicación backend: autenticacion
 * Para los servicios de registro y suministro de información de la lesión, se requiere cargar imágenes por parte del usuario. Para que funcione correctamente se deben configurar las variables de ambiente indicadas en el archivo .env.example con las credenciales programáticas de AWS para su correcto funcionamiento
 * Información permitida de ubicacion para registro: 
-   - Pais - Ciudad: (co, bog) - (vz, ccs)
+   - Pais - Ciudad: (co, bog) - (ve, ccs) - (ar, bai) - (ca, yyz)
 
 ## Consideraciones aplicación backend: servicios_salud
 
