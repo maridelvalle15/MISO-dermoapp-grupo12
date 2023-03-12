@@ -36,3 +36,5 @@ services:
   redis:
     container_name: redis
     image: redis:6.2-alpine
+    ports:
+      - "6379:6379"

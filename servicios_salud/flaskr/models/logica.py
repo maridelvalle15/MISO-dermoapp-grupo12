@@ -1,8 +1,8 @@
 from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
     ImagenCaso, CitaMedica
 from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso
-from sqlalchemy import exc
-from datetime import timedelta
+from sqlalchemy import exc,desc
+from datetime import timedelta, datetime
 
 
 class Logica():
@@ -316,6 +316,7 @@ class Logica():
                 db.session.add(cita)
                 db.session.commit()
                 caso.cita_medica = cita.id
+                cita.fecha = cita.fecha - timedelta(hours=5)
                 db.session.commit()
                 return cita
             except exc.SQLAlchemyError:
@@ -331,8 +332,9 @@ class Logica():
         if caso and caso.cita_medica:
             cita = CitaMedica.query.filter(CitaMedica.id==caso.cita_medica).first()
             informacion_cita = {
-                'fecha': str(cita.fecha - timedelta(hours=5)),
-                'status': cita.status
+                'fecha': str(cita.fecha.date()) + ' 09:00',
+                'status': cita.status,
+                'id': cita.id
             }
 
             return informacion_cita
@@ -344,5 +346,28 @@ class Logica():
 
         if caso:
             return caso.paciente_id
+        else:
+            return False
+
+    def asinar_cita_por_disponibilidad(self,id_cita):
+        cita = CitaMedica.query.filter(CitaMedica.id==id_cita).first()
+        if cita:
+            ultima_cita_medica = CitaMedica.query.filter(CitaMedica.medico_id==cita.medico_id)\
+                .order_by(desc(CitaMedica.fecha)).limit(1).first()
+            if ultima_cita_medica:
+                nueva_fecha = ultima_cita_medica.fecha + timedelta(days=1)
+            else:
+                nueva_fecha = cita.fecha + timedelta(days=1)
+            nueva_fecha_hora = nueva_fecha.isoformat(' ', 'seconds')
+            cita.fecha = nueva_fecha_hora
+            cita.status = 'Asignada'
+            try:
+                db.session.commit()
+
+                return cita
+            except:
+                db.session.rollback()
+
+                return False
         else:
             return False

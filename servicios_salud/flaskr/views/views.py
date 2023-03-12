@@ -4,6 +4,15 @@ import requests, os, json
 from ..models.logica import Logica
 from .logica import procesar_imagen, generar_diagnostico_automatico
 from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente, upload_file_to_s3, construir_casos_por_reclamar
+from celery import Celery
+
+os.environ.setdefault("REDIS_HOST", "localhost")
+
+celery_app = Celery(
+    "celery_app",
+    broker=f'redis://{os.environ["REDIS_HOST"]}:6379/0',
+    include=['flaskr.services.services']
+)
 
 class SuministroLesionView(Resource):
 
@@ -411,11 +420,13 @@ class SolicitarTratamientoView(Resource):
 
                 logica = Logica()
                 cita = logica.crear_cita(caso_id)
+                print('por enviar a celery',flush=True)
 
                 if cita == False:
                     return {"message":"No pudo completarse la solicitud de tratamiento"}, 400
 
                 else:
+                    celery_app.send_task("asignar_cita", [cita.id])
                     return {"message": "Tratamiento solicitado", "caso_id": caso_id}, 200
             else:
                 return {"message":"Unauthorized"}, 401
