@@ -35,6 +35,7 @@ class LoginManager {
       Map<String, dynamic> responseJson = {"email": correo};
       responseJson["token"] = loginResponseJson["token"];
       responseJson["id"] = loginResponseJson["user_id"];
+      responseJson["country"] = loginResponseJson["codigo_pais"];
       saveLoginInfo(responseJson);
       if (kIsWeb) {
         goToAnotherPage(context, const HomeScreen());

@@ -9,8 +9,11 @@ saveLoginInfo(Map<String, dynamic> responseJson) async {
   var email =
       (responseJson.isNotEmpty) ? UserModel.fromJson(responseJson).email : "";
   var id = (responseJson.isNotEmpty) ? UserModel.fromJson(responseJson).id : 0;
+  var country =
+      (responseJson.isNotEmpty) ? UserModel.fromJson(responseJson).country : "";
 
   await preferences.setString('token', (token.isNotEmpty) ? token : "");
   await preferences.setString('email', (email.isNotEmpty) ? email : "");
+  await preferences.setString('country', (country.isNotEmpty) ? country : "");
   await preferences.setInt('id', id);
 }

@@ -5,6 +5,7 @@ doLogout() async {
 
   await preferences.setString('token', "");
   await preferences.setString('email', "");
+  await preferences.setString('country', "");
   await preferences.setInt('id', 0);
 
   preferences.remove('userEntity');
