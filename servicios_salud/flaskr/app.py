@@ -79,20 +79,28 @@ cors = CORS(app)
 
 api = Api(app)
 
+# Gestion Dermatologia
 api.add_resource(SuministroLesionView, '/api/suministro-lesion/', '/api/suministro-lesion/<int:caso_id>')
+api.add_resource(DetallePacienteView, '/api/detalle-paciente/<int:caso_id>')
+
+# Gestion Casos
 api.add_resource(CasosPacientesView, '/api/casos-pacientes')
-api.add_resource(HealthCheckView, '/api/health-check')
-api.add_resource(DiagnosticoAutomaticoView, '/api/diagnostico-automatico')
 api.add_resource(ReclamarCasoView, '/api/reclamar-caso')
+api.add_resource(LiberarCasoView, '/api/liberar-caso')
+api.add_resource(TipoConsultaView, '/api/tipo-consulta')
+
+# Gestion Diagnosticos
+api.add_resource(DiagnosticoAutomaticoView, '/api/diagnostico-automatico')
 api.add_resource(InformacionDiagnosticoView, '/api/informacion-diagnostico/<int:caso_id>')
 api.add_resource(DiagnosticoMedicoView, '/api/diagnostico-medico')
 api.add_resource(DiagnosticoPacienteView, '/api/diagnostico-paciente')
 api.add_resource(RechazarDiagnosticoView, '/api/rechazar-diagnostico')
-api.add_resource(TipoConsultaView, '/api/tipo-consulta')
-api.add_resource(LiberarCasoView, '/api/liberar-caso')
+
+# Citas
 api.add_resource(SolicitarTratamientoView, '/api/solicitar-cita', '/api/solicitar-cita/<int:caso_id>')
-api.add_resource(DetallePacienteView, '/api/detalle-paciente/<int:caso_id>')
 api.add_resource(AgendaMedicoView, '/api/agenda-medico')
+
+api.add_resource(HealthCheckView, '/api/health-check')
 
 if __name__ == "__main__":
     app.run(debug=True)
