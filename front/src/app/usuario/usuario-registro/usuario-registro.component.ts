@@ -25,6 +25,8 @@ export class UsuarioRegistroComponent implements OnInit {
 
   ) { }
 
+  error: boolean = false
+
   ngOnInit() {
     this.usuarioForm = this.formBuilder.group({
 
@@ -42,6 +44,9 @@ export class UsuarioRegistroComponent implements OnInit {
     this.usuarioService.userSignUp('MEDICO', this.usuarioForm.get('correo')?.value, this.usuarioForm.get('nombre')?.value, this.usuarioForm.get('direccion')?.value, this.usuarioForm.get('pais')?.value, this.usuarioForm.get('ciudad')?.value,this.usuarioForm.get('especialidad')?.value,this.usuarioForm.get('licencia')?.value)
     .subscribe(res => {
       this.router.navigate([`/usuario-registro/registro-exitoso`],{queryParams:{data:this.usuarioForm.get('correo')?.value,passwordUsuario: res.password}})
-    },)
+    },
+    error => {
+      this.error=true
+    })
   }
 }
