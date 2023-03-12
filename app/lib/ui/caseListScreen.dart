@@ -56,6 +56,7 @@ class CaseListScreenState extends State<CaseListScreen> {
                                   fontSize: 40.0, color: Color(0xffdfdfdf))),
                         )),
                     Container(
+                        key: const Key('myCasesTitle'),
                         alignment: Alignment.topCenter,
                         child: Padding(
                           padding:
