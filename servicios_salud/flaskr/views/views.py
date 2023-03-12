@@ -502,7 +502,7 @@ class AgendaMedicoView(Resource):
             rol = json_response['rol']
             if rol == 'Medico':
 
-                id_medico = json_response['id_medico']
+                id_medico = json_response['id_usuario']
                 logica = Logica()
                 agenda = logica.obtener_agenda_medico(id_medico)
 
