@@ -5,15 +5,21 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'formLoginManager_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<BuildContext>()])
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   MockBuildContext mockContext;
 
   group('loginManager', () {
     test('returns true if request is ok', () async {
+      SharedPreferences.setMockInitialValues({});
+
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
       final loginManager = LoginManager();
 
       loginManager.client = MockClient((request) async {
