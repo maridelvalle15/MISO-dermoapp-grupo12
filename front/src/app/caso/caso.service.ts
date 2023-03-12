@@ -85,7 +85,7 @@ getAgenda(): Observable<Caso[]>{
 
     'Authorization': `Bearer ${cookie}`
   })
-  return this.http.get<Caso[]>(`${this.backUrl}/api/agenda`, {headers: headers})
+  return this.http.get<Caso[]>(`${this.backUrl}/api/agenda-medico`, {headers: headers})
 }
 
 

@@ -13,13 +13,13 @@ export class CasoAgendaListarComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-   // this.getAgenda();
+   this.getAgenda();
   }
 
   getAgenda(){
     this.casoService.getAgenda().subscribe(citas => {
       this.citas = citas;
-      //this.citas = Object.values(this.citas)
+      this.citas = Object.values(this.citas.agenda)
     })
 
 

@@ -3,7 +3,7 @@
 <h5 style="text-align: center;">{{'AGENDA.TITULO' | translate}}</h5>
 <br><br>
 <div class="center-table">
-  <table *ngIf="citas != undefined" class="table table-striped">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">{{'AGENDA.FECHA' | translate}}</th>
@@ -12,9 +12,9 @@
     </thead>
     <br>
     <tbody>
-      <tr class="listar-casos">
-        <td> {{citas.fecha}}</td>
-        <td> {{citas.paciente}} </td>
+      <tr *ngFor="  let cita of citas" class="listar-casos">
+        <td> {{cita.fecha}}</td>
+        <td> {{cita.paciente}} </td>
       </tr>
     </tbody>
 
