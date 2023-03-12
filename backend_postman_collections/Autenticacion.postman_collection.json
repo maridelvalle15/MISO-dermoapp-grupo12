@@ -30,13 +30,13 @@
 			"response": []
 		},
 		{
-			"name": "Autenticacion Validacion de Usuario",
+			"name": "Validacion de Usuario",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5MzM3NywianRpIjoiYjgyYTg4ODgtMjBlMC00MDE0LThlOWYtYjIyYmFmOGFmYzg1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjc1OTkzMzc3LCJleHAiOjE2NzYwNzk3Nzd9.SHEtvr5Ku8qvJYcj_Py6IrIvXsq-J4ZIRnGkFKOtwkA",
+						"value": "{{token_paciente}}",
 						"type": "text"
 					}
 				],
@@ -60,7 +60,7 @@
 			"response": []
 		},
 		{
-			"name": "Autenticacion Login",
+			"name": "Login",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -77,15 +77,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/api/login",
-					"protocol": "http",
+					"raw": "{{local_auth}}/api/login",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{local_auth}}"
 					],
-					"port": "5000",
 					"path": [
 						"api",
 						"login"
@@ -95,7 +90,7 @@
 			"response": []
 		},
 		{
-			"name": "Autenticacion Registro (campos paciente)",
+			"name": "Registro (campos paciente)",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -112,7 +107,7 @@
 						},
 						{
 							"key": "nombre",
-							"value": "paciente m",
+							"value": "mamamama",
 							"type": "text"
 						},
 						{
@@ -137,12 +132,12 @@
 						},
 						{
 							"key": "cedula",
-							"value": "443321",
+							"value": "6900221",
 							"type": "text"
 						},
 						{
 							"key": "tipopiel",
-							"value": "normal",
+							"value": "sensitive",
 							"type": "text"
 						},
 						{
@@ -188,7 +183,7 @@
 			"response": []
 		},
 		{
-			"name": "Autenticacion Registro (campos medico)",
+			"name": "Registro (campos medico)",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
