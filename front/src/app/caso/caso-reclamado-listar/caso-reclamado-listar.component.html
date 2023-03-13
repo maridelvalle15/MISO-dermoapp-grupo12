@@ -1,16 +1,18 @@
 <app-header></app-header>
 <br><br>
-<h5 style="text-align: center;">Casos reclamados</h5>
+<h5 style="text-align: center;">{{'RECLAMADOS.TITULO' | translate}}</h5>
 <br><br>
 <div class="center-table">
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Fecha</th>
-      <th scope="col">Caso ID</th>
-      <th scope="col">Descripción</th>
-      <th scope="col">Paciente</th>
-      <th scope="col">Estado</th>
+      <th scope="col">{{'RECLAMADOS.FECHA' | translate}}</th>
+      <th scope="col">{{'RECLAMADOS.CASO_ID' | translate}}</th>
+      <th scope="col">{{'RECLAMADOS.DESCRIPCION' | translate}}</th>
+      <th scope="col">{{'RECLAMADOS.PACIENTE' | translate}}</th>
+      <th scope="col">{{'RECLAMADOS.ESTADO' | translate}}</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -23,7 +25,10 @@
       <td>{{caso.nombre_paciente}}</td>
       <td>{{caso.estado}}</td>
 
-      <button>Dar Diagnóstico</button>
+      <td><button (click)="openDialogDiagnostico(caso.caso_id)" *ngIf="caso?.estado !== 'Diagnosticado'">{{'RECLAMADOS.BTN_DIAGNOSTICO' | translate}}</button></td>
+      <td><button (click)="postLiberarCaso(caso.caso_id)">{{'RECLAMADOS.BTN_LIBERAR' | translate}}</button></td>
+      <td><button (click)="openDialogDetalle(caso.caso_id)">{{'RECLAMADOS.BTN_DETALLE' | translate}}</button></td>
+      <td><button (click)="openDialogDetallePaciente(caso.caso_id)">{{'RECLAMADOS.BTN_DETALLE_PACIENTE' | translate}}</button></td>
 
     </tr>
 

@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { faker } from '@faker-js/faker';
 
 describe('Service: Usuario', () => {
+  let service : UsuarioService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -24,11 +25,29 @@ describe('Service: Usuario', () => {
         BrowserAnimationsModule,
         MatDialogModule
       ],
-      providers: [UsuarioService]
     });
+    service = TestBed.inject(UsuarioService)
   });
 
   it('should ...', inject([UsuarioService], (service: UsuarioService) => {
     expect(service).toBeTruthy();
   }));
+
+  it( 'Login al sitio web', () => {
+
+    service.userLogIn('raul@gmail.com','Odeft2nu').subscribe( login => {
+      login = login;
+
+      })
+
+  });
+
+  it( 'Registro de un médico', () => {
+
+    service.userSignUp('MEDICO','juan@gmail.com','Juan','Calle 4','co','bog','General','12456987').subscribe( login => {
+      login = login;
+
+      })
+
+  });
 });

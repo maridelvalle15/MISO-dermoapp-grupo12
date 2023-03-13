@@ -1,23 +1,30 @@
-import 'package:dermoapp/common/managers/FormLoginManager.dart';
-import 'package:dermoapp/model/userModel.dart';
+import 'package:DermoApp/common/managers/FormLoginManager.dart';
+import 'package:DermoApp/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'formLoginManager_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<BuildContext>()])
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   MockBuildContext mockContext;
 
   group('loginManager', () {
     test('returns true if request is ok', () async {
+      SharedPreferences.setMockInitialValues({});
+
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
       final loginManager = LoginManager();
 
       loginManager.client = MockClient((request) async {
-        return Response('{"token":"1234", "user_id":150}', 200);
+        return Response(
+            '{"token":"1234", "user_id":150, "codigo_pais": "co"}', 200);
       });
       mockContext = MockBuildContext();
 

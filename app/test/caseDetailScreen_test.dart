@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dermoapp/ui/caseDetailsScreen.dart';
+import 'package:DermoApp/ui/caseDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
@@ -45,7 +45,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Dermoapp'), findsOneWidget);
-      expect(find.text('Extra Images'), findsOneWidget);
+      expect(find.text('Description'), findsOneWidget);
     });
   });
 }

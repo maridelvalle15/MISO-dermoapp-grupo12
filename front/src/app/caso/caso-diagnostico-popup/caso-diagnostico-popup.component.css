@@ -1,0 +1,36 @@
+button{
+  border-radius: 20px;
+  padding: 0.5em;
+  background-color: #1e3f52;
+  color: white;
+  border-color: white;
+  text-align: center;
+}
+a{
+  border-radius: 20px;
+  padding: 0.5em;
+  background-color: #1e3f52;
+  color: white;
+  border-color: white;
+  text-align: center;
+  color: white;
+}
+
+
+.center-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+div{
+  padding: 10px 50px 20px;
+  background-color: #d9d9d9;
+}
+p{
+  padding: 10px 50px 20px;
+}
+.bolded{
+  font-weight:bolder
+}

@@ -40,6 +40,9 @@ class Caso(db.Model):
     especialidad_asociada = db.Column(db.String(50), unique=False)
     fecha_creacion = db.Column(db.DateTime(timezone=True), server_default=func.now())
     ubicacion_id = db.Column(db.Integer, unique=False)
+    status = db.Column(db.String(50), unique=False, server_default='Pendiente')
+    tipo_consulta = db.Column(db.String(20), unique=False, server_default='')
+    cita_medica = db.Column(db.Integer, db.ForeignKey('cita_medica.id'))
 
     def nombre_lesion(self):
         return LesionTipo.query.filter(LesionTipo.id == self.tipo_lesion).first().nombre
@@ -60,6 +63,12 @@ class Diagnostico(db.Model):
     tipo = db.Column(db.String(20), unique=False)
     descripcion = db.Column(db.Text)
     caso = db.Column(db.Integer, db.ForeignKey('caso.id'))
+
+class CitaMedica(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fecha = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    medico_id = db.Column(db.Integer, unique=False)
+    status = db.Column(db.String(50), unique=False, server_default='Pendiente por asignar')
 
 class LesionTipoSchema(SQLAlchemyAutoSchema):
     class Meta:

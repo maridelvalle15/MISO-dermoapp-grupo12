@@ -1,6 +1,6 @@
-import 'package:dermoapp/common/ui/showSingleDialogButton.dart';
-import 'package:dermoapp/main.dart';
-import 'package:dermoapp/ui/loginScreen.dart';
+import 'package:DermoApp/common/ui/showSingleDialogButton.dart';
+import 'package:DermoApp/main.dart';
+import 'package:DermoApp/ui/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -6,8 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterTestingModule } from "@angular/router/testing";
-
-
+import { TranslateModule } from '@ngx-translate/core';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -21,9 +20,11 @@ describe('HeaderComponent', () => {
         FormsModule,
         HttpClientTestingModule,
         ToastrModule.forRoot(),
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot()
       ],
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent ],
+
     }).compileComponents();
   }));
 

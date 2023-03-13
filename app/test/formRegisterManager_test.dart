@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as Io;
 
-import 'package:dermoapp/common/managers/FormRegisterManager.dart';
+import 'package:DermoApp/common/managers/FormRegisterManager.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -46,7 +46,7 @@ void main() {
         return bodyStream.bytesToString().then((bodyList) {
           var controller = StreamController<List<int>>(sync: true);
           Future.sync(() {
-            controller.add('{"password":"1234"}'.codeUnits);
+            controller.add('{"message":"error"}'.codeUnits);
             controller.close();
           });
           return http.StreamedResponse(controller.stream, 400);

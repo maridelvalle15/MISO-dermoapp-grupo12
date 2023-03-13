@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dermoapp/common/helpers/getToken.dart';
-import 'package:dermoapp/common/values/servicesLocations.dart';
-import 'package:dermoapp/model/caseModel.dart';
+import 'package:DermoApp/common/helpers/getToken.dart';
+import 'package:DermoApp/common/values/servicesLocations.dart';
+import 'package:DermoApp/model/caseModel.dart';
 import 'package:http/http.dart' as http;
 
 class CaseDetailManager {
@@ -25,7 +25,8 @@ class CaseDetailManager {
 
       return caseDetail;
     } else {
-      return CaseModel(0, '', '', '', '', '', '', '', List.empty());
+      return CaseModel(
+          0, '', '', null, '', null, '', '', List.empty(), null, '', '', '');
     }
   }
 }

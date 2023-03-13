@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Salud Obtener casos por lesion (paciente)",
+			"name": "Obtener casos por lesion (paciente)",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -36,7 +36,7 @@
 			"response": []
 		},
 		{
-			"name": "Salud Crear un caso por lesion (paciente)",
+			"name": "Crear un caso por lesion (paciente)",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -48,7 +48,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NjI0MjIzMCwianRpIjoiZjBlMzNlMWEtYWU5My00MTI0LTlmMzctYmVjZDUzYjg0Y2ExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTMsIm5iZiI6MTY3NjI0MjIzMCwiZXhwIjoxNjc2MzI4NjMwfQ.H6ydYJ-l7cvoNG2RpvLjZoLBmEMj6eeUsLfV18Pmebo",
+						"value": "{{token_paciente}}",
 						"type": "text"
 					}
 				],
@@ -67,12 +67,12 @@
 						},
 						{
 							"key": "cantidad",
-							"value": "dis",
+							"value": "sol",
 							"type": "text"
 						},
 						{
 							"key": "distribucion",
-							"value": "con",
+							"value": "asi",
 							"type": "text"
 						},
 						{
@@ -88,15 +88,10 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5001/api/suministro-lesion",
-					"protocol": "http",
+					"raw": "{{local_salud}}/api/suministro-lesion",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{local_salud}}"
 					],
-					"port": "5001",
 					"path": [
 						"api",
 						"suministro-lesion"
@@ -106,7 +101,7 @@
 			"response": []
 		},
 		{
-			"name": "Salud Actualizar imagen de casos por lesion (paciente)",
+			"name": "Actualizar imagen de casos por lesion (paciente)",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -156,7 +151,7 @@
 			"response": []
 		},
 		{
-			"name": "Salud Generacion Diagnostico Automatico a Paciente",
+			"name": "Generacion Diagnostico Automatico a Paciente",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -165,16 +160,11 @@
 						"value": "",
 						"type": "text",
 						"disabled": true
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5NDYxNSwianRpIjoiMDk0YTc2NzctMjMxZC00ODE5LWEzNjAtZDNmNjE2YTJlYmFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTEsIm5iZiI6MTY3NTk5NDYxNSwiZXhwIjoxNjc2MDgxMDE1fQ.sI0qpROJnVV0civ0NqWY41CSci2HSv27xtK2DGp6ut4",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"caso_id\": 2\n}",
+					"raw": "{\n    \"caso_id\": 120\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -200,7 +190,7 @@
 			"response": []
 		},
 		{
-			"name": "Salud Obtener casos de pacientes (medico)",
+			"name": "Obtener casos disponibles de pacientes (medico)",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -212,12 +202,78 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NTk5NDYxNSwianRpIjoiMDk0YTc2NzctMjMxZC00ODE5LWEzNjAtZDNmNjE2YTJlYmFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTEsIm5iZiI6MTY3NTk5NDYxNSwiZXhwIjoxNjc2MDgxMDE1fQ.sI0qpROJnVV0civ0NqWY41CSci2HSv27xtK2DGp6ut4",
+						"value": "{{token_medico}}",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:5001/api/casos-pacientes",
+					"raw": "{{local_salud}}/api/casos-pacientes",
+					"host": [
+						"{{local_salud}}"
+					],
+					"path": [
+						"api",
+						"casos-pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asignar tipo de diagnostico \"medico\" a un caso (paciente)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_paciente}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 79\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local_salud}}/api/diagnostico-medico",
+					"host": [
+						"{{local_salud}}"
+					],
+					"path": [
+						"api",
+						"diagnostico-medico"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generacion diagnostico medico (medico)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_medico}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 50,\n    \"diagnostico\": \"esto es un diagnostico qwheduihwqdiuhwiudhiuwad djwdiuwdhiudwh\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/diagnostico-paciente",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -228,7 +284,271 @@
 					"port": "5001",
 					"path": [
 						"api",
-						"casos-pacientes"
+						"diagnostico-paciente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reclamar caso (medico)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_medico}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 120\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/reclamar-caso",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"reclamar-caso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener casos reclamados (medico)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_medico}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/reclamar-caso",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"reclamar-caso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seleccionar tipo de consulta presencial o telemedicina (Paciente)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_paciente}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 151,\n    \"tipo_consulta\": \"Presencial\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/tipo-consulta",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"tipo-consulta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rechazar diagnostico enviado por un medico (paciente)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_paciente}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 120\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/rechazar-diagnostico",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"rechazar-diagnostico"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Solicitar nueva cita/tratamiento (paciente)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_paciente}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 52\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{aws_salud}}/api/solicitar-cita",
+					"host": [
+						"{{aws_salud}}"
+					],
+					"path": [
+						"api",
+						"solicitar-cita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener informacion cita solicitada (paciente)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_paciente}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local_salud}}/api/solicitar-cita/53",
+					"host": [
+						"{{local_salud}}"
+					],
+					"path": [
+						"api",
+						"solicitar-cita",
+						"53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener detalle paciente (medico)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_medico}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{aws_salud}}/api/detalle-paciente/4",
+					"host": [
+						"{{aws_salud}}"
+					],
+					"path": [
+						"api",
+						"detalle-paciente",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Liberar caso (medico)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_medico}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"caso_id\": 159\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-3-82-246-186.compute-1.amazonaws.com:8001/api/liberar-caso",
+					"protocol": "http",
+					"host": [
+						"ec2-3-82-246-186",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"liberar-caso"
 					]
 				}
 			},

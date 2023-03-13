@@ -1,6 +1,6 @@
 from ..models import UsuarioSchema, db, UsuarioRol, Usuario, UbicacionSchema, UsuarioMedicoSchema, EspecialidadSchema, UsuarioMedico, Rol, Especialidad, UsuarioPaciente, Ubicacion
 from ..models.logica import Logica
-from .logica import procesar_imagen
+from .logica import procesar_imagen, mapear_tipo_piel
 from flask_restful import Resource
 from flask import request, jsonify
 import secrets, datetime, os
@@ -57,7 +57,7 @@ class RegistroView(Resource):
             direccion = '' # TO-DO: solucionar luego
             edad = request_data["edad"]
             cedula = request_data["cedula"]
-            tipo_piel = request_data["tipopiel"]
+            tipo_piel = mapear_tipo_piel(request_data["tipopiel"])
             imagen_piel = request.files.get("image", "")
 
             usuario = self.logica.usuario_valido(email=email,cedula=cedula)
@@ -96,9 +96,12 @@ class LogInView(Resource):
         usuario = Usuario.query.filter(Usuario.email == request.json["correo"]).first()
 
         if usuario and usuario.verificar_password(request.json["password"]):
+            pais = Ubicacion.query.filter(Ubicacion.id==usuario.ubicacion_id).first().pais
             expire_date =  datetime.timedelta(days=1)
             token_de_acceso = create_access_token(identity = usuario.id,expires_delta = expire_date)
-            return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id}, 200
+            return {"message":"Inicio de sesión exitoso", "token": token_de_acceso, "user_id": usuario.id,\
+                "codigo_pais": pais
+                }, 200
             
         else:
             return {"message":"El usuario no existe"}, 404
@@ -127,3 +130,33 @@ class ValidacionUsuarioView(Resource):
 class HealthCheckView(Resource):
     def get(self):
         return {"message": os.environ.get("DB_URI")}, 200
+
+class InformacionPacienteView(Resource):
+
+    @jwt_required()
+    def get(self, paciente_id):
+        logica = Logica()
+        paciente = logica.obtener_informacion_paciente(paciente_id)
+
+        if paciente:
+            ciudad = Ubicacion.query.filter(Ubicacion.id==paciente.ubicacion_id).first().ciudad
+            print(paciente.nombre, flush=True)
+            return {"id_paciente":paciente.id,"tipo_piel": paciente.tipo_piel, "edad": paciente.edad,\
+                "cedula": paciente.cedula, "ciudad": ciudad, "nombre": paciente.nombre, "direccion": paciente.direccion
+                }, 200,{'Content-Type': 'application/json'}
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+class InformacionUsuarioView(Resource):
+
+    @jwt_required()
+    def get(self, usuario_id):
+        logica = Logica()
+        usuario = logica.obtener_informacion_usuario(usuario_id)
+
+        if usuario:
+            return {"id":usuario.id,"nombre": usuario.nombre}, 200,{'Content-Type': 'application/json'}
+
+        else:
+            return {"message":"Bad Request"}, 400

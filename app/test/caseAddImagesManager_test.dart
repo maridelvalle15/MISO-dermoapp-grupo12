@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io' as Io;
 
-import 'package:dermoapp/common/managers/CaseAddImagesManager.dart';
+import 'package:DermoApp/common/managers/CaseAddImagesManager.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';

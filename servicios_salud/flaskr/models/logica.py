@@ -1,7 +1,9 @@
-from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, ImagenCaso
-from ..utils.helpers import construir_descripcion_caso
-from sqlalchemy import exc
-import flaskr
+from ..models import Caso, db, LesionTipo, LesionForma, LesionNumero, LesionDistribucion, MatchEspecialidades, Diagnostico, \
+    ImagenCaso, CitaMedica
+from ..utils.helpers import construir_descripcion_caso, obtener_diagnostico_caso, construir_agenda_medico
+from sqlalchemy import exc,desc
+from datetime import timedelta
+import requests, os, json
 
 class Logica():
 
@@ -11,8 +13,12 @@ class Logica():
 
     def obtener_especialidad_caso(self,tipo_lesion,tipo_piel):
         especialidad = MatchEspecialidades.query.filter(MatchEspecialidades.tipo_lesion==tipo_lesion)\
-            .filter(MatchEspecialidades.tipo_piel==tipo_piel).first().especialidad
-        return especialidad
+            .filter(MatchEspecialidades.tipo_piel==tipo_piel).first()
+        if especialidad is None:
+            match_especialidad = 'General'
+        else:
+            match_especialidad = especialidad.especialidad
+        return match_especialidad
 
     def crear_caso(self,objetos_lesion, adicional,imagen_lesion,id_usuario,tipo_piel,nombre,ubicacion_id):
         descripcion = construir_descripcion_caso(objetos_lesion, adicional)
@@ -30,8 +36,7 @@ class Logica():
         try:
             db.session.add(nuevo_caso)
             db.session.commit()
-        except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
+        except exc.SQLAlchemyError as e:    
             db.session.rollback()
             return {"message":"Error al crear caso"}, 500
 
@@ -83,7 +88,8 @@ class Logica():
     def obtener_casos_disponibles(self,especialidad, ubicacion_id):
         casos_especialidad = Caso.query.filter(Caso.especialidad_asociada==especialidad)
         if casos_especialidad.all():   
-            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion!='auto')
+            casos_sin_asignar = casos_especialidad.filter(Caso.medico_asignado == None).filter(Caso.tipo_solucion=='medico')\
+                .filter(Caso.status=='Pendiente')
             if casos_sin_asignar.all():
                 casos_ubicacion = casos_sin_asignar.filter(Caso.ubicacion_id==ubicacion_id)
 
@@ -104,23 +110,26 @@ class Logica():
 
     def obtener_casos_paciente(self,id_paciente):
         casos = Caso.query.filter(Caso.paciente_id==id_paciente)\
-            .filter(Caso.medico_asignado == None).all()
+            .all()
         
         return casos
         
-    def crear_diagnostico(self,caso,diagnosticos):
-        diagnostico = Diagnostico(tipo='auto',
-            descripcion=str(diagnosticos),
+    def crear_diagnostico(self,caso_id,descripcion,tipo="auto"):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+        diagnostico = Diagnostico(tipo=tipo,
+            descripcion=str(descripcion),
             caso=caso.id)
         try:
             db.session.add(diagnostico)
-            caso.tipo_solucion = "auto"
+            caso.tipo_solucion = tipo
+            caso.status = 'Diagnosticado'
             db.session.commit()
 
+            return diagnostico
+
         except exc.SQLAlchemyError as e:
-            flaskr.logger.error(e)    
             db.session.rollback()
-            return {"message":"Error al crear diagnostico"}, 500
+            return False
 
     def crear_imagen_caso(self,caso_id,imagen):
         imagen_caso = ImagenCaso(caso_id=caso_id,imagen=imagen)
@@ -135,13 +144,31 @@ class Logica():
 
         return imagen_caso
 
-    def obtener_informacion_caso(self,caso_id):
+    def obtener_informacion_caso(self,caso_id, headers):
         caso = Caso.query.filter(Caso.id==caso_id).first()
         imagenes_array = []
         imagenes = ImagenCaso.query.filter(ImagenCaso.caso_id==caso_id).all()
         for imagen in imagenes:
             imagenes_array.append(imagen.imagen)
         if caso:
+
+            if caso.descripcion:
+                info_adicional = caso.descripcion.split(':')[-1]
+            else:
+                info_adicional = ''
+            tipo_lesion = LesionTipo.query.filter(LesionTipo.id==caso.tipo_lesion).first().nombre
+            forma = LesionForma.query.filter(LesionForma.id==caso.forma).first().nombre
+            numero_lesiones = LesionNumero.query.filter(LesionNumero.id==caso.numero_lesiones).first().nombre
+            distribucion = LesionDistribucion.query.filter(LesionDistribucion.id==caso.distribucion).first().nombre
+
+            tiene_diagnostico = obtener_diagnostico_caso(caso.id)
+            if tiene_diagnostico != False:
+                diagnostico = tiene_diagnostico.descripcion
+            else:
+                diagnostico = ''
+
+            nombre_medico = self.obtener_nombre_medico(caso.medico_asignado, headers)
+
             caso_dict = {
                 'id': caso.id,
                 'descripcion': caso.descripcion,
@@ -149,9 +176,19 @@ class Logica():
                 'tipo_solucion': caso.tipo_solucion,
                 'nombre_paciente': caso.nombre_paciente,
                 'medico_asignado': caso.medico_asignado,
+                'nombre_medico_asignado': nombre_medico,
                 'tipo_piel': caso.tipo_piel,
                 'fecha': str(caso.fecha_creacion),
-                'imagenes_extra': imagenes_array
+                'imagenes_extra': imagenes_array,
+                'estado': caso.status,
+                'cita_id': caso.cita_medica,
+                'tipo_lesion': tipo_lesion,
+                'forma': forma,
+                'numero_lesiones': numero_lesiones,
+                'distribucion': distribucion,
+                'info_adicional': info_adicional,
+                'diagnostico': diagnostico,
+                'tipo_consulta': caso.tipo_consulta
             }
             return caso_dict
 
@@ -164,8 +201,7 @@ class Logica():
                 db.session.commit()
                 return caso
 
-            except exc.SQLAlchemyError as e:
-                flaskr.logger.error(e)    
+            except exc.SQLAlchemyError as e:    
                 db.session.rollback()
                 return False
         else:
@@ -186,3 +222,174 @@ class Logica():
     def casos_reclamados(self,id_usuario):
         casos = Caso.query.filter(Caso.medico_asignado==id_usuario).all()
         return casos
+
+    def asignar_tipo_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso and caso.tipo_solucion == '':
+            caso.tipo_solucion = 'medico'
+            try:
+                db.session.add(caso)
+                db.session.commit()
+                return caso
+
+            except exc.SQLAlchemyError as e:
+                flaskr.logger.error(e)    
+                db.session.rollback()
+                return False
+        else:
+            return False
+
+    def rechazar_diagnostico(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+            if diagnostico.first():
+                try:
+                    diagnostico.delete()
+                    caso.medico_asignado = None
+                    caso.status = 'Pendiente'
+                    db.session.commit()
+
+                    return True
+                except exc.SQLAlchemyError:
+                    db.session.rollback()
+                    return False
+            else:
+                return False
+        else:
+            return False
+
+    def asignar_tipo_consulta(self,caso_id,tipo_consulta):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            if caso.tipo_consulta != '':
+                # El caso ya tiene un tipo de consulta asignada
+                return False
+            else:
+                try:
+                    caso.tipo_consulta = tipo_consulta
+                    db.session.commit()
+
+                    return caso
+                except exc.SQLAlchemyError:
+                    db.session.rollback()
+                    return False
+        else:
+            # El id del caso es invalido
+            return False
+
+    def liberar_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+
+            if diagnostico.first():
+                diagnostico.delete()
+
+            try:
+                caso.medico_asignado = None
+                caso.status = 'Pendiente'
+                db.session.commit()
+
+                return True
+            except exc.SQLAlchemyError:
+                db.session.rollback()
+                return False
+        else:
+            # El caso no existe
+            return False
+
+    def crear_cita(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            diagnostico = Diagnostico.query.filter(Diagnostico.caso==caso_id)
+
+            if diagnostico.first() is None:
+                return False
+
+            try:
+                cita = CitaMedica(
+                    medico_id=caso.medico_asignado
+                )
+                db.session.add(cita)
+                db.session.commit()
+                caso.cita_medica = cita.id
+                cita.fecha = cita.fecha - timedelta(hours=5)
+                db.session.commit()
+                return cita
+            except exc.SQLAlchemyError:
+               db.session.rollback()
+               return False
+        else:
+            # El caso no existe
+            return False
+
+    def obtener_cita(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso and caso.cita_medica:
+            cita = CitaMedica.query.filter(CitaMedica.id==caso.cita_medica).first()
+            informacion_cita = {
+                'fecha': str(cita.fecha.date()) + ' 09:00',
+                'status': cita.status,
+                'id': cita.id
+            }
+
+            return informacion_cita
+        else:
+            return False
+            
+    def obtener_paciente_caso(self,caso_id):
+        caso = Caso.query.filter(Caso.id==caso_id).first()
+
+        if caso:
+            return caso.paciente_id
+        else:
+            return False
+
+    def asinar_cita_por_disponibilidad(self,id_cita):
+        cita = CitaMedica.query.filter(CitaMedica.id==id_cita).first()
+        if cita:
+            ultima_cita_medica = CitaMedica.query.filter(CitaMedica.medico_id==cita.medico_id)\
+                .order_by(desc(CitaMedica.fecha)).limit(1).first()
+            if ultima_cita_medica:
+                nueva_fecha = ultima_cita_medica.fecha + timedelta(days=1)
+            else:
+                nueva_fecha = cita.fecha + timedelta(days=1)
+            nueva_fecha_hora = nueva_fecha.isoformat(' ', 'seconds')
+            cita.fecha = nueva_fecha_hora
+            cita.status = 'Asignada'
+            try:
+                db.session.commit()
+
+                return cita
+            except:
+                db.session.rollback()
+
+                return False
+        else:
+            return False
+
+    def obtener_nombre_medico(self,id_medico, headers):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/informacion-usuario/' + str(id_medico)
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response = json.loads(response.content.decode('utf8').replace("'", '"'))
+            
+            return json_response['nombre']
+        else:
+            return ''
+
+    def obtener_agenda_medico(self,id_medico):
+        citas_medico = CitaMedica.query.filter(CitaMedica.medico_id==id_medico).all()
+
+        agenda = construir_agenda_medico(citas_medico)
+
+        return agenda

@@ -15,6 +15,7 @@ node_modules
 front/coverage
 front/.angular
 front/dist
+front/documentation
 
 # IDEs and editors
 .idea/

@@ -14,26 +14,25 @@
 
 ## Consideraciones aplicación backend: autenticacion
 
- * Actualmente la única ubicación permitida es Colombia - Bogota. El backend lo recibe con los códigos 'co' y 'bog'.
  * Las especialidades permitidas son: General, Clinica, Cosmetica, Laser, Quirurgica (se cargan a la base de datos al levantar la aplicación).
  * Los tipos de piel que maneja la aplicación son: normal, seca, grasa, mixta, sensible (no están cargadas en la aplicación pero son las que maneja la aplicación para gestionar los casos de los pacientes).
+ * Para los servicios de registro y suministro de información de la lesión, se requiere cargar imágenes por parte del usuario. Para que funcione correctamente se deben configurar las variables de ambiente indicadas en el archivo .env.example con las credenciales programáticas de AWS para su correcto funcionamiento
+* Información permitida de ubicacion para registro: 
+   - Pais - Ciudad: (co, bog) - (ve, ccs) - (ar, bai) - (ca, yyz)
 
 ## Configuración aplicación backend: servicios_salud
 
  * Base de datos: misma configuración que la aplicación backend autenticación, pero para la configuracion del contenedor de docker, el archivo de variables de ambiente debe llamarse variables-prod-salud. El archivo de variables de ambiente debe estar en la carpeta servicios_salud
  * Configuración bucket S3: misma configuración que la aplicación backend autenticación
  * Url de acceso a la aplicación backend autenticación: así como en la configuración de base de datos y bucket S3, para local y el contenedor de docker, pero en la variable de ambiente AUTH_BASE_URI
+ * Uso de cola de tareas para asignación de cita: se debe configurar la variable de ambiente REDIS_HOST de acuerdo si se esta accediendo localmente (localhost) o desde los contenedores docker (redis)
 
 ## Ejecución aplicación backend: servicios_salud
 
  * Local: en la carpeta flask ejecutar flask run
  * Contenedor de docker: en la carpeta autenticacion, ejecutar docker compose build y luego docker compose up
  * El servicio de autenticación debe estar ejecutándose para el correcto funcionamiento del servicio servicios_salud
-
-## Consideraciones aplicación backend: autenticacion
-* Para los servicios de registro y suministro de información de la lesión, se requiere cargar imágenes por parte del usuario. Para que funcione correctamente se deben configurar las variables de ambiente indicadas en el archivo .env.example con las credenciales programáticas de AWS para su correcto funcionamiento
-* Información permitida de ubicacion para registro: 
-   - Pais - Ciudad: (co, bog) - (vz, ccs)
+ * El worker de celery y el servicio de redis (configurados en el archivo docker-compose) deben estar ejecutándose para el correcto funcionamiento del servicio servicios_salud
 
 ## Consideraciones aplicación backend: servicios_salud
 
@@ -77,4 +76,4 @@
    ### Integración Continua
    * Tanto las aplicaciones backend en flask (autenticacion y servicios salud) como la aplicacion frontend en angular tienen configurados workflows en github actions para ejecutar las pruebas unitarias y mostrar los porcentajes de cobertura. Se ejecutan cuando se abre un pull request a cualquier rama.
    ### Despliegue Continuo
-   * Las aplicaciones backend en flask tienen configurados workflows en github actions para hacer deploy de la aplicacion a instancias EC2 creadas y ejecutándose en AWS. Se configuran SECRETS en el repositorio para poder realizar la conexión ssh y ejecutar los comandos necesarios para actualizar el código y levantar los contenedores de docker. Se ejecutan cuando se cierra un pull request a la rama main.
+   * Las aplicaciones backend en flask tienen configurados workflows en github actions para hacer deploy de la aplicacion a instancias EC2 creadas y ejecutándose en AWS. De igual forma, la aplicación web tiene configurado su respectivo workflow en github actions para hacer deploy a un bucket S3 en AWS. Se configuran SECRETS en el repositorio para poder realizar la conexión ssh y ejecutar los comandos necesarios para actualizar el código y levantar los contenedores de docker. Se ejecutan cuando se cierra un pull request a la rama main.

@@ -4,6 +4,15 @@ import requests, os, json
 from ..models.logica import Logica
 from .logica import procesar_imagen, generar_diagnostico_automatico
 from ..utils.helpers import construir_casos_mostrar, construir_casos_mostrar_paciente, upload_file_to_s3, construir_casos_por_reclamar
+from celery import Celery
+
+os.environ.setdefault("REDIS_HOST", "localhost")
+
+celery_app = Celery(
+    "celery_app",
+    broker=f'redis://{os.environ["REDIS_HOST"]}:6379/0',
+    include=['flaskr.services.services']
+)
 
 class SuministroLesionView(Resource):
 
@@ -23,7 +32,7 @@ class SuministroLesionView(Resource):
 
                 logica = Logica()
 
-                caso = logica.obtener_informacion_caso(caso_id)
+                caso = logica.obtener_informacion_caso(caso_id, headers)
                 
                 return caso, 200
             else:
@@ -68,7 +77,7 @@ class SuministroLesionView(Resource):
 
             if (imagen_lesion != "") and (imagen_lesion is not None):
                 imagen_procesada = procesar_imagen(imagen_lesion)
-                
+
                 if imagen_procesada is False:
                     return {"message":"error al procesar la imagen"}, 400
             else:
@@ -155,7 +164,7 @@ class DiagnosticoAutomaticoView(Resource):
             return {"message":"No es posible realizar un diagnóstico al caso asignado"}, 400
 
         else:
-            return {"diagnostico": diagnostico}, 200
+            return {"diagnostico": diagnostico.descripcion}, 200
 
 class InformacionDiagnosticoView(Resource):
     def get(self,caso_id):
@@ -229,3 +238,284 @@ class ReclamarCasoView(Resource):
             return {"message":"Caso asignado", "caso_id": caso.id}, 200
         else:
             return {"message":"Unauthorized"}, 401
+
+class DiagnosticoMedicoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        if (rol == 'Paciente') and (response.status_code == 200):
+            caso_id = request.json["caso_id"]
+            logica = Logica()
+
+            caso = logica.asignar_tipo_caso(caso_id)
+
+            if caso == False:
+                return {"message":"No fue posible asignar el tipo de diagnostico al caso"}, 400
+
+            else:
+                return {"message": "Tipo de diagnostico medico asignado exitosamente", "caso_id": caso_id}, 200
+
+        else:
+            return {"message":"Unauthorized"}, 401
+
+class DiagnosticoPacienteView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+
+        if (rol == 'Medico') and (response.status_code == 200):
+
+            caso_id = request.json["caso_id"]
+            diagnostico = request.json["diagnostico"]
+
+            logica = Logica()
+
+            diagnostico = logica.crear_diagnostico(caso_id,diagnostico,'medico')
+
+            if diagnostico == False:
+                return {"message":"No es posible generar el diagnóstico enviado"}, 400
+            
+            else:
+                return {"message":"Diagnóstico generado"}, 200
+        else:
+            return {"message":"Unauthorized"}, 401
+
+class RechazarDiagnosticoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+        rol = json_response['rol']
+        if (rol == 'Paciente') and (response.status_code == 200):
+            caso_id = request.json["caso_id"]
+            logica = Logica()
+            diagnostico_rechazado = logica.rechazar_diagnostico(caso_id)
+
+            if diagnostico_rechazado == False:
+                return {"message":"No fue posible rechazar el diagnostico"}, 400
+
+            else:
+                return {"message": "Diagnostico rechazado exitosamente", "caso_id": caso_id}, 200
+
+        else:
+            return {"message":"Unauthorized"}, 401
+
+class TipoConsultaView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+                caso_id = request.json["caso_id"]
+                tipo_consulta = request.json["tipo_consulta"]
+
+                if tipo_consulta == 'Presencial' or tipo_consulta=='Telemedicina':
+
+                    logica = Logica()
+                    nueva_consulta = logica.asignar_tipo_consulta(caso_id,tipo_consulta)
+
+                    if nueva_consulta == False:
+                        return {"message":"No fue posible asignar el tipo de consulta"}, 400
+
+                    else:
+                        return {"message": "Tipo de consulta asignado exitosamente", "caso_id": caso_id, "consulta": nueva_consulta.id}, 200
+                else:
+                    return {"message": "Tipo de consulta no valida. Opciones validas: Presencial - Telemedicina"}, 400
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+class LiberarCasoView(Resource):
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+
+            if rol == 'Medico':
+                caso_id = request.json["caso_id"]
+
+                logica = Logica()
+                caso_liberado = logica.liberar_caso(caso_id)
+
+                if caso_liberado == False:
+                    return {"message":"No fue posible liberar el caso"}, 400
+
+                else:
+                    return {"message": "Caso liberado exitosamente", "caso_id": caso_id}, 200
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+class SolicitarTratamientoView(Resource):
+    def get(self,caso_id):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+
+                logica = Logica()
+                cita = logica.obtener_cita(caso_id)
+
+                if cita == False:
+                    return {"message":"No se encontro una cita para el caso"}, 400
+
+                else:
+                    return {"cita": cita, "caso_id": caso_id}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+    def post(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Paciente':
+                caso_id = request.json["caso_id"]
+
+                logica = Logica()
+                cita = logica.crear_cita(caso_id)
+                print('por enviar a celery',flush=True)
+
+                if cita == False:
+                    return {"message":"No pudo completarse la solicitud de tratamiento"}, 400
+
+                else:
+                    celery_app.send_task("asignar_cita", [cita.id])
+                    return {"message": "Tratamiento solicitado", "caso_id": caso_id}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+class DetallePacienteView(Resource):
+    def get(self, caso_id):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+
+            if rol == 'Medico':
+
+                logica = Logica()
+                paciente = logica.obtener_paciente_caso(caso_id)
+
+                if paciente is False:
+                    return {"message":"Bad Request"}, 400
+                else:
+                    auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/informacion-paciente/' + str(paciente)
+                    headers = {'Authorization': request.headers.get('Authorization')}
+
+                    response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+                    if response.status_code == 200:
+                        json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+                        print(json_response, flush=True)
+                        tipo_piel = json_response['tipo_piel']
+                        edad = json_response['edad']
+                        cedula = json_response['cedula']
+                        ciudad = json_response['ciudad']
+                        nombre = json_response['nombre']
+                        direccion = json_response['direccion']
+
+                        return {
+                            "tipo_piel": tipo_piel,
+                            "edad": edad,
+                            "cedula": cedula,
+                            "ciudad": ciudad,
+                            "nombre": nombre,
+                            "direccion": direccion
+                        }
+                    else:
+                        return {"message":"Bad Request"}, 400
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400
+
+class AgendaMedicoView(Resource):
+    def get(self):
+        auth_url_validacion_usuario = os.environ.get("AUTH_BASE_URI") + '/api/validacion-usuario'
+        headers = {'Authorization': request.headers.get('Authorization')}
+    
+        response = requests.get(auth_url_validacion_usuario, headers=headers)
+
+        if response.status_code == 200:
+            json_response=json.loads(response.content.decode('utf8').replace("'", '"'))
+            rol = json_response['rol']
+            if rol == 'Medico':
+
+                id_medico = json_response['id_usuario']
+                logica = Logica()
+                agenda = logica.obtener_agenda_medico(id_medico)
+
+                if agenda == False:
+                    return {"message":"No se pudo cargar la agenda"}, 400
+
+                else:
+                    return {"agenda": agenda}, 200
+            else:
+                return {"message":"Unauthorized"}, 401
+
+        elif response.status_code == 401:
+            return {"message":"Unauthorized"}, 401
+
+        else:
+            return {"message":"Bad Request"}, 400

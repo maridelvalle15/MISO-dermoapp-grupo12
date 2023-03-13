@@ -14,8 +14,7 @@ import { faker } from '@faker-js/faker';
 import { MaterialModule } from 'app/material/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CasoService } from '../caso.service';
-
-
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -33,7 +32,8 @@ describe('CasoReclamadoListarComponent', () => {
         RouterTestingModule,
         AppHeaderModule,
         MaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        TranslateModule.forRoot()
       ],
       declarations: [ CasoReclamadoListarComponent ],
       providers : [
@@ -81,10 +81,17 @@ describe('CasoReclamadoListarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render title in a h4 tag', () => {
-    expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Casos reclamados');
+  it('should render title in a h5 tag', () => {
+    expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('RECLAMADOS.TITULO');
  });
 
+ it('should render title in a th tag', () => {
+  expect(fixture.debugElement.nativeElement.querySelector('th').textContent).toContain('RECLAMADOS.FECHA');
+});
+
+it('should have 10 <tr.listar-casos> elements', () => {
+  expect(debug.queryAll(By.css('tr.listar-casos')).length == 10).toBeTruthy();
+});
 
 
 });

@@ -1,0 +1,92 @@
+{
+  "HOME":{
+  "TEXTO_CUERPO":"We are a digital health service carried out by specialists, through technological and communication tools that allow the establishment of a medical act, such as applications or platforms that allow the transfer of text and photos. In the case of DermoApp, these resources are used to diagnose, treat and prevent, optimizing dermatological health care services and facilitating access for any patient no matter where they are.",
+  "INGRESAR":"Login",
+  "REGISTRARSE":"Sign Up",
+  "MENSAJE_ERROR":"Username or password incorrect "
+},
+"MENU":{
+  "INICIO":"Home",
+  "CASOS":"Cases",
+  "DIAGNOSTICOS":"Diagnostics",
+  "AGENDA":"Calendar ",
+  "HOLA":"Hello Dr. "
+},
+
+"CASO-LISTAR":{
+  "TITULO":"New cases or no assigned doctor",
+  "FECHA":"Date",
+  "CASO_ID":"Case ID",
+  "DESCRIPCION":"Description",
+  "PACIENTE":"Patient",
+  "DETALLE":"Detail",
+  "BTN_DETALLE":"Detail"
+},
+
+"RECLAMADOS":{
+  "TITULO":"Claimed cases",
+  "FECHA":"Date",
+  "CASO_ID":"Case ID",
+  "DESCRIPCION":"Description",
+  "PACIENTE":"Patient",
+  "ESTADO":"Status",
+  "BTN_DIAGNOSTICO":"Give Diagnosis",
+  "BTN_LIBERAR":"Drop case",
+  "BTN_DETALLE":"Case detail",
+  "BTN_DETALLE_PACIENTE":"Patient Detail"
+},
+
+"CASO-POPUP":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "PACIENTE":"Patient",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "FOTO":"Photo",
+  "BTN_REGRESAR":"Back",
+  "BTN_RECLAMAR":"Claim"
+},
+
+"DIAGNOSTICO-POPUP":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "FOTO":"Photo",
+  "DIAGNOSTICO":"Diagnosis",
+  "BTN_REGRESAR":"Back",
+  "BTN_ENVIAR":"Send Diagnosis"
+},
+
+"DIAGNOSTICO-POPUP-DETALLE":{
+  "TITULO":"Case selected detail",
+  "CASO_ID":"Case ID",
+  "PACIENTE":"Patient",
+  "INFORMACION_ADICIONAL":"Additional Info",
+  "DIAGNOSTICO":"Diagnosis",
+  "TIPO_LESION":"Type of Lesion",
+  "FORMA":"Shape",
+  "NUMERO_LESIONES":"Number of Lesions",
+  "DISTRIBUCION":"Distribution",
+  "FOTO":"Photo",
+  "FOTO_ADICIONAL":"Aditional Photo",
+  "BTN_REGRESAR":"Back"
+},
+
+"DETALLE-PACIENTE":{
+  "TITULO":"Patient detail of case selected",
+  "NOMBRE":"Name",
+  "EDAD":"Age",
+  "CEDULA":"Identification Number",
+  "CIUDAD":"City",
+  "DIRECCION":"Address",
+  "TIPO_PIEL":"Type of Skin",
+  "BTN_REGRESAR":"Back"
+},
+"AGENDA":{
+  "TITULO":"My Calendar",
+  "FECHA":"Date hour",
+  "PACIENTE": "Patient"
+}
+
+
+
+}

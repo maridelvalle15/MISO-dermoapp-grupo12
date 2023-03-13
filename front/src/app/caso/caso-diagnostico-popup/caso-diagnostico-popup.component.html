@@ -1,0 +1,37 @@
+<br>
+<h4 style="text-align: center;">{{'DIAGNOSTICO-POPUP.TITULO' | translate}}</h4> <br>
+
+<div>
+<form [formGroup]="diagnosticoForm" (ngSubmit)="postDiagnosticoPopUp()">
+  <table *ngIf="caso != undefined" style="width:100%">
+  <tr>
+    <th><span id="idCaso" class="bolded">{{'DIAGNOSTICO-POPUP.CASO_ID' | translate}}: </span> </th>
+    <td>{{caso.id}}</td>
+  </tr>
+  <br>
+
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP.INFORMACION_ADICIONAL' | translate}}: </span></th>
+    <td>{{caso.descripcion}}</td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP.FOTO' | translate}}: </span></th>
+    <td><img src="{{'https://imagenes-dermoapp.s3.us-east-1.amazonaws.com/imagenes-creacion-caso/' + caso.image}}" width="50%" height="50%"> </td>
+  </tr>
+  <br>
+  <tr>
+    <th><span class="bolded">{{'DIAGNOSTICO-POPUP.DIAGNOSTICO' | translate}}: </span></th>
+    <td><textarea formControlName="diagnostico" cols="40" rows="5" ></textarea></td>
+  </tr>
+</table>
+<div class="center-button">
+  <button id="submit" type="submit">{{'DIAGNOSTICO-POPUP.BTN_ENVIAR' | translate}} </button>
+
+  <a style="color: white;" (click)="onNoClick()">{{'DIAGNOSTICO-POPUP.BTN_REGRESAR' | translate}}</a>
+</div>
+</form>
+</div>
+
+

@@ -2,7 +2,7 @@ import os, boto3, base64
 from werkzeug.utils import secure_filename
 from flask import jsonify
 import time
-from ..models.models import Diagnostico
+from ..models.models import Diagnostico, Caso
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -66,7 +66,8 @@ def construir_casos_mostrar(casos):
             'fecha': str(caso.fecha_creacion),
             'tipopiel': caso.tipo_piel,
             'descripcion': caso.descripcion,
-            'nombre_paciente': caso.nombre_paciente
+            'nombre_paciente': caso.nombre_paciente,
+            'estado': caso.status
 
         }
         lista_casos.append(json_caso)
@@ -79,7 +80,8 @@ def construir_casos_mostrar_paciente(casos):
         json_caso = {
             'id': caso.id,
             'fecha': str(caso.fecha_creacion),
-            'tipodiagnostico': caso.tipo_solucion
+            'tipodiagnostico': caso.tipo_solucion,
+            'status': caso.status
 
         }
         lista_casos.append(json_caso)
@@ -94,12 +96,13 @@ def construir_casos_por_reclamar(casos):
             estado_diagnostico = 'Diagnosticado'
         else:
             estado_diagnostico = 'Sin diagnosticar'
+        
         json_caso = {
             'caso_id': caso.id,
             'fecha': str(caso.fecha_creacion),
             'descripcion': caso.descripcion,
             'nombre_paciente': caso.nombre_paciente,
-            'estado': estado_diagnostico
+            'estado': estado_diagnostico,
 
         }
         lista_casos.append(json_caso)
@@ -112,3 +115,18 @@ def obtener_diagnostico_caso(caso_id):
             return diagnostico
         
         return False
+
+def construir_agenda_medico(agenda):
+    lista_citas = []
+    for cita in agenda:
+        caso = Caso.query.filter(Caso.cita_medica==cita.id).first()
+        if caso:
+            paciente = caso.nombre_paciente
+        else:
+            paciente = '<Error al cargar paciente>'
+        json_cita = {
+            'fecha': str(cita.fecha.date()) + ' 09:00',
+            'paciente': paciente
+        }
+        lista_citas.append(json_cita)
+    return lista_citas
