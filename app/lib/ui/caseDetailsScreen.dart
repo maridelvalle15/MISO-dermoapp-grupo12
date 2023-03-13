@@ -547,7 +547,11 @@ class CaseDetailScreenState extends State<CaseDetailScreen> {
   }
 
   void formatAutoDiagnostic(caseDetail) {
-    String diagnosticStr = caseDetail.diagnostico.replaceAll("'", "\"");
+    String diagnosticUnknown =
+        '[{"diagnostico": "Indeterminado", "certitud": "100%"}]';
+    String diagnosticStr = caseDetail.diagnostico.length > 4
+        ? caseDetail.diagnostico.replaceAll("'", "\"")
+        : diagnosticUnknown;
     diagnosticAuto = json.decode(diagnosticStr);
   }
 
